@@ -39,7 +39,7 @@ sources are logged into a file - configured in <code>/etc/PmLogDaemon/whitelist.
 luna-send -n <span class="m">1</span> -f luna://com.webos.service.config/setConfigs <span class="s1">&#39;{&quot;configs&quot;: {&quot;system.collectDevLogs&quot;: true}}&#39;</span>
 
 <span class="c1"># webOS 3.x and older</span>
-luna-send -n <span class="m">1</span> -f <span class="s1">&#39;luna://com.webos.pmlogd/setdevlogstatus&#39;</span> <span class="s1">&#39;{&quot;recordDevLogs&quot;:false}&#39;</span>
+luna-send -n <span class="m">1</span> -f <span class="s1">&#39;luna://com.webos.pmlogd/setdevlogstatus&#39;</span> <span class="s1">&#39;{&quot;recordDevLogs&quot;:true}&#39;</span>
 </code></pre></div>
 
 <p>Then log levels can be adjusted using <code>PmLogCtl</code>:</p>
@@ -51,9 +51,15 @@ PmLogCtl show
 PmLogCtl <span class="nb">set</span> WAM debug
 
 <span class="c1"># Bulk adjust</span>
-PmLogCtl <span class="s1">&#39;*&#39;</span> none
+PmLogCtl <span class="nb">set</span> <span class="s1">&#39;*&#39;</span> none
 </code></pre></div>
 
+<p>Then logs can be viewed by running:</p>
+<div class="highlight"><pre><span></span><code>tail -F /var/log/messages
+</code></pre></div>
+
+<p>Keep in mind <code>/var/log/messages</code> file is rotated, thus setting too high logging
+level may cause it to drop messages (even when using <code>-F</code> flag)</p>
 <h2 id="pmloglib-stub">PmLogLib stub<a class="headerlink" href="#pmloglib-stub" title="Permanent link">&para;</a></h2>
 <p>Alternatively (on non-rooted devices) a
 <a href="https://github.com/webosbrew/meta-lg-webos-ndk#system-library-logging">PmLogLib library stub</a> can be used that will print out logs into standard output.</p>
