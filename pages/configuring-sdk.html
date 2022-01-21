@@ -60,6 +60,14 @@ globally.</p>
 </code></pre></div>
 
 <p><strong>Note:</strong> @webosose/ares-cli doesn't need to be installed globally - you can use a package installed in a local project directory by just prefixing above commands with local path, like so: <code>node_modules/.bin/ares-setup-device ...</code></p>
+<h2 id="configuring-vscode-extension">Configuring VSCode Extension<a class="headerlink" href="#configuring-vscode-extension" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Load https://marketplace.visualstudio.com/items?itemName=webOSOSESDK.webosose into your VSCode</li>
+<li>The Extension will prompt you to install needed npm Packages. This will probably fail depending on your VSCode setup due to permissions - run the commands manually in a root shell (<code>npm install @webosose/ares-cli</code>)</li>
+<li>Setup Key auth with your TV</li>
+<li>run <code>ares-setup-device</code> and use your VSCode terminals ssh private key (<code>id_rsa</code>)</li>
+<li>refresh the Known Devices Tab, you should see your new TV listed.</li>
+</ol>
 <h2 id="using-ssh-without-sdk-on-unrooted-devices">Using SSH without SDK on unrooted devices<a class="headerlink" href="#using-ssh-without-sdk-on-unrooted-devices" title="Permanent link">&para;</a></h2>
 <p>Public key fetched using the method above can be used to connect to the TV using
 plain SSH client:</p>
