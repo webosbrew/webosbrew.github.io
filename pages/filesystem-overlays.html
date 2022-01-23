@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>Filesystem overlays | webOS Homebrew Project</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="generator" content="Pelican"/>
+    <link href="/theme/styles/main.css?04bfa1c2" type="text/css" rel="stylesheet">
+
+
+</head>
+
+<body id="index" class="home">
+<header>
+    <div class="logo">
+        <a href="/"><img src="/theme/images/icon80.png" width="40px" height="40px" alt="webOS Homebrew logo"></a>
+    </div>
+    <nav id="menu">
+        <ul>
+            <li><a href="https://repo.webosbrew.org">Applications</a></li>
+            <li><a href="/develop">Develop</a></li>
+        </ul>
+    </nav><!-- /#menu -->
+</header>
+<div id="content">
+    <div class="main">
+    <h1>Filesystem overlays</h1>
+    <a href="https://github.com/webosbrew/webosbrew.github.io/blob/main/content/pages/hacking/overlays.md" class="page-source">Source</a>
+    
+
+    <p><strong>This article assumes your TV is rooted.</strong></p>
+<p>Most of webOS filesystem is read-only. All read-only partitions are stored as
+<strong>signed squashfs images</strong>, and thus can't be "rw remounted" like it is common
+on Android devices.</p>
+<p>In order to apply system config-level changes on read-only partitions we need
+to apply these in runtime.</p>
+<h2 id="replacing-fileswhole-directories">Replacing files/whole directories<a class="headerlink" href="#replacing-fileswhole-directories" title="Permanent link">&para;</a></h2>
+<p>A simple method of replacing/modifying single files is using <code>mount --bind</code>,
+like so:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create sample override file on writable partition (/tmp is cleaned on boot so</span>
+<span class="c1"># good for random tests...)</span>
+<span class="nb">echo</span> <span class="s1">&#39;Hello world!&#39;</span> &gt; /tmp/motd
+
+<span class="c1"># Replace read-only file with our customized one</span>
+mount --bind /tmp/motd /etc/motd
+</code></pre></div>
+
+<p>This also works for replacing whole directories, just use:</p>
+<div class="highlight"><pre><span></span><code>mount --bind /tmp/my-example-directory /etc/ssl/certs
+</code></pre></div>
+
+<p>An example of an app that uses this method is <a href="https://github.com/webosbrew/custom-screensaver/blob/main/assets/apply.sh">custom screensaver</a>.</p>
+<h2 id="adding-files-to-an-existing-directory">Adding files to an existing directory<a class="headerlink" href="#adding-files-to-an-existing-directory" title="Permanent link">&para;</a></h2>
+<p>If one needs to add a file into a directory <code>overlayfs</code> may be used. Little
+example here will add an additional service to SSAP server:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create config overrides directory on writable partition</span>
+mkdir -p /home/root/extra-interfaces
+
+<span class="c1"># Create config override/addition manifest file</span>
+<span class="nb">echo</span> <span class="s1">&#39;{&quot;service&quot;: &quot;com.webos.service.acb&quot;,&quot;methods&quot;: [{&quot;path&quot;: &quot;/getForegroundAppInfo&quot;,&quot;description&quot;: &quot;get foreground lol&quot;,&quot;requiredPermissions&quot;: [&quot;LAUNCH&quot;]}]}&#39;</span> &gt; /home/root/extra-interfaces/com.webos.service.acb.interface
+
+<span class="c1"># Enable config override - this will make files present in /home/root/extra-interfaces</span>
+<span class="c1"># show up together with existing files in /usr/palm/services/com.webos.service.secondscreen.gateway/interfaces</span>
+mount -t overlay overlay -olowerdir<span class="o">=</span>/usr/palm/services/com.webos.service.secondscreen.gateway/interfaces:/home/root/extra-interfaces /usr/palm/services/com.webos.service.secondscreen.gateway/interfaces
+
+<span class="c1"># For this specific example - restart ssap service (it is restarted</span>
+<span class="c1"># automatically when killed) - the name changes randomly because of [reasons]</span>
+pkill -9 -f ss.apiadapter <span class="p">;</span> pkill -9 -f ss.gateway
+</code></pre></div>
+
+<h2 id="making-a-whole-directory-writable">Making a whole directory writable<a class="headerlink" href="#making-a-whole-directory-writable" title="Permanent link">&para;</a></h2>
+<p>It is possible to make a whole directory writable by creating a writable
+overlay. This is generally discouraged for homebrew use, since underlying files
+may change unexpectedly on system update. However, for quick hacking/testing
+this is feasible method, and, currently, the only one that allows removal of
+files.</p>
+<p>An example on how to do this, together with a handy indempotent "make sure this
+directory is overlaid/writable" helper is available here:
+<a href="https://gist.github.com/Informatic/d7bcdd59eac16ffbffd3a5b5c24b4195">https://gist.github.com/Informatic/d7bcdd59eac16ffbffd3a5b5c24b4195</a></p>
+<h2 id="keeping-overlays-persistent">Keeping overlays persistent<a class="headerlink" href="#keeping-overlays-persistent" title="Permanent link">&para;</a></h2>
+<p>Any changes we make using methods listed above <strong>are not persistent</strong> across
+reboots by default. In order to make them such, we need to apply these on every
+boot. This can be achieved by putting these commands in a script in
+<code>/var/lib/webosbrew/init.d</code> directory. Executable script from that directory are
+ran on startup by <code>run-parts</code> shell tool.</p>
+<p><strong>Filenames of executable scripts there may only contain <code>a-zA-Z0-9-_</code> characters.</strong>
+Scripts are always ran in an ordered manner. (sorted alphabetically/
+lexicographically)</p>
+<p>Symlinks are also supported. If you are a homebrew developer <strong>it is highly
+advised</strong> to only symlink (and <strong>not copy</strong>) your scripts from
+application/service directory into <code>/var/lib/webosbrew/init.d</code>, to properly
+handle situation when user removes said homebrew application. Symlink filename
+shall consist of a two digit number prefix (used for script ordering) and a
+unique app name/identifier.</p>
+<p>Additionally <code>/var/lib/webosbrew/init.d</code> itself is not guaranteed to exist,
+since it was not created by default on some Root exploits (namely RootMyTV v1).</p>
+<p>In order to <a href="https://en.wikipedia.org/wiki/Idempotence">indempotently</a> ensure
+a startup script symlink exists, this snippet can be used:</p>
+<div class="highlight"><pre><span></span><code>mkdir -p /var/lib/webosbrew <span class="o">&amp;&amp;</span> ln -sf /media/developer/apps/usr/palm/applications/your.app.id/our-startup-script.sh /var/lib/webosbrew/init.d/50-yourappid
+</code></pre></div>
+
+<p>In order to remove it indempotently:</p>
+<div class="highlight"><pre><span></span><code>rm -rf /var/lib/webosbrew/init.d/50-yourappid
+</code></pre></div>
+
+<p>A practical example of how this should be handled in apps can be seen in <a href="https://github.com/webosbrew/custom-screensaver/blob/31b95ab228d1fb0574406553f47f975f251723d3/frontend/views/MainPanel.js#L92-L96">custom
+screensaver</a>.</p>
+
+    </div>
+    <div class="side">
+<h3>Links</h3>
+<ul class="links">
+    <li><a href="https://github.com/webosbrew/">Github Organization</a></li>
+    <li><a href="https://discord.gg/xWqRVEm">Join us on Discord</a></li>
+    <li><a href="https://rootmy.tv/">RootMy.TV</a></li>
+    <li><a href="https://openlgtv.github.io/">openlgtv</a></li>
+</ul>    </div><!-- /.blogroll -->
+</div>
+<hr>
+<footer id="contentinfo" class="body">
+    <div class="copyright">&copy; 2022 webOS Homebrew Project</div>
+    <div class="powered-by">Powered by <a href="https://getpelican.com/">Pelican</a></div>
+</footer><!-- /#contentinfo --></body>
+</html>
