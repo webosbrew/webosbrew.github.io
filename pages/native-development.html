@@ -28,11 +28,11 @@
     <a href="https://github.com/webosbrew/webosbrew.github.io/blob/main/content/pages/native.md" class="page-source">Source</a>
     
 
-    <h1 id="toolchain">Toolchain<a class="headerlink" href="#toolchain" title="Permanent link">&para;</a></h1>
+    <h2 id="toolchain">Toolchain<a class="headerlink" href="#toolchain" title="Permanent link">&para;</a></h2>
 <p>Native application development is not officially supported.</p>
 <p>An unofficial toolchain is maintained here: <a href="https://github.com/webosbrew/meta-lg-webos-ndk">webosbrew/meta-lg-webos-ndk</a></p>
 <p>Native APIs are reverse engineered here: <a href="https://github.com/webosbrew/tv-native-apis">webosbrew/tv-native-apis</a></p>
-<h1 id="libraries">Libraries<a class="headerlink" href="#libraries" title="Permanent link">&para;</a></h1>
+<h2 id="libraries">Libraries<a class="headerlink" href="#libraries" title="Permanent link">&para;</a></h2>
 <p>Some common Linux-world libraries and services are present on webOS devices:</p>
 <ul>
 <li>SDL</li>
@@ -40,6 +40,20 @@
 <li>Qt/QML</li>
 <li>PulseAudio</li>
 </ul>
+<h2 id="argv-handling"><code>argv</code> handling<a class="headerlink" href="#argv-handling" title="Permanent link">&para;</a></h2>
+<p>Native apps receive a JSON object in <code>argv[1]</code> looking similar to this one:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;@system_native_app&quot;</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">&quot;nid&quot;</span><span class="p">:</span><span class="s2">&quot;com.retroarch&quot;</span><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p>When porting existing software, this probably needs to be ignored.</p>
+<h2 id="running-native-apps-in-root-shell">Running native apps in root shell<a class="headerlink" href="#running-native-apps-in-root-shell" title="Permanent link">&para;</a></h2>
+<p><code>jailer</code> is an internal tool used to contain applications in their own jails.
+(chroot-based containers)</p>
+<p>In order to properly launch a native application in a root shell to see its
+<code>stdout</code>/<code>stderr</code> streams, the following command needs to be executed:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Replace my.app.id with your app id and adjust main binary path accordingly</span>
+<span class="nv">XDG_RUNTIME_DIR</span><span class="o">=</span>/tmp/xdg /usr/bin/jailer -t native_devmode -i my.app.id -p /media/developer/apps/usr/palm/applications/my.app.id /media/developer/apps/usr/palm/applications/my.app.id/main-binary-name <span class="s1">&#39;{&quot;@system_native_app&quot;:true,&quot;nid&quot;:&quot;my.app.id&quot;}&#39;</span> --my-extra-options
+</code></pre></div>
 
     </div>
     <div class="side">
