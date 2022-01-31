@@ -60,7 +60,9 @@ limited SSH shell used for development on non-rooted devices.</dd>
 <dd>Services are processes running "in the background" exposing methods/endpoints
 on Luna bus. The only officially supported technology for third-party app
 services development in webOS <a href="https://webostv.developer.lge.com/develop/js-services/webos-tv-service-basics/">is
-NodeJS</a>.</dd>
+NodeJS</a>,
+however unofficially, with several quirks, <a href="/pages/native-development.html#native-services">native code can be used as
+well</a>.</dd>
 <dt>Elevated Service / Service Elevation</dt>
 <dd>A non-system (homebrew) service running as root, with Luna bus permission
 limitations lifted. <code>elevate-service</code> shipped with Homebrew Channel can be used
@@ -83,10 +85,10 @@ handling and other similar TV features.</dd>
 comes from main NetCast binary. Since webOS 5.x all <code>tvservice</code> functionality
 has been extracted into separate services. (eg. <code>micomservice</code>)</dd>
 <dt>SDP / <code>lgtvsdp.com</code></dt>
-<dd>LG "smart services" backend API, responsible for Content Store communication.
-This is also a service that is used for TV time synchronisation. Various mock
-implementations of that service has been released to keep time synchronization
-working properly:
+<dd>LG Service Delivery Platform - "smart services" backend API, responsible for
+Content Store communication among others. This is also a service that is used
+for TV time synchronisation. Various mock implementations of that service has
+been released to keep time synchronization working properly:
 <a href="https://github.com/wisq/lgtv-sdp">wisq/lgtv-sdp</a>,
 <a href="https://github.com/zopieux/lgtv-tbc">zopieux/lgtv-tbc</a>...</dd>
 <dt><code>sdx</code></dt>
