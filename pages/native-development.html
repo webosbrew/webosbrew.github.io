@@ -55,6 +55,17 @@
 <span class="nv">XDG_RUNTIME_DIR</span><span class="o">=</span>/tmp/xdg /usr/bin/jailer -t native_devmode -i my.app.id -p /media/developer/apps/usr/palm/applications/my.app.id /media/developer/apps/usr/palm/applications/my.app.id/main-binary-name <span class="s1">&#39;{&quot;@system_native_app&quot;:true,&quot;nid&quot;:&quot;my.app.id&quot;}&#39;</span> --my-extra-options
 </code></pre></div>
 
+<h2 id="native-services">Native Services<a class="headerlink" href="#native-services" title="Permanent link">&para;</a></h2>
+<p>While not officially supported, Native Services can be implemented in homebrew
+apps. For docs on how to achieve this check <a href="https://www.webosose.org/docs/tutorials/native-services/developing-external-native-services/">webOS OSE documentation</a>.</p>
+<p><strong>Native services are only properly supported since webOS 4.x.</strong> On earlier
+versions service premissions are not set up properly, leading to applications
+being unable to contact the service. (in these cases a service is started up,
+but no method can be called) On these platforms Homebrew Channel
+<code>elevate-service</code> script can be used to fixup these permissions.</p>
+<p>For an example homebrew application that contains a Native Service check
+<a href="https://github.com/TBSniller/piccap">PicCap</a>/<a href="https://github.com/webosbrew/hyperion-webos">hyperion-webos</a>.</p>
+
     </div>
     <div class="side">
 <h3>Links</h3>

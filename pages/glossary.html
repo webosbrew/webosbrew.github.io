@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>Glossary | webOS Homebrew Project</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="generator" content="Pelican"/>
+    <link href="/theme/styles/main.css?04bfa1c2" type="text/css" rel="stylesheet">
+
+
+</head>
+
+<body id="index" class="home">
+<header>
+    <div class="logo">
+        <a href="/"><img src="/theme/images/icon80.png" width="40px" height="40px" alt="webOS Homebrew logo"></a>
+    </div>
+    <nav id="menu">
+        <ul>
+            <li><a href="https://repo.webosbrew.org">Applications</a></li>
+            <li><a href="/develop">Develop</a></li>
+        </ul>
+    </nav><!-- /#menu -->
+</header>
+<div id="content">
+    <div class="main">
+    <h1>Glossary</h1>
+    <a href="https://github.com/webosbrew/webosbrew.github.io/blob/main/content/pages/hacking/glossary.md" class="page-source">Source</a>
+    
+
+    <style>dt { margin-top: 1em; font-weight: bold; }</style>
+
+<p>This page contains common terms used in webOS hacking community and other
+various uncategorized information...</p>
+<dl>
+<dt>NetCast / LGNC / NC</dt>
+<dd>LG's "legacy" Linux-based Smart TV platform, original target of OpenLGTV
+research.</dd>
+<dt>WAM / WebAppMgr</dt>
+<dd>Service responsible for running "web apps" on webOS - essentially a wrapper
+around WebKit/Chrome/Blink rendering engine customized for running webOS apps.</dd>
+<dt>Developer Mode / devmode</dt>
+<dd>Mode in which unsigned applications can be installed onto the system.
+Developer Mode is enabled by creating <code>/var/luna/preferences/devmode_enabled</code>
+path.</dd>
+<dd>This can also mean an official "Developer Mode" application that provides
+limited SSH shell used for development on non-rooted devices.</dd>
+<dt>Application Paths</dt>
+<dd>webOS applications are stored in:</dd>
+<dd>
+<ul>
+<li><code>/usr/palm/applications</code> (default system apps),</li>
+<li><code>/mnt/ot*cabi/usr/palm/applications</code> (per-region preloaded apps),</li>
+<li><code>/media/cryptofs/apps/usr/palm/applications</code> (content store apps),</li>
+<li><code>/media/developer/apps/usr/palm/application</code> ("homebrew"/developer mode apps),</li>
+<li><code>/media/system/apps/usr/palm/applications</code> (on webOS 4.x+, a path where system application updates are installed)</li>
+</ul>
+</dd>
+<dt>Services</dt>
+<dd>Services are processes running "in the background" exposing methods/endpoints
+on Luna bus. The only officially supported technology for third-party app
+services development in webOS <a href="https://webostv.developer.lge.com/develop/js-services/webos-tv-service-basics/">is
+NodeJS</a>.</dd>
+<dt>Elevated Service / Service Elevation</dt>
+<dd>A non-system (homebrew) service running as root, with Luna bus permission
+limitations lifted. <code>elevate-service</code> shipped with Homebrew Channel can be used
+to patch up system permissions for a specific homebrew service by calling:</dd>
+</dl>
+<div class="highlight"><pre><span></span><code>/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service your.service.name
+</code></pre></div>
+
+<dl>
+<dt>NCG</dt>
+<dd>An encryption/authentication/DRM scheme used by LG for Content Store apps.
+Applications installed in <code>/media/cryptofs</code> <em>need</em> to contain a file that is
+NCG-encrypted to be launchable.</dd>
+<dt>Micom</dt>
+<dd>An always-on microprocessor responsible for power-on, watchdog, IR remote
+handling and other similar TV features.</dd>
+<dt><code>tvservice</code>/<code>RELEASE</code></dt>
+<dd>Before webOS 5.x a process responsible for various TV-related functionalities.
+(screenshot capture, micom communication, input state monitoring...) Naming
+comes from main NetCast binary. Since webOS 5.x all <code>tvservice</code> functionality
+has been extracted into separate services. (eg. <code>micomservice</code>)</dd>
+<dt>SDP / <code>lgtvsdp.com</code></dt>
+<dd>LG "smart services" backend API, responsible for Content Store communication.
+This is also a service that is used for TV time synchronisation. Various mock
+implementations of that service has been released to keep time synchronization
+working properly:
+<a href="https://github.com/wisq/lgtv-sdp">wisq/lgtv-sdp</a>,
+<a href="https://github.com/zopieux/lgtv-tbc">zopieux/lgtv-tbc</a>...</dd>
+<dt><code>sdx</code></dt>
+<dd>TV-side daemon responsible for communicating with SDP API.</dd>
+<dt><code>rdxd</code></dt>
+<dd>TV-side "Diagnostics" daemon responsible for sending crash logs and system
+logs to LGs backend.</dd>
+<dt>SNU / NSU / <code>update</code></dt>
+<dd>Networked System Update service. Queries LGs backend services for available
+firmware updates. Firmware update packages are signed for a specific use - ie. a
+package downloaded from SNU can't be used when provided on a USB drive and vice
+versa.</dd>
+<dt>SSAP / LG Connect Apps / Thinq API</dt>
+<dd>WebSocket-based API exposed on TCP port 3000/3001 by the TV, granting limited
+access to Luna bus. Commonly used by home automation projects. Clients for this
+protocol are available in various languages and technologies, eg:
+<a href="https://github.com/hobbyquaker/lgtv2">NodeJS</a>,
+<a href="https://github.com/bendavid/aiopylgtv">Python</a>,
+<a href="https://github.com/Informatic/webos-ssap-web">Web</a>...</dd>
+<dt>Surface Manager</dt>
+<dd>Wayland compositor used by webOS - responsible for rendering of various system
+overlays (eg. volume bar, cursor) and (before webOS 4.x) Home Screen.</dd>
+<dt><code>mrcu</code></dt>
+<dd>Magic Remote Control Unit - LG's Bluetooth Low Energy-based remote control
+featuring IMU-based on-screen cursor control.</dd>
+<dt>GetMeIn</dt>
+<dd>webOS root exploit released in 2019 leveraging misconfigured <code>/dev/mem</code>
+permissions in app jails. See <a href="https://forum.xda-developers.com/t/getmein-one-time-rooting-jailbreaking-tool-for-webos-lg-tvs.3887904/">official xda-developers
+thread</a>. Underlying bug has been patched.</dd>
+<dt>RootMyTV</dt>
+<dd>A one-click exploit released in early 2021. See <a href="https://github.com/RootMyTV/RootMyTV.github.io">official RootMyTV
+README</a>.</dd>
+</dl>
+
+    </div>
+    <div class="side">
+<h3>Links</h3>
+<ul class="links">
+    <li><a href="https://github.com/webosbrew/">Github Organization</a></li>
+    <li><a href="https://discord.gg/xWqRVEm">Join us on Discord</a></li>
+    <li><a href="https://rootmy.tv/">RootMy.TV</a></li>
+    <li><a href="https://openlgtv.github.io/">openlgtv</a></li>
+</ul>    </div><!-- /.blogroll -->
+</div>
+<hr>
+<footer id="contentinfo" class="body">
+    <div class="copyright">&copy; 2022 webOS Homebrew Project</div>
+    <div class="powered-by">Powered by <a href="https://getpelican.com/">Pelican</a></div>
+</footer><!-- /#contentinfo --></body>
+</html>
