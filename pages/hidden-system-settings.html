@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>Hidden system settings | webOS Homebrew Project</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="generator" content="Pelican"/>
+    <link href="/theme/styles/main.css?04bfa1c2" type="text/css" rel="stylesheet">
+
+
+</head>
+
+<body id="index" class="home">
+<header>
+    <div class="logo">
+        <a href="/"><img src="/theme/images/icon80.png" width="40px" height="40px" alt="webOS Homebrew logo"></a>
+    </div>
+    <nav id="menu">
+        <ul>
+            <li><a href="https://repo.webosbrew.org">Applications</a></li>
+            <li><a href="/develop">Develop</a></li>
+        </ul>
+    </nav><!-- /#menu -->
+</header>
+<div id="content">
+    <div class="main">
+    <h1>Hidden system settings</h1>
+    <a href="https://github.com/webosbrew/webosbrew.github.io/blob/main/content/pages/hacking/settings.md" class="page-source">Source</a>
+    
+
+    <p><code>com.webos.settingsService</code> is responsible for persistent user-facing system
+configuration. There are multiple configuration variables which are not
+available anywhere in the UI.</p>
+<p>Settings are split up into "categories", and thus will be presented like that
+below.</p>
+<p>In order to get specific setting keys this command can be used:</p>
+<div class="highlight"><pre><span></span><code>luna-send -f -n <span class="m">1</span> <span class="s1">&#39;luna://com.webos.settingsservice/getSystemSettings&#39;</span> <span class="s1">&#39;{&quot;category&quot;:&quot;general&quot;, &quot;keys&quot;: [&quot;noSignalScreenSaver&quot;]}&#39;</span>
+</code></pre></div>
+
+<p>In order to get all settings of a specific category:</p>
+<div class="highlight"><pre><span></span><code>luna-send -f -n <span class="m">1</span> <span class="s1">&#39;luna://com.webos.settingsservice/getSystemSettings&#39;</span> <span class="s1">&#39;{&quot;category&quot;:&quot;general&quot;}&#39;</span>
+</code></pre></div>
+
+<p>In order to set a single or multiple settings:</p>
+<div class="highlight"><pre><span></span><code>luna-send -f -n <span class="m">1</span> <span class="s1">&#39;luna://com.webos.settingsservice/setSystemSettings&#39;</span> <span class="s1">&#39;{&quot;category&quot;:&quot;general&quot;, &quot;settings&quot;: {&quot;noSignalScreenSaver&quot;:&quot;off&quot;}}&#39;</span>
+</code></pre></div>
+
+<h2 id="settings-list">Settings list<a class="headerlink" href="#settings-list" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>general</code><ul>
+<li><code>noSignalScreenSaver</code> [string] - <code>"on"</code>/<code>"off"</code> (default: <code>on</code>) - whether to show no signal "gallery" pictures</li>
+</ul>
+</li>
+<li><code>network</code><ul>
+<li><code>allowMobileDeviceAccess</code> [boolean] - <code>true</code>/<code>false</code> (default: <code>true</code>) - whether to expose SSAP/LG Connect Apps protocol (port 3000/3001)</li>
+</ul>
+</li>
+<li><code>time</code><ul>
+<li><code>autoOff15Min</code> [string] - <code>"on"</code>/<code>"off"</code> (default: <code>on</code>) - whether to enable auto power off after 15 minutes of inactivity on No Signal screen</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+    <div class="side">
+<h3>Links</h3>
+<ul class="links">
+    <li><a href="https://github.com/webosbrew/">Github Organization</a></li>
+    <li><a href="https://discord.gg/xWqRVEm">Join us on Discord</a></li>
+    <li><a href="https://rootmy.tv/">RootMy.TV</a></li>
+    <li><a href="https://openlgtv.github.io/">openlgtv</a></li>
+</ul>    </div><!-- /.blogroll -->
+</div>
+<hr>
+<footer id="contentinfo" class="body">
+    <div class="copyright">&copy; 2022 webOS Homebrew Project</div>
+    <div class="powered-by">Powered by <a href="https://getpelican.com/">Pelican</a></div>
+</footer><!-- /#contentinfo --></body>
+</html>
