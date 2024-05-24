@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap w/ Webpack</title>
+</head>
+<body data-bs-theme="dark">
+<nav class="navbar navbar-expand-md bg-dark sticky-top border-bottom">
+  <div class="container">
+    <a class="navbar-brand d-md-none" href="#">
+      <img class="bi" width="24" height="24" src="img/icon80.png">
+      Aperture
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+            aria-controls="offcanvas" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasLabel">Aperture</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav flex-grow-1 justify-content-start">
+          <li class="nav-item"><a class="nav-link" href="#">
+            <img class="bi" width="24" height="24" src="img/icon80.png">
+          </a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Apps</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Develop</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+<main class="landing">
+  <div class="headline p-4 d-flex flex-column align-items-center">
+    <div class="tv-container">
+      <canvas class="tv-amblight z-n1" id="amblight-canvas" width="32" height="18"></canvas>
+      <div class="tv-screen amblight">
+        <div class="img-container">
+          <!--          <img src="img/bbb.png" id="tv-graphics">-->
+          <video src="img/borealis.mp4" width="1280" height="720" muted autoplay id="tv-graphics">
+            <!-- source: https://pixabay.com/videos/aurora-borealis-northern-lights-90877/ -->
+          </video>
+        </div>
+      </div>
+    </div>
+    <div class="mt-4 text-end">
+      <h2 class="fw-light">
+        <!--        <span>Game streaming</span>-->
+        <span class="amblight">Ambient light</span><span>*</span>
+        on your <span class="webos web">web</span><span class="webos os">OS</span> TV
+      </h2>
+      <small>* requires root</small>
+    </div>
+  </div>
+  <hr>
+  <h2>Homebrew on webOS TV</h2>
+  <p>
+    webOS Homebrew is a community-driven project that gives you more potential on your webOS TV.
+    You can install custom apps and games that's not officially available on the LG Content Store.
+  </p>
+  <div>
+    TODO: a gallery of apps
+  </div>
+  <hr>
+  <h2>Get Homebrew Channel</h2>
+  <div class="row">
+    <div class="col-6">
+      Root your TV
+    </div>
+    <div class="col-6">
+      Install via Dev Mode
+    </div>
+  </div>
+  <hr>
+  <h2>Contribute</h2>
+  <hr>
+</main>
+<%= require('html-loader!./partials/footer.html').default %>
+<script>
+  /** @type {HTMLCanvasElement} */
+  var amblight = document.getElementById('amblight-canvas');
+  var ctx = amblight.getContext('2d');
+  /** @type {HTMLImageElement} */
+  var graphics = document.getElementById('tv-graphics');
+  setInterval(function () {
+    ctx.drawImage(graphics, 0, 0, 32, 18);
+  }, 33);
+</script>
+</body>
+</html>
