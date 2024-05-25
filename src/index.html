@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bootstrap w/ Webpack</title>
+  <title>webOS Homebrew Project</title>
 </head>
 <body data-bs-theme="dark">
 <nav class="navbar navbar-expand-md bg-dark sticky-top border-bottom">
@@ -37,23 +37,21 @@
 <main class="landing">
   <div class="headline p-4 d-flex flex-column align-items-center">
     <div class="tv-container">
-      <canvas class="tv-amblight z-n1" id="amblight-canvas" width="32" height="18"></canvas>
-      <div class="tv-screen amblight">
+      <img class="tv-amblight z-n1" id="amblight-canvas">
+      <div class="tv-screen">
         <div class="img-container">
-          <!--          <img src="img/bbb.png" id="tv-graphics">-->
-          <video src="img/borealis.mp4" width="1280" height="720" muted autoplay id="tv-graphics">
-            <!-- source: https://pixabay.com/videos/aurora-borealis-northern-lights-90877/ -->
-          </video>
+          <img class="tv-graphics" src="img/hbchannel.png">
         </div>
       </div>
     </div>
     <div class="mt-4 text-end">
-      <h2 class="fw-light">
-        <!--        <span>Game streaming</span>-->
-        <span class="amblight">Ambient light</span><span>*</span>
+      <h2 class="headline-title fw-light">
+        <span class="feature" data-graphics="img/kodi-recently-added.jpg">Kodi</span>
+        <span class="feature" data-graphics="img/moonlight.png">Game streaming</span>
+        <span class="feature amblight" data-graphics="img/borealias.webp">Ambient light</span>
+        <span class="feature active" data-graphics="img/hbchannel.png">More apps</span>
         on your <span class="webos web">web</span><span class="webos os">OS</span> TV
       </h2>
-      <small>* requires root</small>
     </div>
   </div>
   <hr>
@@ -66,13 +64,27 @@
     TODO: a gallery of apps
   </div>
   <hr>
-  <h2>Get Homebrew Channel</h2>
+  <h2>Get Started</h2>
   <div class="row">
-    <div class="col-6">
-      Root your TV
+    <div class="col-12 col-md-6">
+      <div class="card card-body bg-body-tertiary">
+        <h5 class="card-title">Root your TV</h5>
+        <p class="card-text">
+          Jailbreak your TV and install Homebrew Channel.
+          <br>
+          Gain more control over your TV.
+        </p>
+      </div>
     </div>
-    <div class="col-6">
-      Install via Dev Mode
+    <div class="col-12 col-md-6">
+      <div class="card card-body bg-body-tertiary">
+        <h5 class="card-title">Install via Dev Mode</h5>
+        <p class="card-text">
+          Install apps and games via Developer Mode.
+          <br>
+          No root required.
+        </p>
+      </div>
     </div>
   </div>
   <hr>
@@ -81,14 +93,37 @@
 </main>
 <%= require('html-loader!./partials/footer.html').default %>
 <script>
-  /** @type {HTMLCanvasElement} */
-  var amblight = document.getElementById('amblight-canvas');
-  var ctx = amblight.getContext('2d');
-  /** @type {HTMLImageElement} */
-  var graphics = document.getElementById('tv-graphics');
+  const headlineFeatures = document.querySelectorAll('.headline-title .feature');
+  const tvScreen = document.querySelector('.tv-screen');
+  const tvAmblight = document.querySelector('.tv-amblight');
+  const tvGraphics = document.querySelector('.tv-graphics');
+  let startIndex = Math.floor(Math.random() * headlineFeatures.length);
+
+  function populateHeadline() {
+    for (let i = 0; i < headlineFeatures.length; i++) {
+      /** @type {HTMLElement} */
+      const featureElem = headlineFeatures[i];
+      const active = i === startIndex;
+      featureElem.classList.toggle('active', active);
+      if (active) {
+        let isAmblight = featureElem.classList.contains('amblight');
+        tvScreen.classList.toggle('amblight', isAmblight);
+        tvAmblight.classList.toggle('visually-hidden', !isAmblight);
+        tvGraphics.src = featureElem.dataset['graphics'];
+        if (isAmblight) {
+          tvAmblight.src = 'img/borealias_amblight.webp';
+        } else {
+          tvAmblight.src = '';
+        }
+      }
+    }
+  }
+
+  populateHeadline();
   setInterval(function () {
-    ctx.drawImage(graphics, 0, 0, 32, 18);
-  }, 33);
+    populateHeadline();
+    startIndex = (startIndex + 1) % headlineFeatures.length;
+  }, 10000);
 </script>
 </body>
 </html>
