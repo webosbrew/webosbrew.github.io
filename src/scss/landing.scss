@@ -39,10 +39,11 @@ main.landing {
     }
 
     .tv-screen {
-      width: 60vw;
-      border-radius: 0.2vw;
+      width: 85vw;
+      border-radius: 0.4%;
       padding: 0.3% 0.3% 0.5%;
-      box-shadow: 0.5vw 0.8vw 1vw rgba(0, 0, 0, 0.3);
+
+      box-shadow: 0.7vw 1vw 1.2vw rgba(0, 0, 0, 0.3);
 
       background: linear-gradient(135deg, #222, #111);
       background-clip: padding-box;
@@ -68,6 +69,20 @@ main.landing {
           width: 100%;
           height: 100%;
         }
+      }
+    }
+
+    @include media-breakpoint-up(sm) {
+      .tv-screen {
+        width: 75vw;
+        box-shadow: 0.6vw 0.9vw 1.1vw rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    @include media-breakpoint-up(md) {
+      .tv-screen {
+        width: 65vw;
+        box-shadow: 0.5vw 0.8vw 1vw rgba(0, 0, 0, 0.3);
       }
     }
   }
