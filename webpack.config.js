@@ -3,70 +3,9 @@
 const path = require('path');
 const HtmlBundlerPlugin = require('html-bundler-webpack-plugin');
 
-function indexData() {
-  return {
-    apps: [
-      {
-        title: 'Homebrew Channel',
-        titleColor: '#ffffff',
-        icon: path.join(__dirname, 'src/img/icons/org.webosbrew.hbchannel.png'),
-        iconColor: '#cf0652',
-      },
-      {
-        title: 'Kodi',
-        titleColor: '#000000',
-        icon: path.join(__dirname, 'src/img/icons/org.xbmc.kodi.png'),
-        iconColor: '#ffffff',
-      },
-      {
-        title: 'Hyperion.NG',
-        titleColor: '#ffffff',
-        icon: path.join(__dirname, 'src/img/icons/org.webosbrew.hyperion.ng.loader.png'),
-        iconColor: '#000000',
-      },
-      {
-        title: 'VNC Server',
-        titleColor: '#000000',
-        icon: path.join(__dirname, 'src/img/icons/org.webosbrew.vncserver.png'),
-        iconColor: '#ffb80d',
-      }
-    ],
-    games: [
-      {
-        title: 'Moonlight',
-        titleColor: '#ffffff',
-        icon: path.join(__dirname, 'src/img/icons/com.limelight.webos.png'),
-        iconColor: '#535353',
-      },
-      {
-        title: 'RetroArch',
-        titleColor: '#ffffff',
-        icon: path.join(__dirname, 'src/img/icons/com.retroarch.png'),
-        iconColor: '#58598a',
-      },
-      {
-        title: 'Chocolate Doom',
-        titleColor: '#ffffff',
-        icon: path.join(__dirname, 'src/img/icons/org.chocolate-doom.demo.png'),
-        iconColor: '#8b0000',
-      },
-      {
-        title: '3D Pinball: Space Cadet',
-        titleColor: '#ffffff',
-        icon: path.join(__dirname, 'src/img/icons/com.github.k4zmu2a.space-cadet-pinball.png'),
-        iconColor: '#000000',
-      }
-    ],
-  };
-}
-
 module.exports = {
   mode: 'development',
   entry: './src/js/main.js',
-  output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
-  },
   devServer: {
     static: path.resolve(__dirname, 'dist'),
     port: 8080,
@@ -77,12 +16,11 @@ module.exports = {
       entry: {
         index: {
           import: './src/views/index/index.hbs',
-          data: indexData(),
         },
       },
       preprocessor: 'handlebars',
       preprocessorOptions: {
-        root: path.resolve(__dirname, 'src/views'),
+        root: 'src/views',
         partials: [
           'src/views/partials'
         ]
