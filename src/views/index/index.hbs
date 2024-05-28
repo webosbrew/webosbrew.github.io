@@ -7,34 +7,7 @@
   <link href="index.scss" rel="stylesheet">
 </head>
 <body data-bs-theme="dark">
-<nav class="navbar navbar-expand-md bg-dark sticky-top border-bottom">
-  <div class="container">
-    <a class="navbar-brand d-md-none" href="#">
-      <img class="bi" width="32" height="32" src="../../img/icon32.svg" alt="webOS Homebrew"/>
-      webOS Homebrew
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
-            aria-controls="offcanvas" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasLabel">webOS Homebrew</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav flex-grow-1 justify-content-start">
-          <li class="nav-item"><a class="nav-link" href="#">
-            <img class="bi" width="32" height="32" src="../../img/icon32.svg" alt="webOS Homebrew"/>
-          </a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Apps</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Develop</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</nav>
+{{> navbar }}
 <main class="landing p-4">
   <div class="headline px-2 py-4 d-flex flex-column align-items-center">
     <div class="tv-container">
@@ -64,7 +37,7 @@
     You can install custom apps and games that's not officially available on the LG Content Store.
   </p>
 
-  <section class="marquee w-100 mt-3" data-mc-duration="60" role="marquee">
+  <section class="marquee vw-100 mt-3" data-mc-duration="60" role="marquee">
     <div class="d-flex flex-row">
       <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center" style="background-color: #cf0652">
         <img src="../../img/icons/org.webosbrew.hbchannel.png" class="app-icon" alt="Homebrew Channel">
@@ -92,7 +65,7 @@
       </div>
     </div>
   </section>
-  <section class="marquee w-100 mt-3" data-mc-duration="60" data-mc-direction="ltr" role="marquee">
+  <section class="marquee vw-100 mt-3" data-mc-duration="60" data-mc-direction="ltr" role="marquee">
     <div class="d-flex flex-row">
       <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center" style="background-color: #535353">
         <img src="../../img/icons/com.limelight.webos.png" class="app-icon" alt="Moonlight">
@@ -124,7 +97,7 @@
 
   <hr>
   <h2>Get Started</h2>
-  <div class="row get-started">
+  <section class="row get-started">
     <div class="col-12 col-md-6 mt-2">
       <div class="card card-body border-0 rooted">
         <img src="../../img/icon32.svg" width="48" height="48"
@@ -155,7 +128,9 @@
         </a>
       </div>
     </div>
-  </div>
+  </section>
+  <hr>
+  <h2>Need Help?</h2>
   <hr>
   <h2>Frequently Asked Questions</h2>
   <h4>Is Installing Homebrew Safe?</h4>
