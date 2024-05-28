@@ -2,15 +2,3 @@
 
 $bootstrap-icons-font-dir: "~bootstrap-icons/font/fonts";
 @import "~bootstrap-icons/font/bootstrap-icons.scss";
-
-//
-// Custom styles
-//
-
-@import "icon-list";
-
-main {
-  padding: 1.5rem;
-}
-
-@import "landing";

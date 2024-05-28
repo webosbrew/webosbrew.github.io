@@ -4,12 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>webOS Homebrew Project</title>
+  <link href="index.scss" rel="stylesheet">
 </head>
 <body data-bs-theme="dark">
 <nav class="navbar navbar-expand-md bg-dark sticky-top border-bottom">
   <div class="container">
     <a class="navbar-brand d-md-none" href="#">
-      <img class="bi" width="32" height="32" src="img/icon32.svg" alt="webOS Homebrew">
+      <img class="bi" width="32" height="32" src="@img/icon32.svg" alt="webOS Homebrew"/>
       webOS Homebrew
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
@@ -24,7 +25,7 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav flex-grow-1 justify-content-start">
           <li class="nav-item"><a class="nav-link" href="#">
-            <img class="bi" width="32" height="32" src="img/icon32.svg" alt="webOS Homebrew">
+            <img class="bi" width="32" height="32" src="@img/icon32.svg" alt="webOS Homebrew"/>
           </a></li>
           <li class="nav-item"><a class="nav-link" href="#">Apps</a></li>
           <li class="nav-item"><a class="nav-link" href="#">Develop</a></li>
@@ -34,23 +35,24 @@
     </div>
   </div>
 </nav>
-<main class="landing">
+<main class="landing p-4">
   <div class="headline px-2 py-4 d-flex flex-column align-items-center">
     <div class="tv-container">
-      <img class="tv-amblight z-n1" id="amblight-canvas">
+      <img class="tv-amblight z-n1" id="amblight-canvas"/>
       <div class="tv-screen">
         <div class="img-container">
-          <img class="tv-graphics" src="img/hbchannel.png">
+          <img class="tv-graphics" src="@img/hbchannel.png"/>
         </div>
       </div>
     </div>
     <div class="mt-4 text-end">
       <h2 class="headline-title fw-light text-nowrap">
-        <span class="feature" data-graphics="img/kodi-recently-added.jpg">Kodi</span>
-        <span class="feature" data-graphics="img/retroarch.png">RetroArch</span>
-        <span class="feature" data-graphics="img/moonlight.png">Moonlight</span>
-        <span class="feature amblight" data-graphics="img/borealias.webp">Ambient light</span>
-        <span class="feature active" data-graphics="img/hbchannel.png">More apps</span>
+        <span class="feature" data-img-src="@img/kodi-recently-added.jpg">Kodi</span>
+        <span class="feature" data-img-src="@img/retroarch.png">RetroArch</span>
+        <span class="feature" data-img-src="@img/moonlight.png">Moonlight</span>
+        <span class="feature amblight" data-img-src="@img/borealias.webp"
+              data-amblight-src="@img/borealias_amblight.webp">Ambient light</span>
+        <span class="feature active" data-img-src="@img/hbchannel.png">More apps</span>
         for <span class="webos web">web</span><span class="webos os">OS</span> TV
       </h2>
     </div>
@@ -61,16 +63,25 @@
     webOS Homebrew is a community-driven project that gives you more potential on your webOS TV.
     You can install custom apps and games that's not officially available on the LG Content Store.
   </p>
-  <div>
-    TODO: a gallery of apps
-  </div>
+
+  <section class="marquee w-100 mt-3" data-mc-duration="60" role="marquee">
+    <div class="d-flex flex-row">
+      {{> app-items items=apps }}
+    </div>
+  </section>
+  <section class="marquee w-100 mt-3" data-mc-duration="60" data-mc-direction="ltr" role="marquee">
+    <div class="d-flex flex-row">
+      {{> app-items items=games }}
+    </div>
+  </section>
+
   <hr>
   <h2>Get Started</h2>
   <div class="row get-started">
     <div class="col-12 col-md-6 mt-2">
       <div class="card card-body border-0 rooted">
-        <img src="img/icon32.svg" width="48" height="48"
-             class="position-absolute bottom-0 end-0 me-2 mb-2 opacity-50" alt="webOS Homebrew">
+        <img src="@img/icon32.svg" width="48" height="48"
+             class="position-absolute bottom-0 end-0 me-2 mb-2 opacity-50" alt="webOS Homebrew"/>
         <h5 class="card-title">Root your TV</h5>
         <p class="card-text">
           Jailbreak your TV and install Homebrew Channel.
@@ -84,8 +95,8 @@
     </div>
     <div class="col-12 col-md-6 mt-2">
       <div class="card card-body border-0 devmode">
-        <img src="img/devmode32.svg" width="48" height="48"
-             class="position-absolute bottom-0 end-0 me-2 mb-2 opacity-50" alt="Dev Mode">
+        <img src="@img/devmode32.svg" width="48" height="48"
+             class="position-absolute bottom-0 end-0 me-2 mb-2 opacity-50" alt="Dev Mode"/>
         <h5 class="card-title">Install via Dev Mode</h5>
         <p class="card-text">
           Install apps and games via Developer Mode.
@@ -118,39 +129,7 @@
   <h2>Contribute</h2>
   <hr>
 </main>
-<%= require('html-loader!./partials/footer.html').default %>
-<script>
-  const headlineFeatures = document.querySelectorAll('.headline-title .feature');
-  const tvScreen = document.querySelector('.tv-screen');
-  const tvAmblight = document.querySelector('.tv-amblight');
-  const tvGraphics = document.querySelector('.tv-graphics');
-  let startIndex = Math.floor(Math.random() * headlineFeatures.length);
-
-  function populateHeadline() {
-    for (let i = 0; i < headlineFeatures.length; i++) {
-      /** @type {HTMLElement} */
-      const featureElem = headlineFeatures[i];
-      const active = i === startIndex;
-      featureElem.classList.toggle('active', active);
-      if (active) {
-        let isAmblight = featureElem.classList.contains('amblight');
-        tvScreen.classList.toggle('amblight', isAmblight);
-        tvAmblight.classList.toggle('visually-hidden', !isAmblight);
-        tvGraphics.src = featureElem.dataset['graphics'];
-        if (isAmblight) {
-          tvAmblight.src = 'img/borealias_amblight.webp';
-        } else {
-          tvAmblight.src = '';
-        }
-      }
-    }
-  }
-
-  populateHeadline();
-  setInterval(function () {
-    populateHeadline();
-    startIndex = (startIndex + 1) % headlineFeatures.length;
-  }, 10000);
-</script>
+{{> footer }}
+<script src="index.js"></script>
 </body>
 </html>
