@@ -9,25 +9,25 @@ function indexData() {
       {
         title: 'Homebrew Channel',
         titleColor: '#ffffff',
-        icon: path.resolve(__dirname, 'src/img/icons/org.webosbrew.hbchannel.png'),
+        icon: path.join(__dirname, 'src/img/icons/org.webosbrew.hbchannel.png'),
         iconColor: '#cf0652',
       },
       {
         title: 'Kodi',
         titleColor: '#000000',
-        icon: path.resolve(__dirname, 'src/img/icons/org.xbmc.kodi.png'),
+        icon: path.join(__dirname, 'src/img/icons/org.xbmc.kodi.png'),
         iconColor: '#ffffff',
       },
       {
         title: 'Hyperion.NG',
         titleColor: '#ffffff',
-        icon: path.resolve(__dirname, 'src/img/icons/org.webosbrew.hyperion.ng.loader.png'),
+        icon: path.join(__dirname, 'src/img/icons/org.webosbrew.hyperion.ng.loader.png'),
         iconColor: '#000000',
       },
       {
         title: 'VNC Server',
         titleColor: '#000000',
-        icon: path.resolve(__dirname, 'src/img/icons/org.webosbrew.vncserver.png'),
+        icon: path.join(__dirname, 'src/img/icons/org.webosbrew.vncserver.png'),
         iconColor: '#ffb80d',
       }
     ],
@@ -35,25 +35,25 @@ function indexData() {
       {
         title: 'Moonlight',
         titleColor: '#ffffff',
-        icon: path.resolve(__dirname, 'src/img/icons/com.limelight.webos.png'),
+        icon: path.join(__dirname, 'src/img/icons/com.limelight.webos.png'),
         iconColor: '#535353',
       },
       {
         title: 'RetroArch',
         titleColor: '#ffffff',
-        icon: path.resolve(__dirname, 'src/img/icons/com.retroarch.png'),
+        icon: path.join(__dirname, 'src/img/icons/com.retroarch.png'),
         iconColor: '#58598a',
       },
       {
         title: 'Chocolate Doom',
         titleColor: '#ffffff',
-        icon: path.resolve(__dirname, 'src/img/icons/org.chocolate-doom.demo.png'),
+        icon: path.join(__dirname, 'src/img/icons/org.chocolate-doom.demo.png'),
         iconColor: '#8b0000',
       },
       {
         title: '3D Pinball: Space Cadet',
         titleColor: '#ffffff',
-        icon: path.resolve(__dirname, 'src/img/icons/com.github.k4zmu2a.space-cadet-pinball.png'),
+        icon: path.join(__dirname, 'src/img/icons/com.github.k4zmu2a.space-cadet-pinball.png'),
         iconColor: '#000000',
       }
     ],
