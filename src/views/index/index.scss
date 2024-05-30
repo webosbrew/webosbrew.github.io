@@ -118,7 +118,6 @@ main.landing {
   display: flex;
   justify-content: center;
   align-items: center;
-  pointer-events: none;
 
   mask-image: linear-gradient(
                   var(--mask-direction, to right),

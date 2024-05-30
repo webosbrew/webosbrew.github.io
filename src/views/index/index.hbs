@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>webOS Homebrew Project</title>
+  <title>Home | webOS Homebrew</title>
   <link href="index.scss" rel="stylesheet">
+  <link href="../../img/hbchannel-color.svg" type="image/svg" rel="icon">
 </head>
 <body data-bs-theme="dark">
 {{> navbar }}
@@ -18,19 +19,20 @@
                data-bs-interval="5000">
             <div class="carousel-inner">
               <div class="carousel-item active" data-item-id="hbchannel">
-                <img src="../../img/hbchannel.png" class="d-block w-100" alt="Homebrew Channel">
+                <img src="../../img/screenshots/hbchannel.png" class="d-block w-100" alt="Homebrew Channel">
               </div>
               <div class="carousel-item" data-item-id="retroarch">
-                <img src="../../img/retroarch.png" class="d-block w-100" alt="RetroArch">
+                <img src="../../img/screenshots/retroarch.png" class="d-block w-100" alt="RetroArch">
               </div>
               <div class="carousel-item" data-item-id="moonlight">
-                <img src="../../img/moonlight.png" class="d-block w-100" alt="Moonlight">
+                <img src="../../img/screenshots/moonlight.png" class="d-block w-100" alt="Moonlight">
               </div>
               <div class="carousel-item" data-item-id="kodi">
-                <img src="../../img/kodi-recently-added.jpg" class="d-block w-100" alt="Kodi">
+                <img src="../../img/screenshots/kodi-recently-added.jpg" class="d-block w-100" alt="Kodi">
               </div>
               <div class="carousel-item" data-item-id="amblight">
-                <video src="../../img/borealis.mp4" class="d-block w-100 amblight-src" loop autoplay muted></video>
+                <video src="../../img/screenshots/borealis.mp4" class="d-block w-100 amblight-src" loop autoplay
+                       muted></video>
               </div>
             </div>
           </div>
@@ -61,40 +63,42 @@
   <hr>
 
   <section id="about">
-    <h2>Homebrew on webOS TV</h2>
+    <h2>Homebrew Apps &amp; Games</h2>
     <p>
-      webOS Homebrew is a community-driven project that gives you more potential on your webOS TV.
-      You can install custom apps and games that's not officially available on the LG Content Store.
+      Install apps and games missing from the LG Content Store.
     </p>
     <div class="marquee vw-100 mt-3" data-mc-duration="60" role="marquee">
       <div class="d-flex flex-row">
         <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
              style="background-color: #cf0652">
-          <img src="../../img/icons/org.webosbrew.hbchannel.png" class="app-icon" alt="Homebrew Channel">
-          <div class="flex-fill ms-3 text-white">
-            <h5 class="card-title my-0">Homebrew Channel</h5>
-          </div>
+          <img src="../../img/app-icons/org.webosbrew.hbchannel.png" class="app-icon" alt="Homebrew Channel">
+          <a class="stretched-link text-decoration-none flex-fill ms-3 text-white"
+             href="https://github.com/webosbrew/webos-homebrew-channel" target="_blank">
+            <h5 class="card-title my-0">Homebrew Channel</h5></a>
         </div>
         <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
              style="background-color: #ffffff">
-          <img src="../../img/icons/org.xbmc.kodi.png" class="app-icon" alt="Kodi">
-          <div class="flex-fill ms-3 text-black">
+          <img src="../../img/app-icons/org.xbmc.kodi.png" class="app-icon" alt="Kodi">
+          <a class="stretched-link text-decoration-none flex-fill ms-3 text-black"
+             href="https://kodi.tv/" target="_blank">
             <h5 class="card-title my-0">Kodi</h5>
-          </div>
+          </a>
         </div>
         <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
              style="background-color: #000000">
-          <img src="../../img/icons/org.webosbrew.hyperion.ng.loader.png" class="app-icon" alt="Hyperion.NG">
-          <div class="flex-fill ms-3 text-white">
+          <img src="../../img/app-icons/org.webosbrew.hyperion.ng.loader.png" class="app-icon" alt="Hyperion.NG">
+          <a class="stretched-link text-decoration-none flex-fill ms-3 text-white"
+             href="https://hyperion-project.org/" target="_blank">
             <h5 class="card-title my-0">Hyperion.NG</h5>
-          </div>
+          </a>
         </div>
         <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
              style="background-color: #ffb80d">
-          <img src="../../img/icons/org.webosbrew.vncserver.png" class="app-icon" alt="VNC Server">
-          <div class="flex-fill ms-3 text-black">
+          <img src="../../img/app-icons/org.webosbrew.vncserver.png" class="app-icon" alt="VNC Server">
+          <a class="stretched-link text-decoration-none flex-fill ms-3 text-black"
+             href="https://github.com/Informatic/webos-vncserver" target="_blank">
             <h5 class="card-title my-0">VNC Server</h5>
-          </div>
+          </a>
         </div>
       </div>
     </div>
@@ -102,32 +106,36 @@
       <div class="d-flex flex-row">
         <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
              style="background-color: #ffffff">
-          <img src="../../img/icons/com.limelight.webos.png" class="app-icon" alt="Moonlight">
-          <div class="flex-fill ms-3 text-black">
+          <img src="../../img/app-icons/com.limelight.webos.png" class="app-icon" alt="Moonlight">
+          <a class="stretched-link text-decoration-none flex-fill ms-3 text-black"
+             href="https://moonlight-stream.org/" target="_blank">
             <h5 class="card-title my-0">Moonlight</h5>
-          </div>
+          </a>
         </div>
         <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
              style="background-color: #58598a">
-          <img src="../../img/icons/com.retroarch.png" class="app-icon" alt="RetroArch">
-          <div class="flex-fill ms-3 text-white">
+          <img src="../../img/app-icons/com.retroarch.png" class="app-icon" alt="RetroArch">
+          <a class="stretched-link text-decoration-none flex-fill ms-3 text-white"
+             href="https://retroarch.com/" target="_blank">
             <h5 class="card-title my-0">RetroArch</h5>
-          </div>
+          </a>
         </div>
         <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
              style="background-color: #8b0000">
-          <img src="../../img/icons/org.chocolate-doom.demo.png" class="app-icon" alt="Chocolate Doom">
-          <div class="flex-fill ms-3 text-white">
+          <img src="../../img/app-icons/org.chocolate-doom.demo.png" class="app-icon" alt="Chocolate Doom">
+          <a class="stretched-link text-decoration-none flex-fill ms-3 text-white"
+             href="https://www.chocolate-doom.org/" target="_blank">
             <h5 class="card-title my-0">Chocolate Doom</h5>
-          </div>
+          </a>
         </div>
         <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
              style="background-color: #000000">
-          <img src="../../img/icons/com.github.k4zmu2a.space-cadet-pinball.png" class="app-icon"
+          <img src="../../img/app-icons/com.github.k4zmu2a.space-cadet-pinball.png" class="app-icon"
                alt="3D Pinball: Space Cadet">
-          <div class="flex-fill ms-3 text-white">
+          <a class="stretched-link text-decoration-none flex-fill ms-3 text-white"
+             href="https://github.com/webosbrew/SpaceCadetPinball" target="_blank">
             <h5 class="card-title my-0">3D Pinball: Space Cadet</h5>
-          </div>
+          </a>
         </div>
       </div>
     </div>

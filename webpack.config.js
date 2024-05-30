@@ -2,6 +2,7 @@
 
 const path = require('path');
 const HtmlBundlerPlugin = require('html-bundler-webpack-plugin');
+const { FaviconsBundlerPlugin } = require('html-bundler-webpack-plugin/plugins');
 
 module.exports = {
   mode: 'development',
@@ -39,6 +40,9 @@ module.exports = {
         filename: 'css/[name].[contenthash:8].css',
         //inline: true, // inlines CSS into HTML
       },
+    }),
+    new FaviconsBundlerPlugin({
+      enabled: true,
     }),
   ],
   module: {
