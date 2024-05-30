@@ -15,6 +15,7 @@ document.querySelectorAll('.marquee').forEach((element) => {
 });
 
 let tvCarousel = document.getElementById('tv-carousel');
+let tvScreen = document.querySelector('.tv-screen');
 let carouselInner = document.querySelector('#tv-carousel .carousel-inner');
 let headlineTitle = document.querySelector('.headline-title');
 
@@ -34,7 +35,9 @@ tvCarousel.addEventListener('slide.bs.carousel', (e) => {
   let toLabel = headlineTitle.querySelector(`.${toId}`);
   fromLabel.classList.toggle('active', false);
   toLabel.classList.toggle('active', true);
-  amblightCanvas.classList.toggle('active', !!canvasSource);
+  let amblight = !!canvasSource;
+  amblightCanvas.classList.toggle('active', amblight);
+  tvScreen.classList.toggle('amblight', amblight);
 });
 
 let amblightCtx = amblightCanvas.getContext('2d');
