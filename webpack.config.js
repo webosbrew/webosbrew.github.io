@@ -5,7 +5,6 @@ const HtmlBundlerPlugin = require('html-bundler-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/js/main.js',
   devServer: {
     static: path.resolve(__dirname, 'dist'),
     port: 8080,
@@ -55,7 +54,7 @@ module.exports = {
       },
       // images
       {
-        test: /\.(png|svg|jpe?g|webp)$/i,
+        test: /\.(png|svg|jpe?g|webp|mp4)$/i,
         type: 'asset/resource',
         generator: {
           filename: 'img/[name].[hash:8][ext]',

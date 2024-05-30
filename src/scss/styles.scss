@@ -1,4 +1,11 @@
-@import "bootstrap/scss/bootstrap";
+// Include functions first
+@import "bootstrap/scss/functions";
+
+// Customize some defaults
+$primary: #cf0652;
+
+// Required
+@import "bootstrap";
 
 $bootstrap-icons-font-dir: "~bootstrap-icons/font/fonts";
 @import "~bootstrap-icons/font/bootstrap-icons.scss";

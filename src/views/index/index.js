@@ -1,3 +1,4 @@
+import 'bootstrap';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import MarqueeContent from 'marquee-content';
@@ -13,32 +14,33 @@ document.querySelectorAll('.marquee').forEach((element) => {
   marquee.init();
 });
 
-const headlineFeatures = document.querySelectorAll('.headline-title .feature');
-const tvScreen = document.querySelector('.tv-screen');
-/** @type {HTMLImageElement} */
-const tvAmblight = document.querySelector('.tv-amblight');
-/** @type {HTMLImageElement} */
-const tvGraphics = document.querySelector('.tv-graphics');
-let startIndex = Math.floor(Math.random() * headlineFeatures.length);
+let tvCarousel = document.getElementById('tv-carousel');
+let carouselInner = document.querySelector('#tv-carousel .carousel-inner');
+let headlineTitle = document.querySelector('.headline-title');
 
-function populateHeadline() {
-  for (let i = 0; i < headlineFeatures.length; i++) {
-    /** @type {HTMLElement} */
-    const featureElem = headlineFeatures[i];
-    const active = i === startIndex;
-    featureElem.classList.toggle('active', active);
-    if (active) {
-      const amblightSrc = featureElem.dataset['amblightSrc'];
-      tvScreen.classList.toggle('amblight', !!amblightSrc);
-      tvAmblight.classList.toggle('visually-hidden', !amblightSrc);
-      tvGraphics.src = featureElem.dataset['imgSrc'];
-      tvAmblight.src = amblightSrc || '';
-    }
+/** @type {HTMLCanvasElement} */
+let amblightCanvas = document.querySelector('.tv-amblight');
+/** @type {HTMLElement} */
+let canvasSource = undefined;
+
+tvCarousel.addEventListener('slide.bs.carousel', (e) => {
+  let fromId = carouselInner.children[e.from].dataset['itemId'];
+  let toChild = carouselInner.children[e.to];
+  canvasSource = toChild.querySelector('.amblight-src');
+  let toId = toChild.dataset['itemId'];
+  /** @type {HTMLElement} */
+  let fromLabel = headlineTitle.querySelector(`.${fromId}`);
+  /** @type {HTMLElement} */
+  let toLabel = headlineTitle.querySelector(`.${toId}`);
+  fromLabel.classList.toggle('active', false);
+  toLabel.classList.toggle('active', true);
+  amblightCanvas.classList.toggle('active', !!canvasSource);
+});
+
+let amblightCtx = amblightCanvas.getContext('2d');
+setInterval(() => {
+  if (!canvasSource) {
+    return;
   }
-}
-
-populateHeadline();
-setInterval(function () {
-  populateHeadline();
-  startIndex = (startIndex + 1) % headlineFeatures.length;
-}, 10000);
+  amblightCtx.drawImage(canvasSource, 0, 0, amblightCanvas.width, amblightCanvas.height);
+}, 33);

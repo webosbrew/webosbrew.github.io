@@ -10,145 +10,217 @@
 {{> navbar }}
 <main class="landing p-4">
   <div class="headline px-2 py-4 d-flex flex-column align-items-center">
-    <div class="tv-container">
-      <img class="tv-amblight z-n1" id="amblight-canvas" src="" alt=""/>
-      <div class="tv-screen">
-        <div class="img-container">
-          <img class="tv-graphics" src="../../img/hbchannel.png" alt="TV screen"/>
+    <div class="position-relative w-100 d-flex">
+      <div class="tv-container mx-auto">
+        <canvas class="tv-amblight z-n1" width="32" height="18"></canvas>
+        <div class="tv-screen">
+          <div id="tv-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel"
+               data-bs-interval="5000">
+            <div class="carousel-inner">
+              <div class="carousel-item active" data-item-id="hbchannel">
+                <img src="../../img/hbchannel.png" class="d-block w-100" alt="Homebrew Channel">
+              </div>
+              <div class="carousel-item" data-item-id="retroarch">
+                <img src="../../img/retroarch.png" class="d-block w-100" alt="RetroArch">
+              </div>
+              <div class="carousel-item" data-item-id="moonlight">
+                <img src="../../img/moonlight.png" class="d-block w-100" alt="Moonlight">
+              </div>
+              <div class="carousel-item" data-item-id="kodi">
+                <img src="../../img/kodi-recently-added.jpg" class="d-block w-100" alt="Kodi">
+              </div>
+              <div class="carousel-item" data-item-id="amblight">
+                <video src="../../img/borealis.mp4" class="d-block w-100 amblight-src" loop autoplay muted></video>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#tv-carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon me-sm-5" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#tv-carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon ms-sm-5" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
     <div class="mt-4 text-end">
       <h2 class="headline-title fw-light text-nowrap">
-        <span class="feature" data-img-src="@img/kodi-recently-added.jpg">Kodi</span>
-        <span class="feature" data-img-src="@img/retroarch.png">RetroArch</span>
-        <span class="feature" data-img-src="@img/moonlight.png">Moonlight</span>
-        <span class="feature amblight" data-img-src="@img/borealias.webp"
-              data-amblight-src="@img/borealias_amblight.webp">Ambient light</span>
-        <span class="feature active" data-img-src="@img/hbchannel.png">More apps</span>
+        <span class="feature hbchannel active">More apps</span>
+        <span class="feature kodi">Kodi</span>
+        <span class="feature retroarch">RetroArch</span>
+        <span class="feature moonlight">Moonlight</span>
+        <span class="feature amblight">Ambient light</span>
         for <span class="webos web">web</span><span class="webos os">OS</span> TV
       </h2>
     </div>
   </div>
-  <hr>
-  <h2>Homebrew on webOS TV</h2>
-  <p>
-    webOS Homebrew is a community-driven project that gives you more potential on your webOS TV.
-    You can install custom apps and games that's not officially available on the LG Content Store.
-  </p>
-
-  <section class="marquee vw-100 mt-3" data-mc-duration="60" role="marquee">
-    <div class="d-flex flex-row">
-      <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center" style="background-color: #cf0652">
-        <img src="../../img/icons/org.webosbrew.hbchannel.png" class="app-icon" alt="Homebrew Channel">
-        <div class="flex-fill ms-3 text-white">
-          <h5 class="card-title my-0">Homebrew Channel</h5>
-        </div>
-      </div>
-      <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center" style="background-color: #ffffff">
-        <img src="../../img/icons/org.xbmc.kodi.png" class="app-icon" alt="Kodi">
-        <div class="flex-fill ms-3 text-black">
-          <h5 class="card-title my-0">Kodi</h5>
-        </div>
-      </div>
-      <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center" style="background-color: #000000">
-        <img src="../../img/icons/org.webosbrew.hyperion.ng.loader.png" class="app-icon" alt="Hyperion.NG">
-        <div class="flex-fill ms-3 text-white">
-          <h5 class="card-title my-0">Hyperion.NG</h5>
-        </div>
-      </div>
-      <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center" style="background-color: #ffb80d">
-        <img src="../../img/icons/org.webosbrew.vncserver.png" class="app-icon" alt="VNC Server">
-        <div class="flex-fill ms-3 text-black">
-          <h5 class="card-title my-0">VNC Server</h5>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="marquee vw-100 mt-3" data-mc-duration="60" data-mc-direction="ltr" role="marquee">
-    <div class="d-flex flex-row">
-      <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center" style="background-color: #535353">
-        <img src="../../img/icons/com.limelight.webos.png" class="app-icon" alt="Moonlight">
-        <div class="flex-fill ms-3 text-white">
-          <h5 class="card-title my-0">Moonlight</h5>
-        </div>
-      </div>
-      <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center" style="background-color: #58598a">
-        <img src="../../img/icons/com.retroarch.png" class="app-icon" alt="RetroArch">
-        <div class="flex-fill ms-3 text-white">
-          <h5 class="card-title my-0">RetroArch</h5>
-        </div>
-      </div>
-      <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center" style="background-color: #8b0000">
-        <img src="../../img/icons/org.chocolate-doom.demo.png" class="app-icon" alt="Chocolate Doom">
-        <div class="flex-fill ms-3 text-white">
-          <h5 class="card-title my-0">Chocolate Doom</h5>
-        </div>
-      </div>
-      <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center" style="background-color: #000000">
-        <img src="../../img/icons/com.github.k4zmu2a.space-cadet-pinball.png" class="app-icon"
-             alt="3D Pinball: Space Cadet">
-        <div class="flex-fill ms-3 text-white">
-          <h5 class="card-title my-0">3D Pinball: Space Cadet</h5>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <hr>
-  <h2>Get Started</h2>
-  <section class="row get-started">
-    <div class="col-12 col-md-6 mt-2">
-      <div class="card card-body border-0 rooted">
-        <img src="../../img/icon32.svg" width="48" height="48"
-             class="position-absolute bottom-0 end-0 me-2 mb-2 opacity-50" alt="webOS Homebrew"/>
-        <h5 class="card-title">Root your TV</h5>
-        <p class="card-text">
-          Jailbreak your TV and install Homebrew Channel.
-          <br>
-          Gain more control over your TV.
-        </p>
-        <a class="stretched-link card-link link-secondary" href="https://www.webosbrew.org/rooting">
-          Read tutorial
-        </a>
+
+  <section id="about">
+    <h2>Homebrew on webOS TV</h2>
+    <p>
+      webOS Homebrew is a community-driven project that gives you more potential on your webOS TV.
+      You can install custom apps and games that's not officially available on the LG Content Store.
+    </p>
+    <div class="marquee vw-100 mt-3" data-mc-duration="60" role="marquee">
+      <div class="d-flex flex-row">
+        <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
+             style="background-color: #cf0652">
+          <img src="../../img/icons/org.webosbrew.hbchannel.png" class="app-icon" alt="Homebrew Channel">
+          <div class="flex-fill ms-3 text-white">
+            <h5 class="card-title my-0">Homebrew Channel</h5>
+          </div>
+        </div>
+        <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
+             style="background-color: #ffffff">
+          <img src="../../img/icons/org.xbmc.kodi.png" class="app-icon" alt="Kodi">
+          <div class="flex-fill ms-3 text-black">
+            <h5 class="card-title my-0">Kodi</h5>
+          </div>
+        </div>
+        <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
+             style="background-color: #000000">
+          <img src="../../img/icons/org.webosbrew.hyperion.ng.loader.png" class="app-icon" alt="Hyperion.NG">
+          <div class="flex-fill ms-3 text-white">
+            <h5 class="card-title my-0">Hyperion.NG</h5>
+          </div>
+        </div>
+        <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
+             style="background-color: #ffb80d">
+          <img src="../../img/icons/org.webosbrew.vncserver.png" class="app-icon" alt="VNC Server">
+          <div class="flex-fill ms-3 text-black">
+            <h5 class="card-title my-0">VNC Server</h5>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-12 col-md-6 mt-2">
-      <div class="card card-body border-0 devmode">
-        <img src="../../img/devmode32.svg" width="48" height="48"
-             class="position-absolute bottom-0 end-0 me-2 mb-2 opacity-50" alt="Dev Mode"/>
-        <h5 class="card-title">Install via Dev Mode</h5>
-        <p class="card-text">
-          Install apps and games via Developer Mode.
-          <br>
-          No root required.
-        </p>
-        <a class="stretched-link card-link link-secondary" href="https://www.webosbrew.org/rooting">
-          Read tutorial
-        </a>
+    <div class="marquee vw-100 mt-3" data-mc-duration="60" data-mc-direction="ltr" role="marquee">
+      <div class="d-flex flex-row">
+        <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
+             style="background-color: #ffffff">
+          <img src="../../img/icons/com.limelight.webos.png" class="app-icon" alt="Moonlight">
+          <div class="flex-fill ms-3 text-black">
+            <h5 class="card-title my-0">Moonlight</h5>
+          </div>
+        </div>
+        <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
+             style="background-color: #58598a">
+          <img src="../../img/icons/com.retroarch.png" class="app-icon" alt="RetroArch">
+          <div class="flex-fill ms-3 text-white">
+            <h5 class="card-title my-0">RetroArch</h5>
+          </div>
+        </div>
+        <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
+             style="background-color: #8b0000">
+          <img src="../../img/icons/org.chocolate-doom.demo.png" class="app-icon" alt="Chocolate Doom">
+          <div class="flex-fill ms-3 text-white">
+            <h5 class="card-title my-0">Chocolate Doom</h5>
+          </div>
+        </div>
+        <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
+             style="background-color: #000000">
+          <img src="../../img/icons/com.github.k4zmu2a.space-cadet-pinball.png" class="app-icon"
+               alt="3D Pinball: Space Cadet">
+          <div class="flex-fill ms-3 text-white">
+            <h5 class="card-title my-0">3D Pinball: Space Cadet</h5>
+          </div>
+        </div>
       </div>
     </div>
   </section>
+
   <hr>
-  <h2>Need Help?</h2>
+
+  <section id="get-started">
+    <h2>Get Started</h2>
+    <div class="row get-started">
+      <div class="col-12 col-md-6 mt-2">
+        <div class="card card-body border-0 rooted">
+          <img src="../../img/icon32.svg" width="48" height="48"
+               class="position-absolute bottom-0 end-0 me-2 mb-2 opacity-75" alt="webOS Homebrew"/>
+          <h5 class="card-title text-white">Root your TV</h5>
+          <p class="card-text">
+            Jailbreak your TV and install Homebrew Channel.
+            <br>
+            Gain more control over your TV.
+          </p>
+          <a class="stretched-link card-link link-secondary" href="https://www.webosbrew.org/rooting">
+            Read tutorial
+          </a>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 mt-2">
+        <div class="card card-body border-0 devmode">
+          <img src="../../img/devmode32.svg" width="48" height="48"
+               class="position-absolute bottom-0 end-0 me-2 mb-2 opacity-75" alt="Dev Mode"/>
+          <h5 class="card-title text-white">Install via Dev Mode</h5>
+          <p class="card-text">
+            Install apps and games via Developer Mode.
+            <br>
+            No root required.
+          </p>
+          <a class="stretched-link card-link link-secondary" href="https://www.webosbrew.org/rooting">
+            Read tutorial
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <hr>
-  <h2>Frequently Asked Questions</h2>
-  <h4>Is Installing Homebrew Safe?</h4>
-  <p>
-    Yes. Installing homebrew apps and games is safe, and won't void your TV's warranty.
-    <br>
-    However, although the process of rooting your TV is safe and reversible, you need
-    to be careful after rooting your TV. <br>
-    See <a href="https://rootmy.tv/warning">rootmy.tv/warning</a> for more information.
-  </p>
+
+  <section id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <h4>Is Installing Homebrew Safe?</h4>
+    <p>
+      Yes. Installing homebrew apps and games is safe, and won't void your TV's warranty.
+      <br>
+      However, although the process of rooting your TV is safe and reversible, you need
+      to be careful after rooting your TV. <br>
+      See <a href="https://rootmy.tv/warning">rootmy.tv/warning</a> for more information.
+    </p>
+    <hr>
+    <h4>I have XX.YY.ZZ firmware version. Can I root my TV?</h4>
+    <p>
+      Please check the <a href="https://www.webosbrew.org/rooting">rooting tutorial</a> for the supported firmware
+      versions.
+    </p>
+  </section>
+
   <hr>
-  <h4>I have XX.YY.ZZ firmware version. Can I root my TV?</h4>
-  <p>
-    Please check the <a href="https://www.webosbrew.org/rooting">rooting tutorial</a> for the supported firmware
-    versions.
-  </p>
-  <hr>
-  <h2>Contribute</h2>
+
+  <section id="contribute">
+    <h2>Contribute</h2>
+
+    <div class="row">
+      <div class="col-sm-6 col-lg-3 mt-3">
+        <div class="card card-body">
+          <i class="bi bi-discord"></i>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3 mt-3">
+        <div class="card card-body">
+          <i class="bi bi-discord"></i>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3 mt-3">
+        <div class="card card-body">
+          <i class="bi bi-discord"></i>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3 mt-3">
+        <div class="card card-body">
+          <i class="bi bi-discord"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
   <hr>
 </main>
 {{> footer }}
