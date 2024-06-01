@@ -38,6 +38,20 @@ tvCarousel.addEventListener('slide.bs.carousel', (e) => {
   let amblight = !!canvasSource;
   amblightCanvas.classList.toggle('active', amblight);
   tvScreen.classList.toggle('amblight', amblight);
+  let toVideo = toChild.querySelector('video');
+  if (toVideo) {
+    toVideo.currentTime = 0;
+    toVideo.play().catch(() => {
+    });
+  }
+});
+
+tvCarousel.addEventListener('slid.bs.carousel', (e) => {
+  let fromChild = carouselInner.children[e.from];
+  let fromVideo = fromChild.querySelector('video');
+  if (fromVideo) {
+    fromVideo.pause();
+  }
 });
 
 let amblightCtx = amblightCanvas.getContext('2d');
