@@ -9,36 +9,37 @@
 </head>
 <body data-bs-theme="dark">
 {{> navbar }}
-<main class="landing p-4">
-  <div class="headline px-2 py-4 d-flex flex-column align-items-center">
+<main class="landing">
+  <div class="headline bg-dark-subtle px-2 py-4 d-flex flex-column align-items-center">
     <div class="position-relative w-100 d-flex">
-      <div class="tv-container mx-auto">
-        <canvas class="tv-amblight z-n1" width="32" height="18"></canvas>
-        <div class="tv-screen">
-          <div id="tv-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel"
-               data-bs-interval="50000">
-            <div class="carousel-inner">
-              <div class="carousel-item active" data-item-id="hbchannel">
-                <img src="../../img/screenshots/hbchannel.png" class="d-block w-100" alt="Homebrew Channel">
-              </div>
-              <div class="carousel-item" data-item-id="retroarch">
-                <img src="../../img/screenshots/retroarch.png" class="d-block w-100" alt="RetroArch">
-              </div>
-              <div class="carousel-item" data-item-id="moonlight">
-                <img src="../../img/screenshots/moonlight.png" class="d-block w-100" alt="Moonlight">
-              </div>
-              <div class="carousel-item" data-item-id="kodi">
-                <img src="../../img/screenshots/kodi-recently-added.jpg" class="d-block w-100" alt="Kodi">
-              </div>
-              <div class="carousel-item" data-item-id="amblight">
-                <video src="../../img/screenshots/borealis.mp4" class="d-block w-100 amblight-src" muted loop
-                       preload="auto"></video>
+      <div class="position-relative mx-auto">
+        <canvas class="tv-amblight" width="32" height="18"></canvas>
+        <div class="tv-container mx-auto">
+          <div class="tv-screen">
+            <div id="tv-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel"
+                 data-bs-interval="50000">
+              <div class="carousel-inner">
+                <div class="carousel-item active" data-item-id="hbchannel">
+                  <img src="../../img/screenshots/hbchannel.png" class="d-block w-100" alt="Homebrew Channel">
+                </div>
+                <div class="carousel-item" data-item-id="retroarch">
+                  <img src="../../img/screenshots/retroarch.png" class="d-block w-100" alt="RetroArch">
+                </div>
+                <div class="carousel-item" data-item-id="moonlight">
+                  <img src="../../img/screenshots/moonlight.png" class="d-block w-100" alt="Moonlight">
+                </div>
+                <div class="carousel-item" data-item-id="kodi">
+                  <img src="../../img/screenshots/kodi-recently-added.jpg" class="d-block w-100" alt="Kodi">
+                </div>
+                <div class="carousel-item" data-item-id="amblight">
+                  <video src="../../img/screenshots/borealis.mp4" class="d-block w-100 amblight-src" muted loop
+                         preload="auto"></video>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
       <button class="carousel-control-prev d-none d-sm-block" type="button" data-bs-target="#tv-carousel"
               data-bs-slide="prev">
         <span class="carousel-control-prev-icon me-sm-5" aria-hidden="true"></span>
@@ -62,107 +63,134 @@
     </div>
   </div>
 
-  <hr>
+  <section id="apps" class="my-5 container-lg">
+    <h2 class="text-center">Apps &amp; Games</h2>
+    <div class="row mx-1 mx-lg-0">
+      <div class="apps-showcase col-12 mt-4 py-4 px-0 rounded-4 bg-dark-subtle position-relative">
+        <div class="marquee w-auto mt-3" data-mc-duration="60" role="marquee">
+          <div class="d-flex flex-row">
+            <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
+                 style="background-color: #cf0652">
+              <img src="../../img/app-icons/org.webosbrew.hbchannel.png" class="app-icon" alt="Homebrew Channel">
+              <a class="stretched-link text-decoration-none flex-fill ms-3 text-white"
+                 href="https://github.com/webosbrew/webos-homebrew-channel" target="_blank">
+                <h5 class="card-title my-0">Homebrew Channel</h5></a>
+            </div>
+            <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
+                 style="background-color: #ffffff">
+              <img src="../../img/app-icons/org.xbmc.kodi.png" class="app-icon" alt="Kodi">
+              <a class="stretched-link text-decoration-none flex-fill ms-3 text-black"
+                 href="https://kodi.tv/" target="_blank">
+                <h5 class="card-title my-0">Kodi</h5>
+              </a>
+            </div>
+            <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
+                 style="background-color: #000000">
+              <img src="../../img/app-icons/org.webosbrew.hyperion.ng.loader.png" class="app-icon" alt="Hyperion.NG">
+              <a class="stretched-link text-decoration-none flex-fill ms-3 text-white"
+                 href="https://hyperion-project.org/" target="_blank">
+                <h5 class="card-title my-0">Hyperion.NG</h5>
+              </a>
+            </div>
+            <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
+                 style="background-color: #ffb80d">
+              <img src="../../img/app-icons/org.webosbrew.vncserver.png" class="app-icon" alt="VNC Server">
+              <a class="stretched-link text-decoration-none flex-fill ms-3 text-black"
+                 href="https://github.com/Informatic/webos-vncserver" target="_blank">
+                <h5 class="card-title my-0">VNC Server</h5>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="marquee w-auto mt-3" data-mc-duration="60" data-mc-direction="ltr" role="marquee">
+          <div class="d-flex flex-row">
+            <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
+                 style="background-color: #ffffff">
+              <img src="../../img/app-icons/com.limelight.webos.png" class="app-icon" alt="Moonlight">
+              <a class="stretched-link text-decoration-none flex-fill ms-3 text-black"
+                 href="https://moonlight-stream.org/" target="_blank">
+                <h5 class="card-title my-0">Moonlight</h5>
+              </a>
+            </div>
+            <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
+                 style="background-color: #58598a">
+              <img src="../../img/app-icons/com.retroarch.png" class="app-icon" alt="RetroArch">
+              <a class="stretched-link text-decoration-none flex-fill ms-3 text-white"
+                 href="https://retroarch.com/" target="_blank">
+                <h5 class="card-title my-0">RetroArch</h5>
+              </a>
+            </div>
+            <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
+                 style="background-color: #8b0000">
+              <img src="../../img/app-icons/org.chocolate-doom.demo.png" class="app-icon" alt="Chocolate Doom">
+              <a class="stretched-link text-decoration-none flex-fill ms-3 text-white"
+                 href="https://www.chocolate-doom.org/" target="_blank">
+                <h5 class="card-title my-0">Chocolate Doom</h5>
+              </a>
+            </div>
+            <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
+                 style="background-color: #000000">
+              <img src="../../img/app-icons/com.github.k4zmu2a.space-cadet-pinball.png" class="app-icon"
+                   alt="3D Pinball: Space Cadet">
+              <a class="stretched-link text-decoration-none flex-fill ms-3 text-white"
+                 href="https://github.com/webosbrew/SpaceCadetPinball" target="_blank">
+                <h5 class="card-title my-0">3D Pinball: Space Cadet</h5>
+              </a>
+            </div>
+          </div>
+        </div>
 
-  <section id="apps">
-    <h2>Homebrew Apps &amp; Games</h2>
-    <p>
-      Install apps and games that are not available on the LG Content Store.
-    </p>
-    <div class="marquee vw-100 mt-3" data-mc-duration="60" role="marquee">
-      <div class="d-flex flex-row">
-        <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
-             style="background-color: #cf0652">
-          <img src="../../img/app-icons/org.webosbrew.hbchannel.png" class="app-icon" alt="Homebrew Channel">
-          <a class="stretched-link text-decoration-none flex-fill ms-3 text-white"
-             href="https://github.com/webosbrew/webos-homebrew-channel" target="_blank">
-            <h5 class="card-title my-0">Homebrew Channel</h5></a>
-        </div>
-        <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
-             style="background-color: #ffffff">
-          <img src="../../img/app-icons/org.xbmc.kodi.png" class="app-icon" alt="Kodi">
-          <a class="stretched-link text-decoration-none flex-fill ms-3 text-black"
-             href="https://kodi.tv/" target="_blank">
-            <h5 class="card-title my-0">Kodi</h5>
-          </a>
-        </div>
-        <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
-             style="background-color: #000000">
-          <img src="../../img/app-icons/org.webosbrew.hyperion.ng.loader.png" class="app-icon" alt="Hyperion.NG">
-          <a class="stretched-link text-decoration-none flex-fill ms-3 text-white"
-             href="https://hyperion-project.org/" target="_blank">
-            <h5 class="card-title my-0">Hyperion.NG</h5>
-          </a>
-        </div>
-        <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
-             style="background-color: #ffb80d">
-          <img src="../../img/app-icons/org.webosbrew.vncserver.png" class="app-icon" alt="VNC Server">
-          <a class="stretched-link text-decoration-none flex-fill ms-3 text-black"
-             href="https://github.com/Informatic/webos-vncserver" target="_blank">
-            <h5 class="card-title my-0">VNC Server</h5>
-          </a>
+        <h3 class="ps-4 position-absolute top-0 bottom-0 align-content-center pointer-events-none">
+          <img src="../../img/app-icons/org.xbmc.kodi.png" class="app-icon me-2"/>Kodi.
+          <br>
+          <img src="../../img/app-icons/com.limelight.webos.png" class="app-icon me-2"/>Moonlight.
+          <br>
+          <img src="../../img/app-icons/com.retroarch.png" class="app-icon me-2"/>RetroArch.
+          <br>
+          And ✨more✨.
+          <br>
+          We make them happen.
+        </h3>
+      </div>
+      <div class="col-md-6 mt-4 p-0">
+        <div class="rounded-4 p-4 me-md-2 bg-dark-subtle">
+          <h3>Open Source</h3>
         </div>
       </div>
-    </div>
-    <div class="marquee vw-100 mt-3" data-mc-duration="60" data-mc-direction="ltr" role="marquee">
-      <div class="d-flex flex-row">
-        <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
-             style="background-color: #ffffff">
-          <img src="../../img/app-icons/com.limelight.webos.png" class="app-icon" alt="Moonlight">
-          <a class="stretched-link text-decoration-none flex-fill ms-3 text-black"
-             href="https://moonlight-stream.org/" target="_blank">
-            <h5 class="card-title my-0">Moonlight</h5>
-          </a>
-        </div>
-        <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
-             style="background-color: #58598a">
-          <img src="../../img/app-icons/com.retroarch.png" class="app-icon" alt="RetroArch">
-          <a class="stretched-link text-decoration-none flex-fill ms-3 text-white"
-             href="https://retroarch.com/" target="_blank">
-            <h5 class="card-title my-0">RetroArch</h5>
-          </a>
-        </div>
-        <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
-             style="background-color: #8b0000">
-          <img src="../../img/app-icons/org.chocolate-doom.demo.png" class="app-icon" alt="Chocolate Doom">
-          <a class="stretched-link text-decoration-none flex-fill ms-3 text-white"
-             href="https://www.chocolate-doom.org/" target="_blank">
-            <h5 class="card-title my-0">Chocolate Doom</h5>
-          </a>
-        </div>
-        <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
-             style="background-color: #000000">
-          <img src="../../img/app-icons/com.github.k4zmu2a.space-cadet-pinball.png" class="app-icon"
-               alt="3D Pinball: Space Cadet">
-          <a class="stretched-link text-decoration-none flex-fill ms-3 text-white"
-             href="https://github.com/webosbrew/SpaceCadetPinball" target="_blank">
-            <h5 class="card-title my-0">3D Pinball: Space Cadet</h5>
-          </a>
+      <div class="col-md-6 mt-4 p-0">
+        <div class="rounded-4 p-4 ms-md-2 bg-dark-subtle">
+          <h3>Can't root?<br>
+            Outdated model?<br>
+            Gotta support'em all*.
+          </h3>
+          <small>*Some apps require root or newer system version.</small>
         </div>
       </div>
     </div>
   </section>
 
-  <hr>
+  <div class="py-3 bg-dark-subtle"></div>
 
-  <section id="mods">
-    <h2>Gain More Control*</h2>
-    <p>
-      Custom screen savers, classic launcher UI, privacy tweaks, and more.
-    </p>
+  <section id="mods" class="container-lg my-5">
+    <h2 class="text-center">Gain More Control*</h2>
+    <div class="row mx-1 mx-lg-0">
+    </div>
     <small>*Mods are available for rooted TVs only.</small>
   </section>
 
-  <hr>
+  <div class="py-3 bg-dark-subtle"></div>
 
-  <section id="get-started">
-    <h2>Get Started</h2>
-    <p>
-      Choose the method that suits you best. Read the tutorials carefully before proceeding.
-    </p>
-    <div class="row get-started">
-      <div class="col-12 col-md-6 mt-2">
-        <div class="card card-body border-0 rooted">
+  <section id="community" class="container-lg my-5">
+    <h2 class="text-center">Powered by the Community</h2>
+  </section>
+
+  <div class="py-3 bg-dark-subtle"></div>
+
+  <section id="get-started" class="my-5 container-lg">
+    <h2 class="text-center">Get Started</h2>
+    <div class="row mx-1 mx-lg-0">
+      <div class="col-md-6 mt-4 p-0">
+        <div class="position-relative rounded-4 p-4 me-md-2 bg-hbchannel">
           <img src="../../img/icon32.svg" width="48" height="48"
                class="position-absolute bottom-0 end-0 me-2 mb-2 opacity-75" alt="webOS Homebrew"/>
           <h5 class="card-title text-white">Root your TV</h5>
@@ -176,8 +204,8 @@
           </a>
         </div>
       </div>
-      <div class="col-12 col-md-6 mt-2">
-        <div class="card card-body border-0 devmode">
+      <div class="col-md-6 mt-4 p-0">
+        <div class="position-relative rounded-4 p-4 ms-md-2 bg-devmode">
           <img src="../../img/devmode32.svg" width="48" height="48"
                class="position-absolute bottom-0 end-0 me-2 mb-2 opacity-75" alt="Dev Mode"/>
           <h5 class="card-title text-white">Install via Dev Mode</h5>
@@ -194,49 +222,35 @@
     </div>
   </section>
 
-  <hr>
+  <div class="py-3 bg-dark-subtle"></div>
 
-  <section id="faq">
-    <h2>Frequently Asked Questions</h2>
-    <h4>Is Installing Homebrew Safe?</h4>
-    <p>
-      Yes. Installing homebrew apps and games is safe, and won't void your TV's warranty.
-      <br>
-      However, although the process of rooting your TV is safe and reversible, you need
-      to be careful after rooting your TV. <br>
-      See <a href="https://rootmy.tv/warning">rootmy.tv/warning</a> for more information.
-    </p>
-    <hr>
-    <h4>I have XX.YY.ZZ firmware version. Can I root my TV?</h4>
-    <p>
-      Please check the <a href="https://www.webosbrew.org/rooting">rooting tutorial</a> for the supported firmware
-      versions.
-    </p>
+  <section id="devman" class="container-lg my-5">
+    TODO: Banner featuring Dev Manager
   </section>
 
-  <hr>
+  <div class="py-3 bg-dark-subtle"></div>
 
-  <section id="contribute">
+  <section id="contribute" class="container-lg my-5">
     <h2>Contribute</h2>
 
-    <div class="row">
+    <div class="row mx-1 mx-lg-0">
       <div class="col-sm-6 col-lg-3 mt-3">
-        <div class="card card-body">
+        <div class="card card-body rounded-4 bg-dark-subtle">
           <i class="bi bi-discord"></i>
         </div>
       </div>
       <div class="col-sm-6 col-lg-3 mt-3">
-        <div class="card card-body">
+        <div class="card card-body rounded-4 bg-dark-subtle">
+          <i class="bi bi-github"></i>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3 mt-3">
+        <div class="card card-body rounded-4 bg-dark-subtle">
           <i class="bi bi-discord"></i>
         </div>
       </div>
       <div class="col-sm-6 col-lg-3 mt-3">
-        <div class="card card-body">
-          <i class="bi bi-discord"></i>
-        </div>
-      </div>
-      <div class="col-sm-6 col-lg-3 mt-3">
-        <div class="card card-body">
+        <div class="card card-body rounded-4 bg-dark-subtle">
           <i class="bi bi-discord"></i>
         </div>
       </div>
@@ -244,7 +258,6 @@
   </section>
 
 
-  <hr>
 </main>
 {{> footer }}
 <script src="index.js"></script>
