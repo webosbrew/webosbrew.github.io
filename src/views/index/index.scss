@@ -1,4 +1,5 @@
 @import "../../scss/styles";
+@import "bootstrap/scss/variables";
 
 html {
   scroll-padding-top: 65px;
@@ -178,12 +179,24 @@ html {
   pointer-events: none;
 }
 
-.aspect-ratio-lg-1 {
-  @include media-breakpoint-up(lg) {
-    border-radius: var(--bs-border-radius-xxl);
+.aspect-ratio-3by2 {
+  aspect-ratio: 3/2;
+}
+
+.aspect-ratio-md-3by2 {
+  @include media-breakpoint-up(md) {
+    aspect-ratio: 3/2;
   }
 }
 
-.aspect-ratio-3by2 {
-  aspect-ratio: 3/2;
+.text-discord {
+  color: #5865F2;
+}
+
+.text-amber-500 {
+  color: $yellow-500;
+}
+
+.text-pink-500 {
+  color: $pink-500;
 }
