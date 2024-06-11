@@ -4,6 +4,20 @@ html {
   scroll-padding-top: 65px;
 }
 
+
+.tv-container {
+  position: relative;
+
+  .tv-screen {
+    border-radius: 0.5%;
+    padding: 0.4% 0.4% 0.6%;
+
+    background: linear-gradient(135deg, #202020, #151515 30%, #151515);
+    background-clip: padding-box;
+    box-sizing: content-box;
+  }
+}
+
 .headline {
   .feature {
     display: none;
@@ -27,10 +41,6 @@ html {
     color: #c30036;
   }
 
-  .tv-container {
-    position: relative;
-  }
-
   .tv-amblight {
     position: absolute;
     width: 100%;
@@ -50,15 +60,9 @@ html {
 
   .tv-screen {
     width: 85vw;
-    border-radius: 0.4%;
-    padding: 0.3% 0.3% 0.5%;
 
     box-shadow: 0.7vw 1vw 1.2vw rgba(0, 0, 0, 0.3);
     transition: box-shadow 0.5s ease-in-out;
-
-    background: linear-gradient(135deg, #222, #111);
-    background-clip: padding-box;
-    box-sizing: content-box;
 
     &.amblight {
       box-shadow: none;
@@ -172,4 +176,14 @@ html {
 
 .pointer-events-none {
   pointer-events: none;
+}
+
+.aspect-ratio-lg-1 {
+  @include media-breakpoint-up(lg) {
+    border-radius: var(--bs-border-radius-xxl);
+  }
+}
+
+.aspect-ratio-3by2 {
+  aspect-ratio: 3/2;
 }
