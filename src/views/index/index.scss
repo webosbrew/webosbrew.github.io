@@ -120,6 +120,10 @@ html {
   background-image: linear-gradient(135deg, rgb(129, 18, 19), rgb(145, 32, 33), rgb(187, 62, 63));
 }
 
+.bg-devman {
+  background-image: linear-gradient(135deg, rgb(2, 116, 167) 30%, rgb(2, 133, 193) 55%, rgb(3, 169, 244));
+}
+
 .marquee {
   overflow: hidden;
   position: relative;
@@ -199,4 +203,8 @@ html {
 
 .text-pink-500 {
   color: $pink-500;
+}
+
+.devman-screenshot {
+  margin-bottom: -10%;
 }

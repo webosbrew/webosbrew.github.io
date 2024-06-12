@@ -2,7 +2,10 @@
 
 const path = require('path');
 const HtmlBundlerPlugin = require('html-bundler-webpack-plugin');
-const { FaviconsBundlerPlugin } = require('html-bundler-webpack-plugin/plugins');
+const {FaviconsBundlerPlugin} = require('html-bundler-webpack-plugin/plugins');
+const {SafeString} = require('handlebars');
+const marked = require('marked');
+const markedAlert = require("marked-alert");
 
 module.exports = {
   mode: 'development',
@@ -17,13 +20,41 @@ module.exports = {
         index: {
           import: './src/views/index/index.hbs',
         },
+        rooting: {
+          import: './src/views/page/page.hbs',
+          filename: 'rooting/index.html',
+          data: {
+            title: 'Rooting',
+            page: 'src/pages/rooting.md'
+          }
+        },
+        devmode: {
+          import: './src/views/page/page.hbs',
+          filename: 'devmode/index.html',
+          data: {
+            title: 'Developer Mode',
+            page: 'src/pages/devmode.md'
+          }
+        }
       },
       preprocessor: 'handlebars',
       preprocessorOptions: {
-        root: 'src/views',
+        root: 'src',
         partials: [
           'src/views/partials'
-        ]
+        ],
+        helpers: {
+          'markdown': (string) => {
+            let html = marked.use(markedAlert({
+              className: 'alert',
+            })).parse(typeof string === 'string' ? string : string.string, {
+              async: false,
+              gfm: true,
+              breaks: false,
+            });
+            return new SafeString(html);
+          },
+        }
       },
       loaderOptions: {
         sources: [{

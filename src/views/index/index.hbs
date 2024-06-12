@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Home | webOS Homebrew</title>
   <link href="index.scss" rel="stylesheet">
-  <link href="../../img/hbchannel-color.svg" type="image/svg" rel="icon">
+  <link href="@img/hbchannel-color.svg" type="image/svg" rel="icon">
 </head>
 <body data-bs-theme="dark">
 {{> navbar }}
@@ -142,11 +142,11 @@
           </div>
 
           <h3 class="ps-4 position-absolute top-0 bottom-0 align-content-center pointer-events-none">
-            <img src="../../img/app-icons/org.xbmc.kodi.png" class="app-icon me-2"/>Kodi
+            <img src="../../img/app-icons/org.xbmc.kodi.png" class="app-icon me-2" alt="Kodi icon"/>Kodi
             <br>
-            <img src="../../img/app-icons/com.limelight.webos.png" class="app-icon me-2"/>Moonlight
+            <img src="../../img/app-icons/com.limelight.webos.png" class="app-icon me-2" alt="Moonlight icon"/>Moonlight
             <br>
-            <img src="../../img/app-icons/com.retroarch.png" class="app-icon me-2"/>RetroArch
+            <img src="../../img/app-icons/com.retroarch.png" class="app-icon me-2" alt="RetroArch icon"/>RetroArch
             <br>
             And ✨more✨
             <br>
@@ -169,9 +169,9 @@
           <h3 class="card-title">
             Setup with a few steps,<br>
             safe and simple.<br>
-            <a class="text-decoration-none stretched-link" href="#get-started">Get started<i
-                class="bi bi-chevron-double-right small"></i></a>
           </h3>
+          <a class="text-decoration-none text-primary-emphasis stretched-link h4" href="#get-started">Get started<i
+              class="bi bi-chevron-double-right small"></i></a>
         </div>
       </div>
     </div>
@@ -182,19 +182,19 @@
   <section id="mods" class="container-lg py-5">
     <h2 class="text-center">Gain More Control</h2>
     <div class="row g-3 mt-5">
-      <div class="col-md-6 aspect-ratio-3by2">
+      <div class="col-sm-6 aspect-ratio-3by2">
         <div
             class="card border-0 rounded-4 h-100 bg-dark-subtle d-flex flex-column justify-content-end overflow-hidden">
-          <img class="card-img-top object-fit-contain" src="../../img/screenshots/aerial-screensaver.png"
+          <img class="card-img-top object-fit-cover" src="../../img/screenshots/aerial-screensaver.png"
                alt="Screensaver"/>
-          <div class="card-body p-4">
+          <div class="card-body px-4">
             <h3 class="card-title">Screensavers</h3>
           </div>
         </div>
       </div>
-      <div class="col-md-6 aspect-ratio-3by2">
+      <div class="col-sm-6 aspect-ratio-3by2">
         <div class="card border-0 rounded-4 h-100 bg-dark-subtle overflow-hidden">
-          <img class="card-img object-fit-contain" src="../../img/photos/amblight-setup.jpg" alt="Amblight setup"/>
+          <img class="card-img object-fit-cover" src="../../img/photos/amblight-setup.jpg" alt="Amblight setup"/>
           <div class="card-img-overlay p-4">
             <h3 class="card-title">Ambient light</h3>
           </div>
@@ -204,12 +204,6 @@
     <div class="mt-2">
       <small class="text-body-tertiary">Mods are available for rooted TVs only.</small>
     </div>
-  </section>
-
-  <div class="py-3 bg-dark-subtle"></div>
-
-  <section id="community" class="container-lg py-5">
-    <h2 class="text-center">Powered by the Community</h2>
   </section>
 
   <div class="py-3 bg-dark-subtle"></div>
@@ -227,7 +221,7 @@
             <br>
             Gain more control over your TV.
           </p>
-          <a class="stretched-link card-link text-white-50" href="https://www.webosbrew.org/rooting">
+          <a class="stretched-link card-link text-white-50" href="/rooting">
             Read tutorial
           </a>
         </div>
@@ -242,7 +236,7 @@
             <br>
             No root required.
           </p>
-          <a class="stretched-link card-link text-white-50" href="https://www.webosbrew.org/rooting">
+          <a class="stretched-link card-link text-white-50" href="/devmode">
             Read tutorial
           </a>
         </div>
@@ -253,7 +247,17 @@
   <div class="py-3 bg-dark-subtle"></div>
 
   <section id="devman" class="container-lg py-5">
-    TODO: Banner featuring Dev Manager
+    <div class="card border-0 rounded-4 p-4 bg-devman overflow-hidden">
+      <div class="row mx-0">
+        <div class="col-md-6 ps-0 pe-0 pe-md-3 pb-4">
+          <h3 class="card-title">Manage your TV with your computer and smartphone</h3>
+          <a class="stretched-link text-decoration-none h4 opacity-75"
+             href="https://github.com/webosbrew/dev-manager-desktop">
+            More info<i class="bi bi-chevron-double-right small"></i></a>
+        </div>
+        <img class="col-md-6 devman-screenshot" src="../../img/screenshots/devman.png" alt="DevMan for webOS"/>
+      </div>
+    </div>
   </section>
 
   <div class="py-3 bg-dark-subtle"></div>
