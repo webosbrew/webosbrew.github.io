@@ -3,9 +3,6 @@
 const path = require('path');
 const HtmlBundlerPlugin = require('html-bundler-webpack-plugin');
 const {FaviconsBundlerPlugin} = require('html-bundler-webpack-plugin/plugins');
-const {SafeString} = require('handlebars');
-const marked = require('marked');
-const markedAlert = require("marked-alert");
 
 module.exports = {
   mode: 'development',
@@ -21,21 +18,17 @@ module.exports = {
           import: './src/views/index/index.hbs',
         },
         rooting: {
-          import: './src/views/page/page.hbs',
+          import: './src/views/rooting.hbs',
           filename: 'rooting/index.html',
-          data: {
-            title: 'Rooting',
-            page: 'src/pages/rooting.md'
-          }
         },
         devmode: {
-          import: './src/views/page/page.hbs',
+          import: './src/views/devmode.hbs',
           filename: 'devmode/index.html',
-          data: {
-            title: 'Developer Mode',
-            page: 'src/pages/devmode.md'
-          }
-        }
+        },
+        develop: {
+          import: './src/views/develop.hbs',
+          filename: 'develop/index.html',
+        },
       },
       preprocessor: 'handlebars',
       preprocessorOptions: {
@@ -43,24 +36,13 @@ module.exports = {
         partials: [
           'src/views/partials'
         ],
-        helpers: {
-          'markdown': (string) => {
-            let html = marked.use(markedAlert({
-              className: 'alert',
-            })).parse(typeof string === 'string' ? string : string.string, {
-              async: false,
-              gfm: true,
-              breaks: false,
-            });
-            return new SafeString(html);
-          },
-        }
       },
       loaderOptions: {
         sources: [{
           tag: 'span', attributes: ['data-img-src', 'data-amblight-src']
         }]
       },
+      hotUpdate: true,
       js: {
         // JS output filename, used if `inline` option is false (defaults)
         filename: 'js/[name].[contenthash:8].js',
@@ -100,6 +82,7 @@ module.exports = {
   resolve: {
     alias: {
       '@img': path.resolve(__dirname, 'src/img'),
+      '@styles': path.resolve(__dirname, 'src/scss'),
     }
   }
 }

@@ -27,8 +27,6 @@
     "handlebars": "^4.7.8",
     "html-bundler-webpack-plugin": "^3.13.0",
     "html-loader": "^5.0.0",
-    "marked": "^13.0.0",
-    "marked-alert": "^2.0.1",
     "postcss-loader": "^8.1.1",
     "sass": "^1.76.0",
     "sass-loader": "^14.2.1",
