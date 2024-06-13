@@ -13,28 +13,19 @@ module.exports = {
   },
   plugins: [
     new HtmlBundlerPlugin({
-      entry: {
-        index: {
-          import: './src/views/index/index.hbs',
-        },
-        rooting: {
-          import: './src/views/rooting.hbs',
-          filename: 'rooting/index.html',
-        },
-        devmode: {
-          import: './src/views/devmode.hbs',
-          filename: 'devmode/index.html',
-        },
-        develop: {
-          import: './src/views/develop.hbs',
-          filename: 'develop/index.html',
-        },
+      entry: 'src/views/',
+      test: /\.(html|hbs)$/,
+      filename: ({filename, chunk: {name}}) => {
+        if (name.startsWith(`index${path.sep}`)) {
+          return 'index.html';
+        }
+        return '[name]/index.html';
       },
       preprocessor: 'handlebars',
       preprocessorOptions: {
         root: 'src',
         partials: [
-          'src/views/partials'
+          'src/partials'
         ],
       },
       loaderOptions: {

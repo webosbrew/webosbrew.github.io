@@ -54,10 +54,10 @@
     <div class="mt-4 text-end">
       <h2 class="headline-title fw-light text-nowrap">
         <span class="feature hbchannel active">More apps</span>
-        <span class="feature kodi">Kodi</span>
-        <span class="feature retroarch">RetroArch</span>
-        <span class="feature moonlight">Moonlight</span>
-        <span class="feature amblight">Ambient light</span>
+        <span class="feature kodi" translate="no">Kodi</span>
+        <span class="feature retroarch" translate="no">RetroArch</span>
+        <span class="feature moonlight" translate="no">Moonlight</span>
+        <span class="feature amblight" translate="no">Ambient light</span>
         for <span class="webos web">web</span><span class="webos os">OS</span> TV
       </h2>
     </div>
@@ -68,7 +68,7 @@
     <div class="row g-3 mt-5">
       <div class="apps-showcase col-12">
         <div class="py-4 px-0 rounded-4 bg-dark-subtle position-relative">
-          <div class="marquee w-auto mt-3" data-mc-duration="60" role="marquee">
+          <div class="marquee w-auto mt-3" data-mc-duration="60" role="marquee" translate="no">
             <div class="d-flex flex-row">
               <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
                    style="background-color: #cf0652">
@@ -103,7 +103,7 @@
               </div>
             </div>
           </div>
-          <div class="marquee w-auto mt-3" data-mc-duration="60" data-mc-direction="ltr" role="marquee">
+          <div class="marquee w-auto mt-3" data-mc-duration="60" data-mc-direction="ltr" role="marquee" translate="no">
             <div class="d-flex flex-row">
               <div class="card app-item d-flex flex-row mx-2 p-3 border-0 align-items-center"
                    style="background-color: #ffffff">
@@ -142,11 +142,13 @@
           </div>
 
           <h3 class="ps-4 position-absolute top-0 bottom-0 align-content-center pointer-events-none">
-            <img src="../../img/app-icons/org.xbmc.kodi.png" class="app-icon me-2" alt="Kodi icon"/>Kodi
+            <img src="../../img/app-icons/org.xbmc.kodi.png" class="app-icon me-2" alt="Kodi icon"/><span
+              translate="no">Kodi</span> <br>
+            <img src="../../img/app-icons/com.limelight.webos.png" class="app-icon me-2" alt="Moonlight icon"/><span
+              translate="no">Moonlight</span>
             <br>
-            <img src="../../img/app-icons/com.limelight.webos.png" class="app-icon me-2" alt="Moonlight icon"/>Moonlight
-            <br>
-            <img src="../../img/app-icons/com.retroarch.png" class="app-icon me-2" alt="RetroArch icon"/>RetroArch
+            <img src="../../img/app-icons/com.retroarch.png" class="app-icon me-2" alt="RetroArch icon"/><span
+              translate="no">RetroArch</span>
             <br>
             And ✨more✨
             <br>
@@ -289,7 +291,7 @@
       <div class="col-sm-6 col-md-3">
         <div class="card card-body rounded-4 bg-dark-subtle h-100">
           <i class="bi bi-heart-fill text-pink-500"></i>
-          <div>Donate</div>
+          <a class="stretched-link text-light text-decoration-none" href="/donate">Donate</a>
         </div>
       </div>
     </div>
