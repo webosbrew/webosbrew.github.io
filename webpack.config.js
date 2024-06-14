@@ -63,12 +63,20 @@ module.exports = {
       },
       // images
       {
-        test: /\.(png|svg|jpe?g|webp|mp4)$/i,
+        test: /\.(png|svg|jpe?g|webp)$/i,
         type: 'asset/resource',
         generator: {
           filename: 'img/[name].[hash:8][ext]',
         },
       },
+      // videos
+      {
+        test: /\.(mp4)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'video/[name].[hash:8][ext]',
+        },
+      }
     ],
   },
 }
