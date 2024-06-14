@@ -16,10 +16,13 @@ module.exports = {
       entry: 'src/views/',
       test: /\.(html|hbs)$/,
       filename: ({filename, chunk: {name}}) => {
-        if (name.startsWith(`index${path.sep}`)) {
+        let segs = name.split(path.sep);
+        if (segs[0] === 'index') {
           return 'index.html';
+        } else if (segs[segs.length - 1] === 'index') {
+          segs.pop();
         }
-        return '[name]/index.html';
+        return `${segs.join('/')}/index.html`;
       },
       preprocessor: 'handlebars',
       preprocessorOptions: {
