@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{title}} | webOS Homebrew</title>
-  <link href="@styles/styles.scss" rel="stylesheet">
-  <link href="@img/hbchannel-color.svg" type="image/svg" rel="icon">
+  <link href="/scss/styles.scss" rel="stylesheet">
+  <link href="/img/hbchannel-color.svg" type="image/svg" rel="icon">
 </head>
 <body data-bs-theme="dark">
 {{> navbar }}
@@ -16,7 +16,5 @@
 </main>
 {{> footer }}
 </body>
-{{#script}}
-  <script src="{{this}}"></script>
-{{/script}}
+<script src="/js/page.js"></script>
 </html>

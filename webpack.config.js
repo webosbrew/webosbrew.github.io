@@ -32,9 +32,7 @@ module.exports = {
         ],
       },
       loaderOptions: {
-        sources: [{
-          tag: 'span', attributes: ['data-img-src', 'data-amblight-src']
-        }]
+        root: path.join(__dirname, 'src'),
       },
       hotUpdate: true,
       js: {
@@ -73,10 +71,4 @@ module.exports = {
       },
     ],
   },
-  resolve: {
-    alias: {
-      '@img': path.resolve(__dirname, 'src/img'),
-      '@styles': path.resolve(__dirname, 'src/scss'),
-    }
-  }
 }
