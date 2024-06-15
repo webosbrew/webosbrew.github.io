@@ -3,6 +3,7 @@
 const path = require('path');
 const HtmlBundlerPlugin = require('html-bundler-webpack-plugin');
 const {FaviconsBundlerPlugin} = require('html-bundler-webpack-plugin/plugins');
+const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
 module.exports = {
   mode: 'development',
@@ -68,6 +69,60 @@ module.exports = {
         generator: {
           filename: 'img/[name].[hash:8][ext]',
         },
+        use: [
+          {
+            loader: ImageMinimizerPlugin.loader,
+            options: {
+              minimizer: [
+                {
+                  // resize works only with `sharpMinify`
+                  implementation: ImageMinimizerPlugin.imageminMinify,
+                  options: {
+                    plugins: [
+                      "imagemin-mozjpeg",
+                      "imagemin-pngquant",
+                    ],
+                  },
+                },
+                {
+                  implementation: ImageMinimizerPlugin.svgoMinify,
+                  options: {
+                    encodeOptions: {
+                      // Pass over SVGs multiple times to ensure all optimizations are applied. False by default
+                      multipass: true,
+                      plugins: [
+                        {
+                          name: "preset-default",
+                          params: {
+                            overrides: {
+                              removeViewBox: false,
+                              addAttributesToSVGElement: {
+                                params: {
+                                  attributes: [{xmlns: "http://www.w3.org/2000/svg"}],
+                                },
+                              },
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  }
+                }
+              ],
+              generator: [
+                {
+                  // You can apply generator using `?as=webp`, you can use any name and provide more options
+                  preset: "webp",
+                  implementation: ImageMinimizerPlugin.imageminGenerate,
+                  options: {
+                    // Please specify only one plugin here, multiple plugins will not work
+                    plugins: ["imagemin-webp"],
+                  },
+                }
+              ],
+            }
+          }
+        ]
       },
       // videos
       {
