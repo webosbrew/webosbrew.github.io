@@ -64,11 +64,16 @@ module.exports = {
       },
       // images
       {
-        test: /\.(png|svg|jpe?g|webp)$/i,
-        type: 'asset/resource',
-        generator: {
-          filename: 'img/[name].[hash:8][ext]',
-        },
+        oneOf: [
+          {
+            test: /\.(jpe?g|png|webp)$/i,
+            type: "asset/resource",
+            generator: {
+              filename: 'img/[name].[hash:8][ext]',
+            }
+          },
+          {test: /\.(svg)$/i, type: "asset/inline"},
+        ],
         use: [
           {
             loader: ImageMinimizerPlugin.loader,
