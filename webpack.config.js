@@ -16,7 +16,7 @@ module.exports = {
     new HtmlBundlerPlugin({
       entry: 'src/views/',
       test: /\.(html|hbs)$/,
-      filename: ({filename, chunk: {name}}) => {
+      filename: ({chunk: {name}}) => {
         let segs = name.split(path.sep);
         if (segs[0] === 'index') {
           return 'index.html';
@@ -96,18 +96,17 @@ module.exports = {
                           params: {
                             overrides: {
                               removeViewBox: false,
-                              addAttributesToSVGElement: {
-                                params: {
-                                  attributes: [{xmlns: "http://www.w3.org/2000/svg"}],
-                                },
-                              },
                             },
                           },
                         },
+                        {
+                          name: 'addAttributesToSVGElement',
+                          params: {attributes: [{xmlns: "http://www.w3.org/2000/svg"}]}
+                        },
                       ],
                     },
-                  }
-                }
+                  },
+                },
               ],
               generator: [
                 {
