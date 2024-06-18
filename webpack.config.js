@@ -54,6 +54,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.ts$/,
+        use: 'ts-loader',
+      },
+      {
         test: /\.(css|sass|scss)$/,
         use: ['css-loader', 'sass-loader'],
       },
