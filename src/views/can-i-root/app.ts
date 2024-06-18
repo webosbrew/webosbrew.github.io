@@ -90,7 +90,7 @@ class App extends Component<AppProps, AppState> {
               const patched = (avail?.patched && firmware && firmware >= avail.patched.version) || false;
               return avail && html`
                 <div class=${`card p-3 mt-3 ${patched ? 'bg-danger-subtle' : 'bg-success-subtle'}`}>
-                  <h3><i class="bi ${patched ? 'bi-sign-stop-fill' : 'bi-hand-thumbs-up-fill'}"/> ${exploit.name}</h3>
+                  <h3><i class="bi ${patched ? 'bi-exclamation-octagon-fill' : 'bi-hand-thumbs-up-fill'}"/> ${exploit.name}</h3>
                   ${avail.latest && html`
                     <div>
                       <i class="bi bi-info-circle-fill me-2"/>Latest known working firmware: <b>${avail.latest?.version}
