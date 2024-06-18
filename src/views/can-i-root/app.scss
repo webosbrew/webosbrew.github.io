@@ -14,8 +14,13 @@ h1.rootmytv {
   text-shadow: 0 0 3px #d4ffff, 0 0 3px #d4ffff, 0 0 3px #d4ffff, 0 0 1em #0bb6be, 0 0 0.2em #0bb6be;
 
   & {
-    @include media-breakpoint-up(sm) {
+    @include media-breakpoint-up(xs) {
       font-size: 2em;
+    }
+  }
+  & {
+    @include media-breakpoint-up(sm) {
+      font-size: 2.5em;
     }
   }
   & {
