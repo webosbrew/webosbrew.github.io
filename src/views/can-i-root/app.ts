@@ -31,7 +31,7 @@ function parseSearchTerm(q?: string): SearchTerm | undefined {
 interface ExploitMethod {
     name: string;
     key: keyof DeviceExploitAvailabilities;
-    url:string;
+    url: string;
     expert?: boolean;
 }
 
@@ -88,13 +88,17 @@ class App extends Component<AppProps, AppState> {
               const avail = state.availability?.[exploit.key];
               const firmware = state.term?.firmware ?? avail?.patched?.version;
               const patched = (avail?.patched && firmware && firmware >= avail.patched.version) || false;
+              const mayPatched = !patched && (avail?.latest && firmware && firmware > avail.latest.version) || false;
+              const bgClass = patched ? 'bg-danger-subtle' : mayPatched ? 'bg-warning-subtle' : 'bg-success-subtle';
+              const iconClass = patched ? 'bi-exclamation-octagon-fill' : mayPatched ?
+                  'bi-question-octagon-fill' : 'bi-hand-thumbs-up-fill';
               return avail && html`
-                <div class=${`card p-3 mt-3 ${patched ? 'bg-danger-subtle' : 'bg-success-subtle'}`}>
-                  <h3><i class="bi ${patched ? 'bi-exclamation-octagon-fill' : 'bi-hand-thumbs-up-fill'}"/> ${exploit.name}</h3>
+                <div class=${`card p-3 mt-3 ${bgClass}`}>
+                  <h3><i class="bi ${iconClass}"/> ${exploit.name}</h3>
                   ${avail.latest && html`
                     <div>
                       <i class="bi bi-info-circle-fill me-2"/>Latest known working firmware: <b>${avail.latest?.version}
-                    </b>
+                    </b>${mayPatched && state.term?.firmware && html` (you have <b>${state.term.firmware}</b>)`}
                     </div>
                   `}
                   ${avail.patched && html`
