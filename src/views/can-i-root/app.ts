@@ -70,14 +70,14 @@ class App extends Component<AppProps, AppState> {
                    onInput=${(e: TargetedInputEvent<HTMLInputElement>) => this.searchChanged(e.currentTarget.value)}/>
             ${state.term && (state.model ?
                     html`
-                      <div class="alert alert-success mt-3" role="alert">Found device ${state.model.otaId}, broadcast
-                        region
-                        <span> ${state.model.broadcast}</span>
-                      </div>` :
+                      <div class="alert alert-success mt-3" role="alert">Found otaId <code>${state.model.otaId}</code>, 
+                        broadcast <code>${state.model.broadcast}</code>, region <code>${state.model.region}</code>
+                      </div>
+                      <hr/>` :
                     html`
-                      <div class="alert alert-warning mt-3" role="alert">Device not found!</div>`
-            ) && html`
-              <hr/>`}
+                      <div class="alert alert-warning mt-3" role="alert">Device not found!</div>
+                      <hr/>`
+            )}
 
             ${this.exploits.map(exploit => {
               const avail = state.availability?.[exploit.key];
