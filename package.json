@@ -1,13 +1,9 @@
 {
-  "name": "webpack",
-  "description": "Include Bootstrap's source Sass and individual JavaScript plugins with Webpack.",
+  "name": "www.webosbrew.org",
+  "description": "Front page for webOS Homebrew Project",
   "version": "0.0.0",
   "private": true,
-  "repository": "twbs/examples",
   "license": "MIT",
-  "stackblitz": {
-    "startCommand": "npm start"
-  },
   "scripts": {
     "start": "webpack serve",
     "build": "webpack build --mode=production",
@@ -26,8 +22,11 @@
     "preact": "^10.22.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
     "@types/lodash-es": "^4.17.12",
     "autoprefixer": "^10.4.19",
+    "babel-loader": "^9.1.3",
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^7.1.1",
     "handlebars": "^4.7.8",

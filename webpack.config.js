@@ -5,6 +5,9 @@ const HtmlBundlerPlugin = require('html-bundler-webpack-plugin');
 const {FaviconsBundlerPlugin} = require('html-bundler-webpack-plugin/plugins');
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
+/**
+ * @type {import('webpack').Configuration}
+ */
 module.exports = {
   mode: 'development',
   devServer: {
@@ -54,6 +57,15 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /.m?js$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          }
+        }
+      },
+      {
         test: /\.ts$/,
         use: 'ts-loader',
       },
@@ -65,6 +77,9 @@ module.exports = {
       {
         test: /\.woff2?$/,
         type: "asset/resource",
+        generator: {
+          filename: 'fonts/[name].[hash:8][ext]',
+        },
       },
       // images
       {
@@ -142,4 +157,5 @@ module.exports = {
       }
     ],
   },
-}
+  target: ["web", "es5"]
+};

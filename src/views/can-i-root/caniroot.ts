@@ -23,7 +23,7 @@ interface SearchTerm {
 
 function parseSearchTerm(q?: string): SearchTerm | undefined {
     if (!q) return undefined;
-    const model = q.match(/[A-Z0-9-]{4,12}(?:\.[A-Z0-9]{2,4})?/)?.[0]?.toUpperCase();
+    const model = q.match(/[A-Z0-9-]{4,12}(?:\.[A-Z0-9]{2,4})?/i)?.[0]?.toUpperCase();
     const firmware = q.match(/\d{2}\.\d{2}\.\d{2}/)?.[0];
     return {q, model, firmware};
 }
