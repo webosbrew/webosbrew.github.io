@@ -17,24 +17,18 @@ h1.rootmytv {
     @include media-breakpoint-up(xs) {
       font-size: 2em;
     }
-  }
-  & {
     @include media-breakpoint-up(sm) {
       font-size: 2.5em;
     }
-  }
-  & {
     @include media-breakpoint-up(md) {
       font-size: 3em;
     }
-  }
-  & {
     @include media-breakpoint-up(lg) {
       font-size: 4em;
     }
   }
 
-  sup {
+  span.question {
     text-shadow: 0 0 2px white, 0 0 2px white, 0 0 0.4em #731178, 0 2px 0.2em pink, 0 -3px 0.2em #aa0000;
   }
 }

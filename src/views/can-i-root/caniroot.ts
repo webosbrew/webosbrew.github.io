@@ -67,7 +67,23 @@ class App extends Component<AppProps, AppState> {
         }
     }, 300);
 
+    osVersionMap: Record<string, string> = {
+        'afro': 'webOS 1.x',
+        'beehive': 'webOS 2.x',
+        'dreadlocks': 'webOS 3.0~3.4',
+        'dreadlocks2': 'webOS 3.5~3.9',
+        'goldilocks': 'webOS 4.0~4.4',
+        'goldilocks2': 'webOS 4.5~4.10',
+        'jhericurl': 'webOS 5.x',
+        'kisscurl': 'webOS 6.x',
+        'mullet': 'webOS 7.x',
+        'number1': 'webOS 8.x',
+        'ombre': 'webOS 9.x',
+    };
+
     render(_props: RenderableProps<AppProps>, state: Readonly<AppState>) {
+        const codename = state.term && state.model?.codename;
+        const getMeIn = codename && ['afro', 'beehive', 'dreadlocks', 'dreadlocks2'].includes(codename) || false;
         return html`
           <div class="app">
             <input class="form-control form-control-lg" type="search" value="${state.term?.q ?? ''}"
@@ -75,13 +91,20 @@ class App extends Component<AppProps, AppState> {
                    onInput=${(e: TargetedInputEvent<HTMLInputElement>) => this.searchChanged(e.currentTarget.value)}/>
             ${state.term && (state.model ?
                     html`
-                      <div class="alert alert-success mt-3" role="alert">Found otaId <code>${state.model.otaId}</code>,
-                        broadcast <code>${state.model.broadcast}</code>, region <code>${state.model.region}</code>
+                      <div class="alert alert-info mt-3" role="alert">Found <code>${state.model.series}</code>
+                        , running <code>${this.osVersionMap[state.model.codename]}</code>
+                        , region <code>${state.model.region} (${state.model.broadcast})</code>
+                        , machine <code>${state.model.machine}</code>
+                        , otaId <code>${state.model.otaId}</code>
                       </div>
                       <hr/>` :
                     html`
-                      <div class="alert alert-warning mt-3" role="alert">Device not found!</div>
-                      <hr/>`
+                      <div class="alert alert-warning mt-3" role="alert">
+                        Unable to find this model number <code>${state.term.model}</code>. Try searching by the series
+                        name (e.g. <code>OLEDC3</code> instead of <code>OLEDC3PJA</code>).<br/>
+                        <i class="bi bi-exclamation-circle-fill me-2"></i>Root availability may vary across different
+                        models/regions of the same series.
+                      </div>`
             )}
 
             ${this.exploits.map(exploit => {
@@ -94,7 +117,10 @@ class App extends Component<AppProps, AppState> {
                   'bi-question-octagon-fill' : 'bi-hand-thumbs-up-fill';
               return avail && html`
                 <div class=${`card p-3 mt-3 ${bgClass}`}>
-                  <h3><i class="bi ${iconClass}"/> ${exploit.name}</h3>
+                  <h3>
+                    <i class="bi ${iconClass} me-2"/>
+                    <a class="stretched-link text-decoration-none" href="${exploit.url}" target="_blank">${exploit.name}</a>
+                  </h3>
                   ${avail.latest && html`
                     <div>
                       <i class="bi bi-info-circle-fill me-2"/>Latest known working firmware: <b>${avail.latest?.version}
@@ -111,18 +137,36 @@ class App extends Component<AppProps, AppState> {
                       <i class="bi bi-exclamation-triangle-fill me-2"/>Requires expert knowledge.
                     </div>
                   `}
-                  <a class="stretched-link" href="${exploit.url}" target="_blank">Read manual</a>
                 </div>`;
             })}
 
+            ${getMeIn && html`
+              <div class="card p-3 mt-3 bg-secondary-subtle">
+                <h3>
+                  <i class="bi bi-question-octagon-fill me-2"></i>
+                  <a class="stretched-link text-decoration-none" href="https://www.webosbrew.org/rooting/getmenow"
+                     target="_blank">GetMeNow</a>
+                </h3>
+                <div>
+                  GetMeNow method may work on some models running webOS 1~3.<br/>
+                  <i class="bi bi-exclamation-triangle-fill me-2"/>Latest Dev Mode updates may have patched this method.
+                  <br/>
+
+                </div>
+              </div>
+            `}
+
             ${state.availability?.nvm && html`
               <div class="card p-3 mt-3 bg-info-subtle">
-                <h3><i class="bi bi-cpu-fill me-2"></i>NVM</h3>
+                <h3>
+                  <i class="bi bi-tools me-2"></i>
+                  <a class="stretched-link text-decoration-none"
+                     href="https://gist.github.com/throwaway96/827ff726981cc2cbc46a22a2ad7337a1" target="_blank">
+                    NVM (hardware method)</a>
+                </h3>
                 <div>
-                  Alternatively, you can try reprogramming the NVRAM chip to enable root access. <br/>
-                  <i class="bi bi-exclamation-triangle-fill me-2"/>This method requires expert knowledge. <a
-                    class="stretched-link" href="https://gist.github.com/throwaway96/827ff726981cc2cbc46a22a2ad7337a1"
-                    target="_blank">Read manual</a>
+                  Alternatively, you can modify contents on NVRAM chip in the TV to enable root access. <br/>
+                  <i class="bi bi-exclamation-triangle-fill me-2"/>This method requires expert knowledge.
                 </div>
               </div>
             `
@@ -133,4 +177,4 @@ class App extends Component<AppProps, AppState> {
 }
 
 render(html`
-  <${App} q=${new URLSearchParams(location.search).get('q')}/>`, document.getElementById('app-container')!);
+  <${App} q=${new URLSearchParams(location.search).get('q')}/>`, document.getElementById('caniroot')!);
