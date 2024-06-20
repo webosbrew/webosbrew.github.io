@@ -1,20 +1,26 @@
 'use strict'
 
+const fs = require("fs");
 const path = require('path');
 const HtmlBundlerPlugin = require('html-bundler-webpack-plugin');
 const {FaviconsBundlerPlugin} = require('html-bundler-webpack-plugin/plugins');
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
+const {PurgeCSSPlugin} = require("purgecss-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 /**
- * @type {import('webpack').Configuration}
+ * @param {Record<string, unknown>} env
+ * @param {Record<string, unknown>} argv
+ * @returns {import('webpack').Configuration | import('webpack').Configuration[]}
  */
-module.exports = {
+module.exports = (env, argv) => ({
   mode: 'development',
   devServer: {
     static: path.resolve(__dirname, 'dist'),
     port: 8080,
     hot: true
   },
+  devtool: argv.mode === 'production' && 'source-map',
   plugins: [
     new HtmlBundlerPlugin({
       entry: 'src/views/',
@@ -53,6 +59,11 @@ module.exports = {
     new FaviconsBundlerPlugin({
       enabled: true,
     }),
+    new PurgeCSSPlugin({
+      paths: () => fs.readdirSync(path.resolve(__dirname, 'src'), {recursive: true})
+        .map((name) => path.join('src', name))
+        .filter((p) => fs.statSync(p).isFile()),
+    }),
   ],
   module: {
     rules: [
@@ -66,12 +77,16 @@ module.exports = {
         }
       },
       {
-        test: /\.ts$/,
-        use: 'ts-loader',
-      },
-      {
         test: /\.(css|sass|scss)$/,
-        use: ['css-loader', 'sass-loader'],
+        use: ['css-loader', {
+          loader: 'sass-loader',
+          options: {
+            api: 'modern',
+            sassOptions: {
+              style: 'expanded',
+            }
+          }
+        }],
       },
       // fonts
       {
@@ -157,5 +172,14 @@ module.exports = {
       }
     ],
   },
-  target: ["web", "es5"]
-};
+  optimization: {
+    minimizer: [
+      '...',
+      new CssMinimizerPlugin(),
+    ]
+  },
+  target: ["web", "es5"],
+  output: {
+    clean: true,
+  },
+});
