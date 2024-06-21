@@ -12,9 +12,6 @@ $primary: #cf0652;
 // Required
 @import "bootstrap";
 
-$bootstrap-icons-font-dir: "~bootstrap-icons/font/fonts";
-@import "~bootstrap-icons/font/bootstrap-icons.scss";
-
 html {
   scroll-padding-top: 65px;
 }
