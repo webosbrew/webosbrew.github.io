@@ -11,64 +11,16 @@ $primary: #cf0652;
 
 // Required
 @import "bootstrap";
+@import "components/alert";
+@import "components/blockquote";
+@import "components/callout";
 
 html {
   scroll-padding-top: 65px;
 }
 
-.alert.alert-primary {
-  --bs-primary-text-emphasis: #{$blue-300};
-  --bs-primary-bg-subtle: #{$blue-900};
-  --bs-primary-border-subtle: #{$blue-700};
-  @extend .alert-primary;
-}
-
-@include color-mode(light) {
-  .alert.alert-primary {
-    --bs-primary-text-emphasis: #{$blue-900};
-    --bs-primary-bg-subtle: #{$blue-100};
-    --bs-primary-border-subtle: #{$blue-200};
-    @extend .alert-primary;
+main.page {
+  img {
+    max-width: 100%;
   }
-}
-
-.callout {
-  @extend .px-3;
-  @extend .overflow-hidden;
-
-  @extend .border;
-  @extend .border-4;
-  @extend .border-top-0;
-  @extend .border-bottom-0;
-  @extend .border-end-0;
-
-  &.callout-danger {
-    @extend .border-danger;
-
-    .callout-title {
-      @extend .text-danger;
-    }
-  }
-
-  &.callout-warning {
-    @extend .border-warning;
-
-    .callout-title {
-      @extend .text-warning;
-    }
-  }
-
-  &.callout-important {
-    border-color: $purple-400 !important;
-
-    .callout-title {
-      color: $purple-400 !important;
-    }
-  }
-
-}
-
-.callout-title {
-  @extend .mt-2;
-  @extend .fw-bold;
 }

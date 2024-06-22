@@ -1,0 +1,12 @@
+.blockquote {
+  @extend .px-3;
+  @extend .py-2;
+
+  @extend .border;
+  @extend .border-4;
+  @extend .border-top-0;
+  @extend .border-bottom-0;
+  @extend .border-end-0;
+
+  @extend .bg-dark;
+}

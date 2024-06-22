@@ -1,0 +1,64 @@
+// Include functions first
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+.callout {
+  @extend .px-3;
+  @extend .overflow-hidden;
+
+  @extend .border;
+  @extend .border-4;
+  @extend .border-top-0;
+  @extend .border-bottom-0;
+  @extend .border-end-0;
+
+  &.callout-danger,&.callout-caution {
+    @extend .border-danger;
+
+    .callout-title {
+      @extend .text-danger;
+    }
+  }
+
+  &.callout-warning {
+    @extend .border-warning;
+
+    .callout-title {
+      @extend .text-warning;
+    }
+  }
+
+  &.callout-important {
+    border-color: $purple-400 !important;
+
+    .callout-title {
+      color: $purple-400 !important;
+    }
+  }
+
+  &.callout-note {
+    @extend .border-info;
+
+    .callout-title {
+      @extend .text-info;
+    }
+  }
+
+  &.callout-success,&.callout-tip {
+    @extend .border-success;
+
+    .callout-title {
+      @extend .text-success;
+    }
+  }
+
+}
+
+.callout-title {
+  @extend .mt-2;
+  @extend .fw-bold;
+}

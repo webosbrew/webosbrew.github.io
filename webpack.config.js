@@ -8,6 +8,7 @@ const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const {PurgeCSSPlugin} = require("purgecss-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const {parse: parseHtml} = require('node-html-parser');
+const {capitalize} = require("lodash");
 
 /** @type {HtmlBundlerPlugin.LoaderOptions} */
 const HtmlBundlerMarkdownOptions = {
@@ -24,12 +25,13 @@ const HtmlBundlerMarkdownOptions = {
  * @this {{parser: import('marked').Parser}}
  * @param token {import('marked').MarkedToken}
  * @param name {string}
+ * @param [inline] {boolean}
  * @return {string}
  */
-function _parseOrig(token, name) {
+function _parseOrig(token, name, inline) {
   const backup = MarkdownLoaderOptions.extensions.renderers[name];
   MarkdownLoaderOptions.extensions.renderers[name] = null;
-  let output = this.parser.parse([token]);
+  let output = inline ? this.parser.parseInline([token]) : this.parser.parse([token]);
   MarkdownLoaderOptions.extensions.renderers[name] = backup;
   return output;
 }
@@ -46,12 +48,61 @@ const MarkdownLoaderOptions = {
         return output;
       },
       table(token) {
-        let table = _parseOrig.call(this, token, 'table')
+        const table = _parseOrig.call(this, token, 'table')
           .replaceAll('<table>', '<table class="bg-black table table-striped">');
         return `<div class="table-responsive">${table}</div>`;
       },
-    }
+      blockquote(token) {
+        const elem_class = token.callout ? `callout callout-${token.callout}` : 'blockquote';
+        let additional = '';
+        if (token.callout) {
+          const label = capitalize(token.callout);
+          const iconClasses = {
+            'note': 'bi-info-circle',
+            'tip': 'bi-lightbulb',
+            'important': 'bi-chat-left',
+            'warning': 'bi-exclamation-triangle',
+            'caution': 'bi-exclamation-octagon',
+          };
+          additional = `<label class="callout-title"><i class="bi ${iconClasses[token.callout]} me-2"></i>${label}</label><br>`;
+        }
+        return _parseOrig.call(this, token, 'blockquote')
+          .replaceAll('<blockquote>', `<blockquote class="${elem_class}">${additional}`);
+      },
+      paragraph(token) {
+        let output = _parseOrig.call(this, token, 'paragraph');
+        if (token.lead) {
+          output = `<div class="lead">${output}</div>`;
+        }
+        return output;
+      }
+    },
+    block: [(src, tokens) => {
+      if (tokens.lead === undefined) {
+        if (tokens.length >= 2) {
+          if (tokens[0].type === 'heading' && tokens[0].depth === 1) {
+            if (tokens[1].type === 'paragraph') {
+              tokens[1].lead = true;
+              tokens.lead = true;
+            } else {
+              tokens.lead = false;
+            }
+          }
+        }
+      }
+      return undefined;
+    }],
   },
+  walkTokens: (token) => {
+    if (token.type === 'blockquote') {
+      let callout = token.raw.match(/^>\s*(\[!(\w+)])/);
+      if (callout) {
+        token.callout = callout[2].toLowerCase();
+        token.tokens[0].tokens[0].text = token.tokens[0].tokens[0].text.substring(callout[1].length).trim();
+      }
+    }
+    return token;
+  }
 };
 
 /**
@@ -110,7 +161,7 @@ module.exports = (env, argv) => ({
         .map((name) => path.join('src', name))
         .filter((p) => fs.statSync(p).isFile()),
       safelist: {
-        standard: [/^table($|\W)/, /^(?:bs-)?(offcanvas|popover|tooltip)(?:$|\W)/, 'fade', 'show'],
+        standard: [/^table($|\W)/, /^(?:bs-)?(offcanvas|popover|tooltip|blockquote)(?:$|\W)/, 'fade', 'show'],
       }
     })] : []),
   ],

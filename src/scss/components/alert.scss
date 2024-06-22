@@ -1,0 +1,23 @@
+// Include functions first
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+.alert.alert-primary {
+  --bs-primary-text-emphasis: #{$blue-300};
+  --bs-primary-bg-subtle: #{$blue-900};
+  --bs-primary-border-subtle: #{$blue-700};
+  @extend .alert-primary;
+}
+
+@include color-mode(light) {
+  .alert.alert-primary {
+    --bs-primary-text-emphasis: #{$blue-900};
+    --bs-primary-bg-subtle: #{$blue-100};
+    --bs-primary-border-subtle: #{$blue-200};
+    @extend .alert-primary;
+  }
+}
