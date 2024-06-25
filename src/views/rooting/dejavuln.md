@@ -1,6 +1,6 @@
 # DejaVuln
 
-A simplified guide of [dejavuln-autoroot](https://github.com/throwaway96/dejavuln-autoroot), 
+A simplified guide of [dejavuln-autoroot](https://github.com/throwaway96/dejavuln-autoroot),
 by [throwaway96](https://github.com/throwaway96).
 
 > [!WARNING]
@@ -31,7 +31,7 @@ by [throwaway96](https://github.com/throwaway96).
 1. Open [latest the release of DejaVuln](https://github.com/throwaway96/dejavuln-autoroot/releases/latest).
 2. Download `dejavuln-autoroot-*.zip` from the assets section. **Do not download the source code**.
 3. Extract the contents of the zip file **to the root** of the USB drive. It should look like this:
-   ![USB Drive Contents](/img/screenshots/dejavuln-explorer.png)
+   ![USB Drive Contents](../../img/screenshots/dejavuln-explorer.png)
 
 ## Begin Rooting
 
@@ -48,3 +48,9 @@ by [throwaway96](https://github.com/throwaway96).
 3. Browse to `lol$(sh$IFS$(find$IFS/tmp`.
 4. Try to play the MP3 file (`usb$IFS-maxdepth${IFS}3$IFS-name${IFS}autoroot.sh)).mp3`).
 5. After the pop-up messages tell you rooting is complete, eject the USB drive.
+
+## Troubleshooting
+
+### I'm seeing "This file cannot be played" error
+
+This is not an error. The `.mp3` file is not a real audio file.
