@@ -16,11 +16,26 @@
   @extend .border-bottom-0;
   @extend .border-end-0;
 
-  &.callout-danger,&.callout-caution {
+  .callout-title {
+    @extend .mb-1;
+
+    svg.octicon {
+      @extend .me-1;
+      margin-top: -0.2em;
+      width: 1em;
+      height: 1em;
+    }
+  }
+
+  &.callout-danger, &.callout-caution {
     @extend .border-danger;
 
     .callout-title {
       @extend .text-danger;
+
+      svg.octicon {
+        fill: rgba(var(--bs-danger-rgb), var(--bs-text-opacity));
+      }
     }
   }
 
@@ -29,6 +44,10 @@
 
     .callout-title {
       @extend .text-warning;
+
+      svg.octicon {
+        fill: rgba(var(--bs-warning-rgb), var(--bs-text-opacity));
+      }
     }
   }
 
@@ -37,6 +56,10 @@
 
     .callout-title {
       color: $purple-400 !important;
+
+      svg.octicon {
+        fill: $purple-400;
+      }
     }
   }
 
@@ -45,14 +68,22 @@
 
     .callout-title {
       @extend .text-info;
+
+      svg.octicon {
+        fill: rgba(var(--bs-info-rgb), var(--bs-text-opacity));
+      }
     }
   }
 
-  &.callout-success,&.callout-tip {
+  &.callout-success, &.callout-tip {
     @extend .border-success;
 
     .callout-title {
       @extend .text-success;
+
+      svg.octicon {
+        fill: rgba(var(--bs-success-rgb), var(--bs-text-opacity));
+      }
     }
   }
 

@@ -11,8 +11,14 @@
 <body data-bs-theme="dark">
 {{> navbar }}
 <main class="bg-dark-subtle page">
-  <div class="container py-4">
-    {{> content}}
+  <div class="page-content container py-4">
+    <article data-bs-spy="scroll" data-bs-target="#page-toc" data-bs-smooth-scroll="true"
+             data-bs-root-margin="-20% 0px 80%">
+      {{> @partial-block }}
+    </article>
+    {{#toc}}
+      {{> page-toc items=children }}
+    {{/toc}}
   </div>
 </main>
 {{> footer }}

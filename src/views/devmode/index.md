@@ -39,11 +39,11 @@ Preparing LG Account</a> for creating one.
 
 ## Troubleshooting
 
-### Everytime I restart the TV, "Key Server" is disabled
+#### Everytime I restart the TV, "Key Server" is disabled
 
 Key server only needs to be enabled when you add the TV to ares-cli or webOS Dev Manager.
 
-### Key Server is enabled, but I can't add the TV to webOS Dev Manager
+#### Key Server is enabled, but I can't add the TV to webOS Dev Manager
 
 Make sure your TV and computer are on the same network.
 If you're able to ping the TV from your computer, then you may run into some issues caused by

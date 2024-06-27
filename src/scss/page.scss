@@ -1,0 +1,83 @@
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+main.page {
+  img {
+    max-width: 100%;
+  }
+
+  .page-content {
+    display: flex;
+    flex-flow: row;
+
+    article {
+      width: 100%;
+
+      &:not(:only-child) {
+        h1 {
+          margin-inline-start: 1em;
+        }
+      }
+    }
+
+    .toc {
+      min-width: 60%;
+
+      a {
+        @extend .text-secondary;
+
+        &:hover {
+          @extend .text-secondary-emphasis;
+        }
+
+        &.active {
+          @extend .text-primary-emphasis;
+        }
+      }
+
+    }
+
+    .toc-toggle {
+      position: absolute;
+      margin-inline-start: -1em;
+      margin-block-start: -0.25em;
+    }
+
+  }
+
+  @include media-breakpoint-up(md) {
+    .page-content {
+      article {
+        &:not(:only-child) {
+          width: 75%;
+
+          h1 {
+            margin-inline-start: 0;
+          }
+        }
+      }
+
+      .toc-toggle {
+        display: none;
+      }
+
+      .toc {
+        width: 25%;
+        height: 100%;
+
+        min-width: unset;
+
+        position: sticky;
+        top: calc(1.5rem + 65px);
+
+        display: block;
+        background-color: unset;
+        border: unset;
+      }
+    }
+  }
+
+}

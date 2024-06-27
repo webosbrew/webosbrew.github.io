@@ -1,6 +1,6 @@
 import 'bootstrap';
 import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
+import {ScrollTrigger} from 'gsap/ScrollTrigger.js';
 import MarqueeContent from 'marquee-content';
 
 gsap.registerPlugin(ScrollTrigger);

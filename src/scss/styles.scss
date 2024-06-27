@@ -11,16 +11,13 @@ $primary: #cf0652;
 
 // Required
 @import "bootstrap";
+
 @import "components/alert";
 @import "components/blockquote";
 @import "components/callout";
 
+@import "page";
+
 html {
   scroll-padding-top: 65px;
-}
-
-main.page {
-  img {
-    max-width: 100%;
-  }
 }

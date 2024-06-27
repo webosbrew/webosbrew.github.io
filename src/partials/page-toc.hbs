@@ -1,0 +1,22 @@
+<button class="btn toc-toggle" type="button" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="bi bi-list-ul h2"></i>
+</button>
+<aside id="page-toc" class="toc ps-md-3 dropdown-menu mx-2 mx-md-0">
+  <div class="vr position-absolute h-100 top-0 d-md-block d-none"></div>
+  <strong class="mx-3 h6">Contents</strong>
+  <hr class="mx-2">
+  <ul class="toc-list ms-3 list-unstyled text-secondary small">
+    {{# each items }}
+      <li>
+        <a class="text-decoration-none" href="#{{ id }}">{{ title }}</a>
+        {{# if children }}
+          <ul class="list-unstyled ms-2">
+            {{# each children }}
+              <li><a class="text-decoration-none" href="#{{ id }}">{{ title }}</a></li>
+            {{/ each }}
+          </ul>
+        {{/ if }}
+      </li>
+    {{/ each }}
+  </ul>
+</aside>
