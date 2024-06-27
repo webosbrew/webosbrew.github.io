@@ -17,6 +17,7 @@
   @extend .border-end-0;
 
   .callout-title {
+    @extend .mt-2;
     @extend .mb-1;
 
     svg.octicon {
@@ -52,18 +53,22 @@
   }
 
   &.callout-important {
-    border-color: $purple-400 !important;
+    --bs-primary-rgb: #{to-rgb($purple-400)};
+
+    @extend .border-primary;
 
     .callout-title {
-      color: $purple-400 !important;
+      @extend .text-primary;
 
       svg.octicon {
-        fill: $purple-400;
+        fill: rgba(var(--bs-primary-rgb), var(--bs-text-opacity));
       }
     }
   }
 
   &.callout-note {
+    --bs-info-rgb: #{to-rgb($blue-600)};
+
     @extend .border-info;
 
     .callout-title {
@@ -87,9 +92,4 @@
     }
   }
 
-}
-
-.callout-title {
-  @extend .mt-2;
-  @extend .fw-bold;
 }

@@ -18,7 +18,7 @@ main.page {
 
       &:not(:only-child) {
         h1 {
-          margin-inline-start: 1em;
+          margin-inline-start: 1.25em;
         }
       }
     }
@@ -42,7 +42,7 @@ main.page {
 
     .toc-toggle {
       position: absolute;
-      margin-inline-start: -1em;
+      margin-inline-start: -0.5em;
       margin-block-start: -0.25em;
     }
 

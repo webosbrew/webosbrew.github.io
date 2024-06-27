@@ -14,21 +14,39 @@ Use officially supported development mode to install homebrew apps and games.
 
 ### Get a Developer Account
 
-You'll need a developer account to use Developer Mode.
-Please read <a href="https://webostv.developer.lge.com/develop/getting-started/preparing-lg-account">
-Preparing LG Account</a> for creating one.
+1. Visit [webOS TV Developer](https://webostv.developer.lge.com/), select "Sign In"
+   ![webOS TV Developer Home](webos.tv.developer_home.png?width=600)
+2. You will be redirected to LG Account login page. If you don't have an account, select "CREATE ACCOUNT"
+   ![LG Account Login](lgaccount.sign_in.png?as=webp)
+3. You'll see a pop-up window. Select country and click "CONFIRM"
+   ![LG Account Select Country](lgaccount.select_country.png?width=600)
+4. Accept terms & conditions and click "AGREE"
+   ![LG Account Terms & Conditions](lgaccount.terms.png?as=webp)
+5. Input your email address and password, check required checkboxes, and click "CONFIRM"
+   ![LG Account Create Account](lgaccount.create_account.png?as=webp)
+6. You'll receive an email to verify your email address. Click the link in the email to verify your email
+   address. ![LG Account Verify Email](lgaccount.verified.png?as=webp)
+7. Go back to the LG Account login page and login with your email and password
+   ![LG Account Login](lgaccount.sign_in_2.png?as=webp)
+
+Now you'll be able to use this account to log in to Developer Mode app on your TV.
 
 ### Install Developer Mode App
 
-1. Open LG Content Store
-2. Search for "Developer Mode"
-3. Select "Install"
+1. Open LG Content Store, search for "Developer Mode"
+   ![LG Content Store](contentstore.search_box.png?as=webp)
+2. Select "Developer Mode" app
+   ![Developer Mode App](contentstore.search_result.png?as=webp)
+3. Click "Install" to download and install the app
+   ![Developer Mode App Install](contentstore.devmode.png?as=webp)
 
 ### Enable Developer Mode
 
 1. Launch Developer Mode app
 2. Login to Developer Mode app with developer account
+   ![Developer Mode Login](Login_of_Dev_Mode_App_l87hq9.webp)
 3. Enable Developer Mode and wait for TV to restart
+   ![Developer Mode Enable](Dev_Mode_Status_On_qqzjd4.webp)
 
 ### Prepare for Device Setup
 

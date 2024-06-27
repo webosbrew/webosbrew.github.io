@@ -18,22 +18,17 @@ function extractToc(tree, title) {
   const toc = {title, id: '', depth: 1, children: []};
   const children = toc.children;
   let current;
-  visit(tree, /**@param node {Element}*/(node) => node.tagName === 'section',
+  visit(tree, /**@param node {Element}*/(node) => node.tagName?.match(/h[2-4]/),
     /**
-     * @param section {Element}
+     * @param heading {Element}
      * @param index {number}
      * @param parent {Element}
      */
-    (section, index, parent) => {
-      /** @type {Element} */
-      const firstChild = section.children[0];
-      if (!firstChild?.tagName) {
-        return;
-      }
+    (heading, index, parent) => {
       const item = {
-        title: toString(firstChild),
-        id: section.properties.id,
-        level: firstChild.tagName.match(/h([1-6])/)[1] - 0
+        title: toString(heading),
+        id: heading.properties.id || parent.properties.id,
+        level: heading.tagName.match(/h([1-6])/)[1] - 0
       };
       if (item.level > current?.level) {
         current.children = current.children || [];

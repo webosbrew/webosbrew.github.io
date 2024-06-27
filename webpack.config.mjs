@@ -70,6 +70,14 @@ export default function (env, argv) {
       }),
       new FaviconsBundlerPlugin({
         enabled: true,
+        faviconOptions: {
+          path: '/img/favicons',
+          display: 'browser',
+          theme_color: '#212529',
+          icons: {
+            appleStartup: false,
+          }
+        }
       }),
       ...(argv.mode === 'production' ? [new PurgeCSSPlugin({
         paths: () => fs.readdirSync(path.resolve('src'), {recursive: true})
@@ -140,7 +148,6 @@ export default function (env, argv) {
               options: {
                 minimizer: [
                   {
-                    // resize works only with `sharpMinify`
                     implementation: ImageMinimizerPlugin.imageminMinify,
                     options: {
                       plugins: [
