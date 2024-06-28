@@ -80,11 +80,12 @@ export default function (env, argv) {
         }
       }),
       ...(argv.mode === 'production' ? [new PurgeCSSPlugin({
-        paths: () => fs.readdirSync(path.resolve('src'), {recursive: true})
-          .map((name) => path.join('src', name))
-          .filter((p) => fs.statSync(p).isFile()),
+        paths: () => ['src', 'webpack']
+          .flatMap(p => fs.readdirSync(path.resolve(p), {withFileTypes: true, recursive: true}))
+          .filter(ent => ent.isFile())
+          .map(ent => path.resolve(ent.path, ent.name)),
         safelist: {
-          standard: [/^table($|\W)/, /^(?:bs-)?(offcanvas|popover|tooltip|blockquote)(?:$|\W)/, 'fade', 'show'],
+          standard: [/^(?:bs-)?(offcanvas|popover|tooltip)(?:$|\W)/, 'fade', 'show'],
         }
       })] : []),
     ],

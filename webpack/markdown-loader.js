@@ -76,6 +76,26 @@ function blockQuoteStyle() {
   };
 }
 
+function wrapTable() {
+  return (tree) => {
+    visit(tree, /** @param node {Element} */node => node.tagName === 'table',
+      /**
+       * @param node {Element}
+       * @param index {number}
+       * @param parent {Element}
+       */
+      (node, index, parent) => {
+        node.properties.className = 'table';
+        parent.children[index] = {
+          type: 'element',
+          tagName: 'div',
+          properties: {className: 'table-responsive'},
+          children: [node]
+        };
+      });
+  };
+
+}
 
 function alertRestyle() {
   return (tree) => {
@@ -106,6 +126,7 @@ const parser = remark()
   .use(autoLead)
   .use(headingHr)
   .use(blockQuoteStyle)
+  .use(wrapTable)
   .use(extractMeta)
   .use(rehypeStringify, {allowDangerousCharacters: true, allowDangerousHtml: true});
 
