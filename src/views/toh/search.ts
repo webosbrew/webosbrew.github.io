@@ -1,10 +1,9 @@
 import {Component, html} from "htm/preact";
 import {ComponentChild, RenderableProps} from "preact";
-import {DeviceModelData} from "@webosbrew/caniroot";
-import {DeviceModelIndices, DeviceModelIndexEntry} from "./toh-data";
+import {DeviceModelEntry, DeviceModelIndexEntry, DeviceModelIndices} from "./toh-data";
 
 type SideSearchProps = {
-    models: D[];
+    models: DeviceModelEntry[];
     indices: DeviceModelIndices;
 };
 
