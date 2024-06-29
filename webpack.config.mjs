@@ -1,28 +1,42 @@
 import fs from "fs";
 import path from "path";
 import HtmlBundlerPlugin from "html-bundler-webpack-plugin";
-import {FaviconsBundlerPlugin} from "html-bundler-webpack-plugin/plugins";
+import FaviconsBundlerPlugin from "html-bundler-webpack-plugin/plugins/favicons-bundler-plugin";
 import ImageMinimizerPlugin from "image-minimizer-webpack-plugin";
 import {PurgeCSSPlugin} from "purgecss-webpack-plugin";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 
+const babelLoader = {
+  loader: 'babel-loader',
+  options: {
+    presets: ['@babel/preset-env'],
+    plugins: [['babel-plugin-htm', {'import': 'preact'}]]
+  }
+};
 
 /** @type {HtmlBundlerPlugin.LoaderOptions} */
 const HtmlBundlerMarkdownOptions = {
-  beforePreprocessor: ({content, meta}, {resourcePath, data}) => {
+  beforePreprocessor({content, meta}, {resourcePath, data}) {
     if (!resourcePath.endsWith('.md')) {
-      return false;
+      return undefined;
     }
     Object.assign(data, meta);
     return `{{#> page }}${content}{{/page}}`;
   }
 };
 
-/**
- * @param {Record<string, unknown>} env
- * @param {Record<string, unknown>} argv
- * @returns {import('webpack').Configuration}
- */
+/** @type {import("purgecss-webpack-plugin").UserDefinedOptions} */
+const PurgeCssOptions = {
+  paths: () => ['src', 'webpack']
+    .flatMap(p => fs.readdirSync(path.resolve(p), {withFileTypes: true, recursive: true}))
+    .filter(ent => ent.isFile())
+    .map(ent => path.resolve(ent.path, ent.name)),
+  blocklist: undefined,
+  safelist: {
+    standard: [/^(?:bs-)?(offcanvas|popover|tooltip)(?:$|\W)/, 'fade', 'show'],
+  }
+};
+
 // noinspection JSUnusedGlobalSymbols
 export default function (env, argv) {
   return {
@@ -75,19 +89,16 @@ export default function (env, argv) {
           display: 'browser',
           theme_color: '#212529',
           icons: {
+            android: true,
+            appleIcon: true,
             appleStartup: false,
+            favicons: true,
+            windows: false,
+            yandex: false,
           }
         }
       }),
-      ...(argv.mode === 'production' ? [new PurgeCSSPlugin({
-        paths: () => ['src', 'webpack']
-          .flatMap(p => fs.readdirSync(path.resolve(p), {withFileTypes: true, recursive: true}))
-          .filter(ent => ent.isFile())
-          .map(ent => path.resolve(ent.path, ent.name)),
-        safelist: {
-          standard: [/^(?:bs-)?(offcanvas|popover|tooltip)(?:$|\W)/, 'fade', 'show'],
-        }
-      })] : []),
+      ...(argv.mode === 'production' ? [new PurgeCSSPlugin(PurgeCssOptions)] : []),
     ],
     module: {
       rules: [
@@ -103,13 +114,22 @@ export default function (env, argv) {
           ],
         },
         {
+          test: /toh-data\.js$/,
+          use: [path.resolve('webpack/toh-data-loader.js')]
+        },
+        {
           test: /.m?js$/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env'],
+          use: babelLoader
+        },
+        {
+          test: /\.(ts)$/,
+          exclude: /node_modules/,
+          use: [
+            babelLoader,
+            {
+              loader: 'ts-loader',
             }
-          }
+          ]
         },
         {
           test: /\.(c|sa|sc)ss$/,
@@ -211,6 +231,9 @@ export default function (env, argv) {
         '...',
         new CssMinimizerPlugin(),
       ]
+    },
+    resolve: {
+      extensions: ['.ts', '.js'],
     },
     target: ["web", "es5"],
     output: {

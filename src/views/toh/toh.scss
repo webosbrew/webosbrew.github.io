@@ -1,0 +1,11 @@
+.search-section {
+  [data-bs-toggle] {
+    &::after {
+      content: '-';
+    }
+
+    &.collapsed::after {
+      content: '+';
+    }
+  }
+}

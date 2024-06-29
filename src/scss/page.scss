@@ -71,7 +71,7 @@ main.page {
         min-width: unset;
 
         position: sticky;
-        top: calc(1.5rem + 65px);
+        top: calc(1.5rem + var(--navbar-height));
 
         display: block;
         background-color: unset;

@@ -18,6 +18,10 @@ $primary: #cf0652;
 
 @import "page";
 
+:root {
+  --navbar-height: 65px;
+}
+
 html {
-  scroll-padding-top: 65px;
+  scroll-padding-top: var(--navbar-height);
 }

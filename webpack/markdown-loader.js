@@ -85,6 +85,9 @@ function wrapTable() {
        * @param parent {Element}
        */
       (node, index, parent) => {
+        if (parent.tagName === 'div' && parent.properties.className?.includes('table-responsive')) {
+          return;
+        }
         node.properties.className = 'table';
         parent.children[index] = {
           type: 'element',
