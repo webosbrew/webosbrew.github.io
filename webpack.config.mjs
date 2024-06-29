@@ -31,7 +31,7 @@ const PurgeCssOptions = {
     .flatMap(p => fs.readdirSync(path.resolve(p), {withFileTypes: true, recursive: true}))
     .filter(ent => ent.isFile())
     .map(ent => path.resolve(ent.path, ent.name)),
-  blocklist: undefined,
+  blocklist: [],
   safelist: {
     standard: [/^(?:bs-)?(offcanvas|popover|tooltip)(?:$|\W)/, 'fade', 'show'],
   }
