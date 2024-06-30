@@ -23,7 +23,7 @@
     "@babel/core": "^7.24.7",
     "@babel/preset-env": "^7.24.7",
     "@types/lodash-es": "^4.17.12",
-    "@webosbrew/caniroot": "^1.1.4",
+    "@webosbrew/caniroot": "github:webosbrew/caniroot",
     "autoprefixer": "^10.4.19",
     "babel-loader": "^9.1.3",
     "babel-plugin-htm": "^3.0.0",
