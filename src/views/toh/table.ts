@@ -51,8 +51,8 @@ class Pagination extends Component<PaginationProps> {
     render(props: RenderableProps<PaginationProps>) {
         const options = Array.from({length: Math.ceil(props.count / props.limit)}, (_, i) => i * props.limit);
         return html`
-          <nav aria-label="Page navigation example">
-            <ul class="pagination input-group input-group-sm">
+          <nav class="overflow-x-auto">
+            <ul class="pagination input-group input-group-sm flex-nowrap">
               <li class="page-item">
                 <a class="page-link" href="#" aria-label="First">
                   <i class="bi bi-chevron-bar-left" aria-hidden="true"></i>
@@ -63,7 +63,7 @@ class Pagination extends Component<PaginationProps> {
                   <i class="bi bi-chevron-left" aria-hidden="true"></i>
                 </a>
               </li>
-              <select class="page-item form-select">
+              <select class="page-item form-select w-auto">
                 ${options.map(option => html`
                   <option value=${option} selected=${option === props.offset}>${option + 1} - ${option + props.limit}
                   </option>`

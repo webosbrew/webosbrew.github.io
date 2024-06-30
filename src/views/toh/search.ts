@@ -62,7 +62,7 @@ class SearchSection extends Component<SearchSectionProps, SearchSectionState> {
           <div class="search-section mb-2">
             <div class="d-flex flex-row w-100 collapsed user-select-none" data-bs-toggle="collapse"
                  href="#search-${props.name}">
-              <label class="form-label fw-bold flex-fill">${props.title}</label>
+              <label class="form-label fw-bold flex-fill">${props.title} (${props.entries.length})</label>
             </div>
             <div class="collapse" id="search-${props.name}">
               ${state.options?.map(option => {
