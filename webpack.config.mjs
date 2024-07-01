@@ -118,11 +118,7 @@ export default function (env, argv) {
           use: [path.resolve('webpack/toh-data-loader.js')]
         },
         {
-          test: /.m?js$/,
-          use: babelLoader
-        },
-        {
-          test: /\.(ts)$/,
+          test: /\.([jt]s?)$/,
           exclude: /node_modules/,
           use: [
             babelLoader,
