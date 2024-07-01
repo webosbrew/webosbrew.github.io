@@ -98,11 +98,6 @@ class Pagination extends Component<PaginationProps> {
         return html`
           <nav class="py-1">
             <ul class="pagination input-group input-group-sm flex-nowrap">
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="First">
-                  <i class="bi bi-chevron-bar-left" aria-hidden="true"></i>
-                </a>
-              </li>
               <li class="page-item" onClick=${this.previousPage}>
                 <a class="page-link" href="#" aria-label="Previous">
                   <i class="bi bi-chevron-left" aria-hidden="true"></i>
@@ -121,11 +116,6 @@ class Pagination extends Component<PaginationProps> {
               <li class="page-item" onClick=${this.nextPage}>
                 <a class="page-link" href="#" aria-label="Next">
                   <i class="bi bi-chevron-right" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Last">
-                  <i class="bi bi-chevron-bar-right" aria-hidden="true"></i>
                 </a>
               </li>
             </ul>

@@ -11,7 +11,6 @@ class App extends Component<{}, AppState> {
 
     conditionsChanged = (conditions: SearchConditions) => {
         this.setState({conditions});
-        console.log(conditions);
     }
 
     render(_props: {}, state: AppState) {

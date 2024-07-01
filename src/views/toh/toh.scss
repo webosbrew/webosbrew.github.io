@@ -1,11 +1,13 @@
 .search-section {
   [data-bs-toggle] {
+    //noinspection CssNoGenericFontName
     &::after {
-      content: '-';
+      font-family: bootstrap-icons !important;
+      content: '\f27d' /* bi-chevron-contract */;
     }
 
     &.collapsed::after {
-      content: '+';
+      content: '\f283' /* bi-chevron-bar-expand */;
     }
   }
 }
