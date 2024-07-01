@@ -25,6 +25,22 @@ class App extends Component<{}, AppState> {
         }
     }
 
+    locationChanged = (): void => {
+        const url = new URL(location.href);
+        if (url.searchParams) {
+            this.conditionsChanged(parseFromUrlParams(url.searchParams));
+        }
+    };
+
+    componentDidMount(): void {
+        addEventListener('popstate', this.locationChanged);
+    }
+
+    componentWillUnmount(): void {
+        removeEventListener('popstate', this.locationChanged);
+    }
+
+
     render(_props: {}, state: AppState) {
         return html`
           <div class="d-flex flex-column-reverse flex-md-row align-items-md-start">

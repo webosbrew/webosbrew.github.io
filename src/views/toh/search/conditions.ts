@@ -23,9 +23,10 @@ export function getConditionsIndices(conditions?: SearchConditions): number[] | 
     return intersection(...values.map(v => v.indices)).sort();
 }
 
-export function applyToUrlParams(conditions: SearchConditions, params: URLSearchParams) {
-    for (let k in conditions) {
-        const options = conditions[k as keyof SearchConditions]?.options;
+export function applyToUrlParams(conditions: SearchConditions | undefined, params: URLSearchParams) {
+    const keys: (keyof SearchConditions)[] = ['machine', 'codename', 'series', 'broadcast', 'region', 'otaId'];
+    for (let k of keys) {
+        const options = conditions?.[k as keyof SearchConditions]?.options;
         if (options?.length) {
             params?.set(k, options?.join(' '));
         } else {

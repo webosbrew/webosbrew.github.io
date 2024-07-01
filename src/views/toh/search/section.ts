@@ -21,9 +21,7 @@ type SearchSectionProps = {
     changed: (condition: SearchCondition) => void;
 };
 
-type SearchSectionState = {
-    [index: number]: DeviceModelIndexEntry | undefined;
-};
+type SearchSectionState = Record<string, DeviceModelIndexEntry | undefined>;
 
 type SearchCheckboxProps = {
     name: string;
@@ -37,7 +35,7 @@ function SearchCheckbox(props: SearchCheckboxProps) {
     const {name, index, checked} = props;
     const {value, indices} = props.entry;
     return html`
-      <div class="form-check" key="${name}-${index}">
+      <div class="form-check" key="check-${name}-${value}">
         <input type="checkbox" class="form-check-input" value=${value} id="${name}-${value}" checked=${checked}
                onChange=${(e: ChangeEvent<HTMLInputElement>) => props.changed(index, e.currentTarget.checked)}/>
         <label class="form-check-label text-nowrap" for="${props.name}-${value}">${value} (${indices.length})</label>
@@ -48,17 +46,25 @@ export class SearchSection extends Component<SearchSectionProps, SearchSectionSt
 
     private filter = signal('');
 
-    constructor() {
+    constructor(props: SearchSectionProps) {
         super();
-        this.state = {};
+        const state: SearchSectionState = {};
+        for (const entry of props.entries) {
+            const checked = props.conditions[props.name]?.options.includes(entry.value);
+            if (checked) {
+                state[entry.value] = entry;
+            }
+        }
+        this.state = state;
     }
 
     checkChanged = (index: number, checked: boolean) => {
         const state = {...this.state};
+        const entry = this.props.entries[index];
         if (checked) {
-            state[index] = this.props.entries[index];
+            state[entry.value] = entry;
         } else {
-            state[index] = undefined;
+            state[entry.value] = undefined;
         }
         this.setState(state);
         const selectedEntries = Object.values(state)
@@ -70,7 +76,7 @@ export class SearchSection extends Component<SearchSectionProps, SearchSectionSt
     }
 
     resetSelections = () => {
-        this.setState(Object.fromEntries(this.props.entries.map((_, index) => [index, undefined])));
+        this.setState(Object.fromEntries(this.props.entries.map((entry) => [entry.value, undefined])));
         this.selectionsChangedDebounced({options: [], indices: []});
     }
 
@@ -82,8 +88,8 @@ export class SearchSection extends Component<SearchSectionProps, SearchSectionSt
             const indices = (otherIndices?.length && intersection(entry.indices, otherIndices)) || entry.indices;
             return {value: entry.value, indices: indices, index};
         }).filter(entry => entry.indices.length > 0).sort((a, b) => {
-            if (state[a.index] != state[b.index]) {
-                return state[a.index] ? -1 : 1;
+            if (state[a.value] != state[b.value]) {
+                return state[a.value] ? -1 : 1;
             }
             return a.value.localeCompare(b.value);
         });
@@ -124,7 +130,7 @@ export class SearchSection extends Component<SearchSectionProps, SearchSectionSt
                   }
                   return html`
                     <${SearchCheckbox} name=${props.name} index=${entry.index} entry=${entry}
-                                       checked=${!!state[entry.index]} changed=${this.checkChanged}></SearchCheckbox>`;
+                                       checked=${!!state[entry.value]} changed=${this.checkChanged}></SearchCheckbox>`;
                 })}
               </div>
             </div>

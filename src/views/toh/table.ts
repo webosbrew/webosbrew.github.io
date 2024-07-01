@@ -61,11 +61,18 @@ export class DevicesTable extends Component<DevicesTableProps, DevicesTableState
                   <td class="ota-id">${item.otaId}</td>
                 </tr>
               `)}
+              ${filtered.length === 0 && html`
+                <tr>
+                  <td colspan="6" class="text-center">No devices found</td>
+                </tr>
+              `}
               </tbody>
             </table>
           </div>
-          <${Pagination} count=${filtered.length} offset=${offset} limit=${limit}
-                         onChange=${this.offsetChange}></Pagination>
+          ${filtered.length > limit && html`
+            <${Pagination} count=${filtered.length} offset=${offset} limit=${limit}
+                           onChange=${this.offsetChange}></Pagination>
+          `}
         `;
     }
 }
