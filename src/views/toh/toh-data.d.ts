@@ -10,6 +10,7 @@ export type DeviceModelIndices = {
     codename: DeviceModelIndexEntry[],
     broadcast: DeviceModelIndexEntry[],
     region: DeviceModelIndexEntry[],
+    otaId: DeviceModelIndexEntry[],
 };
 
 export const models: DeviceModelEntry[];

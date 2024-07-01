@@ -8,4 +8,5 @@ export const indices = {
   codename: [/*indices.codename*/],
   broadcast: [/*indices.broadcast*/],
   region: [/*indices.region*/],
+  otaId: [/*indices.otaId*/],
 };

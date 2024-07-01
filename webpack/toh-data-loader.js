@@ -1,9 +1,13 @@
 import {DeviceModel} from "@webosbrew/caniroot";
-import {groupBy} from "lodash-es";
+import {groupBy, omit} from "lodash-es";
 import Handlebars from "handlebars";
 
 /**
- * @typedef {import('@webosbrew/caniroot').DeviceModelData & {model:string}} DeviceModelEntry
+ * @typedef {import('@webosbrew/caniroot').DeviceModelData} DeviceModelData
+ */
+
+/**
+ * @typedef {DeviceModelData & {model:string}} DeviceModelEntry
  */
 
 /**
@@ -33,7 +37,20 @@ export default function (source) {
   /** @type {DeviceModelEntry[]} */
   const template = Handlebars.compile(source.replaceAll(/\[\/\*([^*]*)\*\/]/g, '{{{$1}}}'));
 
-  const models = Object.entries(DeviceModel.all).map(([key, value]) => ({model: key, ...value}));
+  /** @type {[string, DeviceModelData][]} */
+  const entries = Object.entries(DeviceModel.all);
+  const models = entries.flatMap(([key, value]) => {
+    const mainModel = {model: key, ...omit(value, 'variants')};
+    let variants = [mainModel];
+    if (value.variants) {
+      variants = variants.concat(value.variants.filter(v => {
+        return v.otaId || v.machine || v.codename;
+      }).map(v => {
+        return ({model: key, ...omit(value, 'variants'), ...v});
+      }));
+    }
+    return variants;
+  });
   return template({
     models: JSON.stringify(models),
     indices: {
@@ -42,6 +59,7 @@ export default function (source) {
       codename: JSON.stringify(toIndex(models, 'codename')),
       broadcast: JSON.stringify(toIndex(models, 'broadcast')),
       region: JSON.stringify(toIndex(models, 'region')),
+      otaId: JSON.stringify(toIndex(models, 'otaId')),
     }
   });
 }

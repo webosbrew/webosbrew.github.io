@@ -2,10 +2,11 @@ import {Component, html} from "htm/preact";
 import {ComponentChild, RenderableProps} from "preact";
 import {DeviceModelEntry} from "./toh-data";
 import {ChangeEvent} from "preact/compat";
+import {getConditionsIndices, SearchConditions} from "./search";
 
 type DevicesTableProps = {
     models: DeviceModelEntry[];
-    truncated: boolean;
+    conditions?: SearchConditions;
 }
 
 type DevicesTableState = {
@@ -25,19 +26,22 @@ export class DevicesTable extends Component<DevicesTableProps, DevicesTableState
     }
 
     render(props: RenderableProps<DevicesTableProps>, state: Readonly<DevicesTableState>): ComponentChild {
+        const indices = getConditionsIndices(props.conditions);
+        const filtered = indices?.map(i => props.models[i]) ?? props.models;
         const offset = state.offset;
         const limit = 50;
-        const items = props.models.slice(offset, offset + limit);
+        const items = filtered.slice(offset, offset + limit);
         return html`
           <div class="flex-fill table-responsive">
-            <${Pagination} count=${props.models.length} offset=${offset} limit=${limit}
+            <${Pagination} count=${filtered.length} offset=${offset} limit=${limit}
                            onChange=${this.offsetChange}></Pagination>
             <table class="table table-hover table-striped">
               <thead>
               <tr>
                 <th>Model</th>
                 <th>Series</th>
-                <th>Machine</th>
+                <th>SoC</th>
+                <th>Codename</th>
                 <th>Region</th>
                 <th>OTA ID</th>
               </tr>
@@ -48,6 +52,7 @@ export class DevicesTable extends Component<DevicesTableProps, DevicesTableState
                   <td>${item.model}</td>
                   <td>${item.series}</td>
                   <td>${item.machine}</td>
+                  <td>${item.codename}</td>
                   <td>${item.region}</td>
                   <td>${item.otaId}</td>
                 </tr>
@@ -85,7 +90,6 @@ class Pagination extends Component<PaginationProps> {
         if (this.props.offset === offset) {
             return;
         }
-        console.log('offset', offset, new Error());
         this.props.onChange?.(offset);
     }
 
