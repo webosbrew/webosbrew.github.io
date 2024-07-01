@@ -102,11 +102,12 @@ Patched in recent updates. [Instructions](/rooting/wta)
 
 ### RootMy.TV
 
-Patched in mid-2022.
+Worked on TVs running webOS 3~6, patched in 2022, and likely won't work anymore. [Website](https://rootmy.tv/)
 
 ### GetMeNow
 
-Works on some models running webOS 1~3. <a href="/rooting/getmenow">Instructions</a>
+Worked on some models running webOS 1~3, won't work after Dev Mode app updates after early 2024.
+[GetMeNow Instructions](/rooting/getmenow)
 
 ### NVM
 
