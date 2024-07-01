@@ -87,7 +87,9 @@ export class SearchSection extends Component<SearchSectionProps, SearchSectionSt
         const entries = props.entries.map((entry, index): DeviceModelIndexEntry & { index: number } => {
             const indices = (otherIndices?.length && intersection(entry.indices, otherIndices)) || entry.indices;
             return {value: entry.value, indices: indices, index};
-        }).filter(entry => entry.indices.length > 0).sort((a, b) => {
+        }).filter(entry => {
+            return state[entry.value] || entry.indices.length > 0;
+        }).sort((a, b) => {
             if (state[a.value] != state[b.value]) {
                 return state[a.value] ? -1 : 1;
             }
