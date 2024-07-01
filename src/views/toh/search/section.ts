@@ -86,13 +86,13 @@ export class SearchSection extends Component<SearchSectionProps, SearchSectionSt
         const hasValue = !!props.conditions[props.name];
         return html`
           <div class="search-section mb-2">
-            <div class="ps-3 d-flex flex-row w-100 collapsed user-select-none" data-bs-toggle="collapse"
+            <div class="ps-md-3 d-flex flex-row w-100 collapsed user-select-none" data-bs-toggle="collapse"
                  href="#search-${props.name}">
               <label class="form-label flex-fill ${hasValue ? 'fw-bold' : ''}">
                 ${props.title} (${entries.length})</label>
             </div>
             <div class="collapse" id="search-${props.name}">
-              <div class="ps-3 position-relative mt-2">
+              <div class="ps-md-3 position-relative mt-2">
                 <input type="text" class="form-control pe-5" placeholder="Filter..." autocomplete="new-filter"
                        value=${this.filter.value}
                        onInput=${(e: ChangeEvent<HTMLInputElement>) => this.filter.value = e.currentTarget.value}/>
@@ -107,7 +107,7 @@ export class SearchSection extends Component<SearchSectionProps, SearchSectionSt
                   </button>
                 </div>
               `}
-              <div class="ps-3 mt-2 pb-2 overflow-x-auto">
+              <div class="ps-md-3 mt-2 pb-2 overflow-x-auto">
                 ${entries.map((entry) => {
                   if (entry.indices.length === 0) return;
                   if (this.filter.value) {

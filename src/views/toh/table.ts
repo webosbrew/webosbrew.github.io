@@ -33,9 +33,7 @@ export class DevicesTable extends Component<DevicesTableProps, DevicesTableState
         const items = filtered.slice(offset, offset + limit);
         return html`
           <div class="flex-fill table-responsive">
-            <${Pagination} count=${filtered.length} offset=${offset} limit=${limit}
-                           onChange=${this.offsetChange}></Pagination>
-            <table class="table table-hover table-striped">
+            <table class="table table-hover table-striped toh">
               <thead>
               <tr>
                 <th>Model</th>
@@ -49,17 +47,20 @@ export class DevicesTable extends Component<DevicesTableProps, DevicesTableState
               <tbody>
               ${items.map((item) => html`
                 <tr>
-                  <td>${item.model}</td>
-                  <td>${item.series}</td>
-                  <td>${item.machine}</td>
-                  <td>${item.codename}</td>
-                  <td>${item.region}</td>
-                  <td>${item.otaId}</td>
+                  <td class="model">${item.model}</td>
+                  <td class="series">${item.series}</td>
+                  <td class="machine">${item.machine}</td>
+                  <td class="codename">${item.codename}</td>
+                  <td class="region">${item.region}</td>
+                  <td class="ota-id">${item.otaId}</td>
                 </tr>
               `)}
               </tbody>
             </table>
-          </div>`;
+          </div>
+          <${Pagination} count=${filtered.length} offset=${offset} limit=${limit}
+                         onChange=${this.offsetChange}></Pagination>
+        `;
     }
 }
 
@@ -80,10 +81,11 @@ class Pagination extends Component<PaginationProps> {
     };
 
     nextPage = () => {
-        if (this.props.offset >= this.props.count) {
+        const newOffset = this.props.offset + this.props.limit;
+        if (newOffset >= this.props.count) {
             return;
         }
-        this.props.onChange?.(this.props.offset + this.props.limit);
+        this.props.onChange?.(newOffset);
     };
 
     toOffset = (offset: number) => {
@@ -96,27 +98,27 @@ class Pagination extends Component<PaginationProps> {
     render(props: RenderableProps<PaginationProps>) {
         const offsets = Array.from({length: Math.ceil(props.count / props.limit)}, (_, i) => i * props.limit);
         return html`
-          <nav class="py-1">
-            <ul class="pagination input-group input-group-sm flex-nowrap">
-              <li class="page-item" onClick=${this.previousPage}>
-                <a class="page-link" href="#" aria-label="Previous">
+          <nav class="py-1 w-100 d-flex flex-row justify-content-center position-sticky bottom-0">
+            <ul class="pagination input-group input-group-sm flex-nowrap align-self-center w-auto shadow">
+              <li class="page-item">
+                <button class="page-link" onClick=${this.previousPage} aria-label="Previous">
                   <i class="bi bi-chevron-left" aria-hidden="true"></i>
-                </a>
+                </button>
               </li>
               <select class="page-item form-select w-auto"
                       onChange=${(e: ChangeEvent<HTMLSelectElement>) => this.toOffset(parseInt(e.currentTarget.value))}>
                 ${offsets.map(offset => html`
-                  <option value=${offset} selected=${offset === props.offset}>${offset + 1} - ${offset + props.limit}
+                  <option value=${offset} selected=${offset === props.offset}>${offset + 1} - ${Math.min(offset + props.limit, props.count)}
                   </option>`
                 )}
               </select>
               <li class="page-item input-group-text">
                 of ${props.count}
               </li>
-              <li class="page-item" onClick=${this.nextPage}>
-                <a class="page-link" href="#" aria-label="Next">
+              <li class="page-item">
+                <button class="page-link" onClick=${this.nextPage} aria-label="Next">
                   <i class="bi bi-chevron-right" aria-hidden="true"></i>
-                </a>
+                </button>
               </li>
             </ul>
           </nav>
