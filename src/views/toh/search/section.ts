@@ -1,5 +1,5 @@
 import {DeviceModelIndexEntry, DeviceModelIndices} from "../toh-data";
-import {getConditionsIndices, SearchConditions} from "./conditions";
+import {getConditionsIndices, SearchCondition, SearchConditions} from "./conditions";
 import {Component, html} from "htm/preact";
 import {signal} from "@preact/signals";
 import {debounce, intersection, omit} from "lodash-es";
@@ -18,7 +18,7 @@ type SearchSectionProps = {
     options: (models: DeviceModelIndexEntry[]) => SearchOption[];
 
     readonly conditions: SearchConditions;
-    selectionsChanged?: (indices: number[]) => void;
+    changed: (condition: SearchCondition) => void;
 };
 
 type SearchSectionState = {
@@ -61,16 +61,20 @@ export class SearchSection extends Component<SearchSectionProps, SearchSectionSt
             state[index] = undefined;
         }
         this.setState(state);
-        const indices = Object.values(state).flatMap(v => v?.indices ?? []).sort();
-        this.selectionsChangedDebounced(indices);
+        const selectedEntries = Object.values(state)
+            .filter(v => v?.indices) as DeviceModelIndexEntry[];
+        this.selectionsChangedDebounced({
+            options: selectedEntries.map(e => e.value),
+            indices: selectedEntries.flatMap(e => e.indices).sort()
+        });
     }
 
-    resetSelections() {
+    resetSelections = () => {
         this.setState(Object.fromEntries(this.props.entries.map((_, index) => [index, undefined])));
-        this.selectionsChangedDebounced([]);
+        this.selectionsChangedDebounced({options: [], indices: []});
     }
 
-    selectionsChangedDebounced = debounce((v: number[]) => this.props.selectionsChanged?.(v), 500);
+    selectionsChangedDebounced = debounce((v: SearchCondition) => this.props.changed(v), 500);
 
     render(props: RenderableProps<SearchSectionProps>, state: Readonly<SearchSectionState>) {
         const otherIndices = getConditionsIndices(omit(props.conditions, props.name));
@@ -86,25 +90,33 @@ export class SearchSection extends Component<SearchSectionProps, SearchSectionSt
         const hasValue = !!props.conditions[props.name];
         return html`
           <div class="search-section mb-2">
-            <div class="ps-md-3 py-2 d-flex flex-row w-100 collapsed user-select-none" data-bs-toggle="collapse"
+            <div class="ps-md-3 pe-md-1 py-2 d-flex flex-row w-100 collapsed user-select-none" data-bs-toggle="collapse"
                  href="#search-${props.name}">
               <label class="form-label flex-fill ${hasValue ? 'fw-bold' : ''}">
                 ${props.title} (${entries.length})</label>
             </div>
             <div class="collapse" id="search-${props.name}">
-              ${entries.length > 5 &&
-              html`
-                <div class="ps-md-3 position-relative mt-2">
-                  <input type="text" class="form-control form-control-sm pe-4" placeholder="Filter..."
-                         autocomplete="new-filter" value=${this.filter.value}
-                         onInput=${(e: ChangeEvent<HTMLInputElement>) => this.filter.value = e.currentTarget.value}/>
-                  <button class="btn btn-link position-absolute top-0 end-0 ${this.filter.value ? '' : 'd-none'}"
-                          onClick=${() => this.filter.value = ''}>
-                    <i class="bi bi-x-lg"></i>
-                  </button>
-                </div>`
-              }
-              <div class="p-1 my-1 ms-md-3 overflow-auto list-container border rounded">
+              <div class="p-1 my-1 my-md-2 ms-md-3 me-md-1 overflow-auto list-container border rounded">
+                ${entries.length > 10 &&
+                html`
+                  <div class="position-relative mb-2">
+                    <input type="text" class="form-control form-control-sm pe-4" placeholder="Filter..."
+                           autocomplete="new-filter" value=${this.filter.value}
+                           onInput=${(e: ChangeEvent<HTMLInputElement>) => this.filter.value = e.currentTarget.value}/>
+                    <button
+                        class="btn btn-sm btn-link position-absolute top-0 end-0 ${this.filter.value ? '' : 'd-none'}"
+                        onClick=${() => this.filter.value = ''}>
+                      <i class="bi bi-x"></i>
+                    </button>
+                  </div>`
+                }
+                ${hasValue && html`
+                  <div class="mt-2 d-flex flex-row justify-content-end">
+                    <button class="btn btn-sm btn-link text-decoration-none" onClick=${this.resetSelections}>
+                      Reset
+                    </button>
+                  </div>
+                `}
                 ${entries.map((entry) => {
                   if (this.filter.value) {
                     const filter = this.filter.value.toLowerCase();
@@ -115,12 +127,6 @@ export class SearchSection extends Component<SearchSectionProps, SearchSectionSt
                                        checked=${!!state[entry.index]} changed=${this.checkChanged}></SearchCheckbox>`;
                 })}
               </div>
-              ${hasValue && html`
-                <div class="mt-2 d-flex flex-row justify-content-end">
-                  <button class="btn btn-sm btn-link text-decoration-none" onClick=${() => this.resetSelections()}>Reset
-                  </button>
-                </div>
-              `}
             </div>
           </div>
         `;

@@ -114,8 +114,8 @@ class Pagination extends Component<PaginationProps> {
               <select class="page-item form-select w-auto"
                       onChange=${(e: ChangeEvent<HTMLSelectElement>) => this.toOffset(parseInt(e.currentTarget.value))}>
                 ${offsets.map(offset => html`
-                  <option value=${offset} selected=${offset === props.offset}>${offset + 1} -
-                    ${Math.min(offset + props.limit, props.count)}
+                  <option value=${offset} selected=${offset === props.offset}>
+                    ${offset + 1} - ${Math.min(offset + props.limit, props.count)}
                   </option>`
                 )}
               </select>

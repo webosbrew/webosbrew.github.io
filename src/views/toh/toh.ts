@@ -2,6 +2,7 @@ import {Component, html, render} from "htm/preact";
 import {SearchConditions, SideSearch} from "./search";
 import {indices, models} from "./toh-data";
 import {DevicesTable} from "./table";
+import {applyToUrlParams, parseFromUrlParams} from "./search/conditions";
 
 type AppState = {
     conditions?: SearchConditions;
@@ -9,8 +10,19 @@ type AppState = {
 
 class App extends Component<{}, AppState> {
 
+    constructor() {
+        super();
+        const params = new URL(location.href).searchParams;
+        this.state = {conditions: params ? parseFromUrlParams(params) : undefined};
+    }
+
     conditionsChanged = (conditions: SearchConditions) => {
         this.setState({conditions});
+        const url = new URL(location.href);
+        if (url.searchParams) {
+            applyToUrlParams(conditions, url.searchParams);
+            history.pushState(null, '', url);
+        }
     }
 
     render(_props: {}, state: AppState) {
@@ -21,7 +33,8 @@ class App extends Component<{}, AppState> {
             </div>
             <aside class="ms-md-3 toc" style="top: calc(var(--navbar-height) + 1em)">
               <div class="vr position-absolute h-100 d-none d-md-block"></div>
-              <${SideSearch} models=${models} indices=${indices} conditionsChanged=${this.conditionsChanged}>
+              <${SideSearch} models=${models} indices=${indices} conditions=${state.conditions}
+                             changed=${this.conditionsChanged}>
               </SideSearch>
             </aside>
           </div>
