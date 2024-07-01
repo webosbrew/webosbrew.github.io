@@ -33,7 +33,12 @@ const PurgeCssOptions = {
     .map(ent => path.resolve(ent.path, ent.name)),
   blocklist: [],
   safelist: {
-    standard: [/^(?:bs-)?(offcanvas|popover|tooltip)(?:$|\W)/, 'fade', 'show'],
+    standard: [
+      /^(?:bs-)?(offcanvas|popover|tooltip)(?:$|\W)/,
+      /popper/,
+      'fade',
+      'show'
+    ],
   }
 };
 
