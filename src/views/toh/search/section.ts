@@ -86,30 +86,26 @@ export class SearchSection extends Component<SearchSectionProps, SearchSectionSt
         const hasValue = !!props.conditions[props.name];
         return html`
           <div class="search-section mb-2">
-            <div class="ps-md-3 d-flex flex-row w-100 collapsed user-select-none" data-bs-toggle="collapse"
+            <div class="ps-md-3 py-2 d-flex flex-row w-100 collapsed user-select-none" data-bs-toggle="collapse"
                  href="#search-${props.name}">
               <label class="form-label flex-fill ${hasValue ? 'fw-bold' : ''}">
                 ${props.title} (${entries.length})</label>
             </div>
             <div class="collapse" id="search-${props.name}">
-              <div class="ps-md-3 position-relative mt-2">
-                <input type="text" class="form-control pe-5" placeholder="Filter..." autocomplete="new-filter"
-                       value=${this.filter.value}
-                       onInput=${(e: ChangeEvent<HTMLInputElement>) => this.filter.value = e.currentTarget.value}/>
-                <button class="btn btn-link position-absolute top-0 end-0 ${this.filter.value ? '' : 'd-none'}"
-                        onClick=${() => this.filter.value = ''}>
-                  <i class="bi bi-x-lg"></i>
-                </button>
-              </div>
-              ${hasValue && html`
-                <div class="mt-2">
-                  <button class="btn btn-link text-decoration-none" onClick=${() => this.resetSelections()}>Reset
+              ${entries.length > 5 &&
+              html`
+                <div class="ps-md-3 position-relative mt-2">
+                  <input type="text" class="form-control form-control-sm pe-4" placeholder="Filter..."
+                         autocomplete="new-filter" value=${this.filter.value}
+                         onInput=${(e: ChangeEvent<HTMLInputElement>) => this.filter.value = e.currentTarget.value}/>
+                  <button class="btn btn-link position-absolute top-0 end-0 ${this.filter.value ? '' : 'd-none'}"
+                          onClick=${() => this.filter.value = ''}>
+                    <i class="bi bi-x-lg"></i>
                   </button>
-                </div>
-              `}
-              <div class="ps-md-3 mt-2 pb-2 overflow-x-auto">
+                </div>`
+              }
+              <div class="p-1 my-1 ms-md-3 overflow-auto list-container border rounded">
                 ${entries.map((entry) => {
-                  if (entry.indices.length === 0) return;
                   if (this.filter.value) {
                     const filter = this.filter.value.toLowerCase();
                     if (!entry.value.toLowerCase().includes(filter)) return;
@@ -119,6 +115,12 @@ export class SearchSection extends Component<SearchSectionProps, SearchSectionSt
                                        checked=${!!state[entry.index]} changed=${this.checkChanged}></SearchCheckbox>`;
                 })}
               </div>
+              ${hasValue && html`
+                <div class="mt-2 d-flex flex-row justify-content-end">
+                  <button class="btn btn-sm btn-link text-decoration-none" onClick=${() => this.resetSelections()}>Reset
+                  </button>
+                </div>
+              `}
             </div>
           </div>
         `;

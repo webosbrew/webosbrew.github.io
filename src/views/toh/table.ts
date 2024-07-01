@@ -25,6 +25,12 @@ export class DevicesTable extends Component<DevicesTableProps, DevicesTableState
         this.setState({offset});
     }
 
+    componentWillReceiveProps(nextProps: Readonly<DevicesTableProps>) {
+        if (nextProps.conditions !== this.props.conditions) {
+            this.setState({offset: 0});
+        }
+    }
+
     render(props: RenderableProps<DevicesTableProps>, state: Readonly<DevicesTableState>): ComponentChild {
         const indices = getConditionsIndices(props.conditions);
         const filtered = indices?.map(i => props.models[i]) ?? props.models;
@@ -108,7 +114,8 @@ class Pagination extends Component<PaginationProps> {
               <select class="page-item form-select w-auto"
                       onChange=${(e: ChangeEvent<HTMLSelectElement>) => this.toOffset(parseInt(e.currentTarget.value))}>
                 ${offsets.map(offset => html`
-                  <option value=${offset} selected=${offset === props.offset}>${offset + 1} - ${Math.min(offset + props.limit, props.count)}
+                  <option value=${offset} selected=${offset === props.offset}>${offset + 1} -
+                    ${Math.min(offset + props.limit, props.count)}
                   </option>`
                 )}
               </select>
