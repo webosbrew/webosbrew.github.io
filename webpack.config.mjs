@@ -30,11 +30,12 @@ const PurgeCssOptions = {
   paths: () => ['src', 'webpack']
     .flatMap(p => fs.readdirSync(path.resolve(p), {withFileTypes: true, recursive: true}))
     .filter(ent => ent.isFile())
-    .map(ent => path.resolve(ent.path, ent.name)),
+    .map(ent => path.resolve(ent.path, ent.name))
+    .concat(['alert', 'carousel', 'collapse', 'offcanvas', 'popover', 'tooltip', 'scrollspy']
+      .map(n => path.resolve(`node_modules/bootstrap/js/src/${n}.js`))),
   blocklist: ['dev-only'],
   safelist: {
     standard: [
-      /^(?:bs-)?(offcanvas|popover|tooltip)(?:$|\W)/, /popper/, /^collaps/, 'fade', 'show', 'hide' /* bootstrap */,
       /^callout-/, 'octicon'/* remark-github-blockquote-alert */,
     ],
   },
