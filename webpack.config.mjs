@@ -39,7 +39,8 @@ const PurgeCssOptions = {
       'fade',
       'show'
     ],
-  }
+  },
+  stdout: true,
 };
 
 // noinspection JSUnusedGlobalSymbols

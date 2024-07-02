@@ -17,8 +17,8 @@ table.exploits tbody td {
 
 ## Can I root my TV?
 
-> [!NOTE]
-> Rooting methods are constantly being patched. This info may not be up-to-date.
+> [!TIP]
+> Checkout [CanI.RootMy.TV](https://cani.rootmy.tv) for your model and firmware version.
 
 <div class="table-responsive">
   <table class="table table-bordered exploits">
