@@ -1,0 +1,86 @@
+{{#> page title="Develop"}}
+  <h1>Develop</h1>
+  <hr>
+  <!-- Layout plagiarized from Apple Developer -->
+  <section class="rounded-4 bg-dark px-5 pt-5 pb-4">
+    <h2 class="fw-semibold">Development resources</h2>
+    <div class="row mt-2 g-3">
+      <section class="col-12 col-md-4 py-4">
+        <i class="bi bi-tools display-4 text-primary-emphasis"></i>
+        <h3 class="fw-semibold mt-2">Tools</h3>
+        <p class="text-secondary">Get the tools you need to develop apps for webOS.</p>
+        <ul class="list-inline">
+          <li><a href="https://github.com/webosbrew/ares-cli-rs">CLI tools</a></li>
+          <li><a href="https://github.com/webosbrew/native-toolchain/">Native SDK</a></li>
+          <li><a href="https://github.com/webosbrew/dev-manager-desktop">webOS Dev Manager</a></li>
+          <li class="d-none dev-only">All tools</li>
+        </ul>
+      </section>
+      <section class="col-12 col-md-4 py-4">
+        <i class="bi bi-book display-4 text-primary-emphasis"></i>
+        <h3 class="fw-semibold mt-2">Guides</h3>
+        <p class="text-secondary">Learn how to develop apps for webOS.</p>
+        <ul class="list-unstyled">
+          <li><a href="https://www.webosbrew.org/pages/sdk-configuration">SDK configuration</a></li>
+          <li><a href="https://www.webosbrew.org/pages/native-development">Native app development</a></li>
+          <li><a href="https://www.webosbrew.org/pages/web-development">Web app development</a></li>
+          <li class="d-none dev-only"><a href="">Publish to homebrew app repository</a></li>
+          <li class="d-none dev-only">All guides</li>
+        </ul>
+      </section>
+      <section class="col-12 col-md-4 py-4">
+        <i class="bi bi-file-earmark-code display-4 text-primary-emphasis"></i>
+        <h3 class="fw-semibold mt-2">References</h3>
+        <p class="text-secondary">System API specifications and detailed documentation.</p>
+        <ul class="list-unstyled">
+          <li><a href="https://www.webosbrew.org/pages/luna-service-bus">Luna services</a></li>
+          <li class="d-none dev-only"><a href="https://www.webosbrew.org/tv-native-apis/">Native API reference</a></li>
+          <li class="d-none dev-only">Package metadata</li>
+          <li class="d-none dev-only">All documentations</li>
+        </ul>
+      </section>
+    </div>
+  </section>
+  <section class="rounded-4 bg-dark px-5 pt-5 pb-4 mt-5">
+    <h2 class="fw-semibold">Apps &amp; libraries</h2>
+    <p>Open-source projects that's built with homebrew tools.</p>
+    <div class="row mt-2 g-3">
+      {{#> "develop/partials/highlight-card" title="Moonlight"}}
+        SDL, Low latency A/V streaming, input handling, remote control navigation.<br>
+        <a class="stretched-link text-white" href="https://github.com/mariotaku/moonlight-tv"><i
+            class="bi bi-github"></i></a>
+        <small class="badge rounded-pill text-bg-info ms-2">C/C++</small>
+      {{/"develop/partials/highlight-card"}}
+      {{#> "develop/partials/highlight-card" title="Kodi" }}
+        Wayland, webOS media pipeline<br>
+        <a class="stretched-link text-white" href="https://github.com/xbmc/xbmc"><i class="bi bi-github"></i></a>
+        <small class="badge rounded-pill text-bg-info ms-2">C/C++</small>
+      {{/ "develop/partials/highlight-card" }}
+      {{#> "develop/partials/highlight-card" title="Chocolate Doom"}}
+        Porting SDL2-based apps/games effortlessly.<br>
+        <a class="stretched-link text-white" href="https://github.com/webosbrew/chocolate-doom"> <i
+            class="bi bi-github"></i></a>
+        <small class="badge rounded-pill text-bg-info ms-2">C/C++</small>
+      {{/ "develop/partials/highlight-card"}}
+      {{#> "develop/partials/highlight-card" title="SDL2 Backport"}}
+        Use latest SDL2 features on all webOS versions.<br>
+        <a class="stretched-link text-white" href="https://github.com/webosbrew/SDL-webOS"> <i
+            class="bi bi-github"></i></a>
+        <small class="badge rounded-pill text-bg-info ms-2">C/C++</small>
+      {{/ "develop/partials/highlight-card"}}
+      {{#> "develop/partials/highlight-card" title="SS4S"}}
+        Audio/video stream playback library for webOS.<br>
+        <a class="stretched-link text-white" href="https://github.com/mariotaku/ss4s"> <i
+            class="bi bi-github"></i></a>
+        <small class="badge rounded-pill text-bg-info ms-2">C/C++</small>
+      {{/ "develop/partials/highlight-card"}}
+    </div>
+  </section>
+  <!--
+  <section class="rounded-4 bg-dark px-5 pt-5 pb-4 mt-5">
+    <h2 class="fw-semibold">Samples</h2>
+    <div class="row mt-2 g-3">
+    </div>
+  </section>
+  -->
+{{/page}}

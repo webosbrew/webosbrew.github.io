@@ -25,3 +25,9 @@ $primary: #cf0652;
 html {
   scroll-padding-top: var(--navbar-height);
 }
+
+
+.d-none.dev-only {
+  display: inherit !important;
+  outline: 1px solid red !important;
+}

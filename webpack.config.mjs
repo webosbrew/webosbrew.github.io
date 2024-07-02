@@ -31,7 +31,7 @@ const PurgeCssOptions = {
     .flatMap(p => fs.readdirSync(path.resolve(p), {withFileTypes: true, recursive: true}))
     .filter(ent => ent.isFile())
     .map(ent => path.resolve(ent.path, ent.name)),
-  blocklist: [],
+  blocklist: ['dev-only'],
   safelist: {
     standard: [
       /^(?:bs-)?(offcanvas|popover|tooltip)(?:$|\W)/,
@@ -60,16 +60,15 @@ export default function (env, argv) {
           let segs = name.split(path.sep);
           if (segs[0] === 'index') {
             return 'index.html';
-          } else if (segs[segs.length - 1] === 'index') {
-            segs.pop();
           }
-          return `${segs.join('/')}/index.html`;
+          return `${name}.html`;
         },
         preprocessor: 'handlebars',
         preprocessorOptions: {
           root: 'src',
           partials: [
-            'src/partials'
+            'src/partials',
+            'src/views',
           ],
         },
         loaderOptions: {
