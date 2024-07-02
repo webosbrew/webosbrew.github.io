@@ -34,11 +34,8 @@ const PurgeCssOptions = {
   blocklist: ['dev-only'],
   safelist: {
     standard: [
-      /^(?:bs-)?(offcanvas|popover|tooltip)(?:$|\W)/,
-      /popper/,
-      'fade',
-      'show',
-      /^callout-/, 'octicon'/* For remark-github-blockquote-alert */,
+      /^(?:bs-)?(offcanvas|popover|tooltip)(?:$|\W)/, /popper/, /^collaps/, 'fade', 'show', 'hide' /* bootstrap */,
+      /^callout-/, 'octicon'/* remark-github-blockquote-alert */,
     ],
   },
   stdout: true,
