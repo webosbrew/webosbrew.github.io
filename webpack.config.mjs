@@ -37,7 +37,8 @@ const PurgeCssOptions = {
       /^(?:bs-)?(offcanvas|popover|tooltip)(?:$|\W)/,
       /popper/,
       'fade',
-      'show'
+      'show',
+      /^callout-/, 'octicon'/* For remark-github-blockquote-alert */,
     ],
   },
   stdout: true,
