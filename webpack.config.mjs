@@ -35,7 +35,7 @@ function PurgeCssOptions(mode) {
       .flatMap(p => fs.readdirSync(path.resolve(p), {withFileTypes: true, recursive: true}))
       .filter(ent => ent.isFile())
       .map(ent => path.resolve(ent.path, ent.name))
-      .concat(['alert', 'carousel', 'collapse', 'offcanvas', 'popover', 'tooltip', 'scrollspy']
+      .concat(['alert', 'carousel', 'collapse', 'popover', 'tooltip', 'scrollspy']
         .map(n => path.resolve(`node_modules/bootstrap/js/src/${n}.js`))),
     blocklist: mode === 'production' ? ['dev-only'] : [],
     safelist: {
@@ -56,7 +56,7 @@ export default function (env, argv) {
       port: 8080,
       hot: true
     },
-    devtool: argv.mode === 'production' && 'source-map',
+    devtool: 'source-map',
     plugins: [
       new HtmlBundlerPlugin({
         entry: 'src/views/',
