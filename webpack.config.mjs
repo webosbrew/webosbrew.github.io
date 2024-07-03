@@ -25,22 +25,27 @@ const HtmlBundlerMarkdownOptions = {
   }
 };
 
-/** @type {import("purgecss-webpack-plugin").UserDefinedOptions} */
-const PurgeCssOptions = {
-  paths: () => ['src', 'webpack']
-    .flatMap(p => fs.readdirSync(path.resolve(p), {withFileTypes: true, recursive: true}))
-    .filter(ent => ent.isFile())
-    .map(ent => path.resolve(ent.path, ent.name))
-    .concat(['alert', 'carousel', 'collapse', 'offcanvas', 'popover', 'tooltip', 'scrollspy']
-      .map(n => path.resolve(`node_modules/bootstrap/js/src/${n}.js`))),
-  blocklist: ['dev-only'],
-  safelist: {
-    standard: [
-      /^callout-/, 'octicon'/* remark-github-blockquote-alert */,
-    ],
-  },
-  stdout: true,
-};
+/**
+ * @param {string} mode
+ * @returns {import("purgecss-webpack-plugin").UserDefinedOptions}
+ */
+function PurgeCssOptions(mode) {
+  return {
+    paths: () => ['src', 'webpack']
+      .flatMap(p => fs.readdirSync(path.resolve(p), {withFileTypes: true, recursive: true}))
+      .filter(ent => ent.isFile())
+      .map(ent => path.resolve(ent.path, ent.name))
+      .concat(['alert', 'carousel', 'collapse', 'offcanvas', 'popover', 'tooltip', 'scrollspy']
+        .map(n => path.resolve(`node_modules/bootstrap/js/src/${n}.js`))),
+    blocklist: mode === 'production' ? ['dev-only'] : [],
+    safelist: {
+      standard: [
+        /^callout-/, 'octicon'/* remark-github-blockquote-alert */,
+      ],
+    },
+    stdout: true,
+  }
+}
 
 // noinspection JSUnusedGlobalSymbols
 export default function (env, argv) {
@@ -102,7 +107,7 @@ export default function (env, argv) {
           }
         }
       }),
-      ...(argv.mode === 'production' ? [new PurgeCSSPlugin(PurgeCssOptions)] : []),
+      new PurgeCSSPlugin(PurgeCssOptions(argv.mode)),
     ],
     module: {
       rules: [
