@@ -4,24 +4,18 @@
       <img class="bi" width="32" height="32" src="/img/icon32.svg" alt="webOS Homebrew"/>
       webOS Homebrew
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
-            aria-controls="offcanvas" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapse"
+            aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasLabel">webOS Homebrew</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav flex-grow-1 justify-content-start">
-          <li class="nav-item d-none d-md-inline-block"><a class="nav-link" href="/">
-            <img class="bi" width="32" height="32" src="/img/icon32.svg" alt="webOS Homebrew"/>
-          </a></li>
-          <li class="nav-item"><a class="nav-link" href="https://repo.webosbrew.org/">Apps</a></li>
-          <li class="nav-item"><a class="nav-link" href="/develop">Develop</a></li>
-        </ul>
-      </div>
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbar-collapse">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item d-none d-md-inline-block"><a class="nav-link" href="/">
+          <img class="bi" width="32" height="32" src="/img/icon32.svg" alt="webOS Homebrew"/>
+        </a></li>
+        <li class="nav-item"><a class="nav-link" href="https://repo.webosbrew.org/">Apps</a></li>
+        <li class="nav-item"><a class="nav-link" href="/develop">Develop</a></li>
+      </ul>
     </div>
   </div>
 </nav>
