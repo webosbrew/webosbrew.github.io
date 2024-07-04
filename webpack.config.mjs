@@ -69,8 +69,10 @@ export default function (env, argv) {
           let segs = name.split(path.sep);
           if (segs[0] === 'index') {
             return 'index.html';
+          } else if (segs[segs.length - 1] === 'index') {
+            segs.pop();
           }
-          return `${name}/index.html`;
+          return `${segs.join('/')}/index.html`;
         },
         preprocessor: 'handlebars',
         preprocessorOptions: {
