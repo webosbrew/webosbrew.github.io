@@ -7,11 +7,13 @@ import remarkRehype from 'remark-rehype';
 
 import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
+import rehypeHighlight from "rehype-highlight";
 import rehypeStringify from 'rehype-stringify';
 
 import {visit} from 'unist-util-visit';
 import {capitalize} from 'lodash-es';
 import extractMeta from "./extract-meta.js";
+import {tabbedCodeBlock} from "./rehype/tabbed-code-block.js";
 
 /** @typedef {import('hast').Root} Root */
 
@@ -124,12 +126,14 @@ const parser = remark()
   .use(remarkRehype, {allowDangerousHtml: true})
   .use(rehypeRaw)
   .use(rehypeSlug)
+  .use(rehypeHighlight)
   .use(flattenTopSection)
   .use(moveSlugToSection)
   .use(autoLead)
   .use(headingHr)
   .use(blockQuoteStyle)
   .use(wrapTable)
+  .use(tabbedCodeBlock)
   .use(extractMeta)
   .use(rehypeStringify, {allowDangerousCharacters: true, allowDangerousHtml: true});
 

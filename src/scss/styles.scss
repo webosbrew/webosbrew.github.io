@@ -12,6 +12,8 @@ $primary: #cf0652;
 // Required
 @import "bootstrap";
 
+@import 'highlight.js/styles/github-dark.css';
+
 @import "components/alert";
 @import "components/blockquote";
 @import "components/callout";

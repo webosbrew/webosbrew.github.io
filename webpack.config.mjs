@@ -20,8 +20,8 @@ const HtmlBundlerMarkdownOptions = {
     if (!resourcePath.endsWith('.md')) {
       return undefined;
     }
-    Object.assign(data, meta);
-    return `{{#> page }}${content}{{/page}}`;
+    Object.assign(data, meta, {content});
+    return `{{#> page }}{{{content}}}{{/page}}`;
   }
 };
 
@@ -41,6 +41,7 @@ function PurgeCssOptions(mode) {
     safelist: {
       standard: [
         /^callout-/, 'octicon'/* remark-github-blockquote-alert */,
+        /^hljs-/, /^language-/,
       ],
     },
     stdout: true,
@@ -60,13 +61,16 @@ export default function (env, argv) {
     plugins: [
       new HtmlBundlerPlugin({
         entry: 'src/views/',
+        entryFilter: {
+          excludes: [/partials/],
+        },
         test: /\.(html|hbs|md)$/,
         filename: ({chunk: {name}}) => {
           let segs = name.split(path.sep);
           if (segs[0] === 'index') {
             return 'index.html';
           }
-          return `${name}.html`;
+          return `${name}/index.html`;
         },
         preprocessor: 'handlebars',
         preprocessorOptions: {
@@ -75,20 +79,17 @@ export default function (env, argv) {
             'src/partials',
             'src/views',
           ],
+          preventIndent: true,
         },
         loaderOptions: {
           root: path.resolve('src'),
         },
         hotUpdate: true,
         js: {
-          // JS output filename, used if `inline` option is false (defaults)
-          filename: 'js/[name].[contenthash:8].js',
-          //inline: true, // inlines JS into HTML
+          filename: 'js/[name].[contenthash:8].js'
         },
         css: {
-          // CSS output filename, used if `inline` option is false (defaults)
-          filename: 'css/[name].[contenthash:8].css',
-          //inline: true, // inlines CSS into HTML
+          filename: 'css/[name].[contenthash:8].css'
         },
       }),
       new FaviconsBundlerPlugin({
