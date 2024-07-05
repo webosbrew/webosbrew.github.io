@@ -4,6 +4,7 @@ import {remarkAlert} from 'remark-github-blockquote-alert';
 import remarkSectionize from 'remark-sectionize';
 import remarkGemoji from 'remark-gemoji';
 import remarkRehype from 'remark-rehype';
+import remarkTabbedCodeBlock from "./remark/tabbed-code-block.js";
 
 import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
@@ -13,7 +14,6 @@ import rehypeStringify from 'rehype-stringify';
 import {visit} from 'unist-util-visit';
 import {capitalize} from 'lodash-es';
 import extractMeta from "./extract-meta.js";
-import {tabbedCodeBlock} from "./rehype/tabbed-code-block.js";
 
 /** @typedef {import('hast').Root} Root */
 
@@ -123,6 +123,7 @@ const parser = remark()
   .use([remarkAlert, alertRestyle])
   .use(remarkSectionize)
   .use(remarkGemoji)
+  .use(remarkTabbedCodeBlock)
   .use(remarkRehype, {allowDangerousHtml: true})
   .use(rehypeRaw)
   .use(rehypeSlug)
@@ -133,7 +134,6 @@ const parser = remark()
   .use(headingHr)
   .use(blockQuoteStyle)
   .use(wrapTable)
-  .use(tabbedCodeBlock)
   .use(extractMeta)
   .use(rehypeStringify, {allowDangerousCharacters: true, allowDangerousHtml: true});
 
