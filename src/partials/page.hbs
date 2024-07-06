@@ -8,17 +8,20 @@
   <link href="/scss/styles.scss" rel="stylesheet">
   <link href="/img/hbchannel-color.svg" type="image/svg" rel="icon">
 </head>
-<body data-bs-theme="dark">
+<body data-bs-theme="dark" data-bs-spy="scroll" data-bs-target="#page-toc" data-bs-smooth-scroll="false"
+      data-bs-root-margin="-65px 0px -90%" data-bs-threshold="[0]">
 {{> navbar }}
 <main class="bg-dark-subtle page">
-  <div class="page-content container py-4">
-    <article data-bs-spy="scroll" data-bs-target="#page-toc" data-bs-smooth-scroll="false"
-             data-bs-root-margin="-65px 0px -90%" data-bs-threshold="[0]">
+  {{#if sidebar}}
+    <aside class="sidebar">
+      {{{sidebar}}}
+      <div class="vr position-absolute h-100 top-0 end-0 d-md-block d-none"></div>
+    </aside>
+  {{/if}}
+  <div class="page-container container py-4">
+    <article {{#if toc}}class="with-toc"{{/if}}>
       {{> @partial-block }}
     </article>
-    {{#toc}}
-      {{> page-toc items=children }}
-    {{/toc}}
   </div>
 </main>
 {{> footer }}

@@ -5,6 +5,7 @@ import FaviconsBundlerPlugin from "html-bundler-webpack-plugin/plugins/favicons-
 import ImageMinimizerPlugin from "image-minimizer-webpack-plugin";
 import {PurgeCSSPlugin} from "purgecss-webpack-plugin";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
+import MarkdownLoader from "./webpack/markdown-loader.js";
 
 const babelLoader = {
   loader: 'babel-loader',
@@ -20,8 +21,12 @@ const HtmlBundlerMarkdownOptions = {
     if (!resourcePath.endsWith('.md')) {
       return undefined;
     }
-    Object.assign(data, meta, {content});
-    return `{{#> page }}{{{content}}}{{/page}}`;
+    const sidebarEnt = fs.readdirSync(path.dirname(resourcePath), {withFileTypes: true})
+      .find(ent => ent.isFile() && ent.name.startsWith('_sidebar.'));
+    const sidebar = sidebarEnt && MarkdownLoader(fs.readFileSync(path.join(sidebarEnt.path, sidebarEnt.name),
+      {encoding: 'utf-8'}), {sync: true})?.content;
+    Object.assign(data, meta, sidebar && {sidebar});
+    return `{{#> page }}${content}{{/page}}`;
   }
 };
 
@@ -62,7 +67,7 @@ export default function (env, argv) {
       new HtmlBundlerPlugin({
         entry: 'src/views/',
         entryFilter: {
-          excludes: [/partials/],
+          excludes: [/partials/, /_sidebar/],
         },
         test: /\.(html|hbs|md)$/,
         filename: ({chunk: {name}}) => {
@@ -81,6 +86,9 @@ export default function (env, argv) {
             'src/partials',
             'src/views',
           ],
+          helpers: [
+            'webpack/handlebars'
+          ],
           preventIndent: true,
         },
         loaderOptions: {
@@ -95,7 +103,7 @@ export default function (env, argv) {
         },
       }),
       new FaviconsBundlerPlugin({
-        enabled: true,
+        enabled: argv.mode === 'production',
         faviconOptions: {
           path: '/img/favicons',
           display: 'browser',
@@ -110,7 +118,7 @@ export default function (env, argv) {
           }
         }
       }),
-      new PurgeCSSPlugin(PurgeCssOptions(argv.mode)),
+      ...(argv.mode === 'production' ? [new PurgeCSSPlugin(PurgeCssOptions(argv.mode))] : []),
     ],
     module: {
       rules: [

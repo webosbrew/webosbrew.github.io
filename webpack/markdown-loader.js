@@ -10,20 +10,10 @@ import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
 import rehypeHighlight from "rehype-highlight";
 import rehypeStringify from 'rehype-stringify';
+import {extractMeta, tocDropdown} from "./rehype/table-of-contents.js";
 
 import {visit} from 'unist-util-visit';
 import {capitalize} from 'lodash-es';
-import extractMeta from "./extract-meta.js";
-
-/** @typedef {import('hast').Root} Root */
-
-/** @typedef {import('hast').Element} Element */
-
-/**
- * @typedef {Function} Processor
- * @param {Root} tree
- * @param {import('vfile').VFile} [vfile]
- */
 
 /** @returns {Processor} */
 function flattenTopSection() {
@@ -117,7 +107,7 @@ function alertRestyle() {
   };
 }
 
-/** @type {import('unified').Processor} */
+/** @type {Processor} */
 const parser = remark()
   .use(remarkGfm)
   .use([remarkAlert, alertRestyle])
@@ -135,17 +125,20 @@ const parser = remark()
   .use(blockQuoteStyle)
   .use(wrapTable)
   .use(extractMeta)
+  .use(tocDropdown)
   .use(rehypeStringify, {allowDangerousCharacters: true, allowDangerousHtml: true});
 
 /**
  * @this {import('webpack').LoaderContext}
  * @param source {string}
+ * @param [options] {{sync: boolean}}
  */
 // noinspection JSUnusedGlobalSymbols
-export default async function (source) {
-  let result = await parser.process(source);
-  return {
-    content: result.value,
-    meta: result.data
-  };
+export default function (source, options) {
+  if (options?.sync) {
+    const result = parser.processSync(source);
+    return {content: result.value, meta: result.data}
+  } else {
+    return parser.process(source).then(result => ({content: result.value, meta: result.data}));
+  }
 }

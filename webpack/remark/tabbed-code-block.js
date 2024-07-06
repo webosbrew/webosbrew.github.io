@@ -1,27 +1,10 @@
 import {visit} from "unist-util-visit";
 import {toHtml} from "hast-util-to-html";
-import htm from "htm";
 import {kebabCase} from "lodash-es";
+import {html} from "../htm-rehype.js";
 
-/** @typedef {import('mdast').Code} Code */
 /** @typedef {Code & {tab: string, tabId: string}} TabbedCode */
-/** @typedef {import('mdast').Html} Html */
 
-/** @typedef {import('hast').Root} Root */
-
-/** @typedef {import('hast').Element} Element */
-
-function createElement(type, props, ...children) {
-  return {
-    type: 'element',
-    tagName: type,
-    properties: props ?? {},
-    children: children.flatMap(child => Array.isArray(child) ? child : [child])
-      .map(child => typeof child === 'string' ? {type: 'text', value: child} : child)
-  };
-}
-
-const html = htm.bind(createElement);
 
 /**
  * @typedef {Function} Processor
