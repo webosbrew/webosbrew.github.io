@@ -111,9 +111,6 @@ export default function (env, argv) {
             'src/partials',
             'src/views',
           ],
-          helpers: [
-            'webpack/handlebars'
-          ],
           preventIndent: true,
         },
         loaderOptions: {
