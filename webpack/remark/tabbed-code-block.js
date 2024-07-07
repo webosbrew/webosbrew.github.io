@@ -1,41 +1,12 @@
 import {visit} from "unist-util-visit";
 import {toHtml} from "hast-util-to-html";
-import {kebabCase} from "lodash-es";
+import {kebabCase, repeat} from "lodash-es";
 import {html} from "../htm-rehype.js";
 
 /** @typedef {Code & {tab: string, tabId: string}} TabbedCode */
 
-
-/**
- * @typedef {Function} Processor
- * @param {Root} tree
- * @param {import('vfile').VFile} [vfile]
- */
-
 /** @returns {Processor} */
 export default function tabbedCodeBlock() {
-
-
-  /**
-   * @param {Element} node
-   * @return {[Element, Element] | null}
-   */
-  function getTextAndPre(node) {
-    if (node.tagName !== 'li' || !node.children) {
-      return null;
-    }
-    let text = null;
-    let pre = null;
-    for (let child of node.children) {
-      if (child.tagName === 'p') {
-        text = child;
-      } else if (child.tagName === 'pre') {
-        pre = child;
-      }
-    }
-    return text && pre && [text, pre];
-  }
-
   /** @param {Code|undefined} node */
   function isTabbedCodeBlock(node) {
     return node?.type === 'code' && node.meta;
@@ -58,7 +29,7 @@ export default function tabbedCodeBlock() {
         /** @type {Html} */
         const elem = {type: 'html'};
         /** @type {TabbedCode[]} */
-        const tabs = parent.children.splice(firstTab, index - firstTab + 1, elem);
+        const tabs = parent.children.slice(firstTab, index + 1);
         const prefix = `code-${tabs[0].position?.start?.offset}`;
         elem.value = toHtml(html`
           <div>
@@ -88,6 +59,9 @@ export default function tabbedCodeBlock() {
             </div>
           </div>`
         );
+
+        parent.children.fill({value: ''}, firstTab, index);
+        parent.children[index] = elem;
       });
   };
 }
