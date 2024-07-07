@@ -1,0 +1,39 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+nav#toc-nav {
+  li a {
+    --bs-text-opacity: 1;
+    color: rgba(var(--bs-secondary-rgb), var(--bs-text-opacity)) !important;
+
+    &:hover {
+      color: rgba(var(--bs-body-color-rgb), var(--bs-text-opacity)) !important;
+    }
+
+  }
+
+  @include media-breakpoint-up(md) {
+    display: block;
+    border: none !important;
+    border-radius: 0 !important;
+
+    li a {
+      border-inline-start-width: 2px;
+      border-inline-start-style: solid;
+      border-inline-start-color: transparent;
+
+      &:hover {
+        border-inline-color: var(--bs-body-color);
+      }
+
+      &.active {
+        color: var(--bs-emphasis-color) !important;
+        border-inline-color: var(--bs-emphasis-color);
+      }
+    }
+  }
+}

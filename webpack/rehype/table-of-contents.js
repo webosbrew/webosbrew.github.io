@@ -76,24 +76,24 @@ export function tocDropdown() {
     const intro = children.splice(0, firstHr + 1);
     const content = children.splice(0, children.length);
     children.push(...html`
-      <div class="page-intro">${intro}</div>
+      <div class="page-intro pe-md-3">${intro}</div>
       <div class="page-toc">
         <button class="form-select text-start d-md-none" type="button" data-bs-toggle="collapse"
-                data-bs-target="#page-toc">
-          Contents
+                data-bs-target="#toc-nav">
+          On this page
         </button>
-        <strong class="mx-3 h6 d-none d-md-block">Contents</strong>
-        <hr class="ms-3 d-none d-md-block"/>
-        <nav id="page-toc" class="collapse ms-md-3 mt-3 mt-md-0 p-3 p-md-0 border rounded">
-          <ul class="list-unstyled text-secondary small">
+        <strong class="mx-3 h6 d-none d-md-block">On this page</strong>
+        <hr class="mx-3 d-none d-md-block"/>
+        <nav id="toc-nav" class="collapse ms-md-1 mt-3 mt-md-0 p-3 p-md-0 border rounded">
+          <ul class="list-unstyled small my-0">
             ${toc.children.map((item) => html`
               <li>
-                <a class="text-decoration-none" href="#${item.id}">${item.title}</a>
+                <a class="d-block text-decoration-none ps-md-2" href="#${item.id}">${item.title}</a>
                 ${item.children?.length > 0 && html`
-                  <ul class="list-unstyled ms-2">
+                  <ul class="list-unstyled">
                     ${item.children.map((child) => html`
                       <li>
-                        <a class="text-decoration-none" href="#${child.id}">${child.title}</a>
+                        <a class="d-block text-decoration-none ps-2 ps-md-3" href="#${child.id}">${child.title}</a>
                       </li>
                     `)}
                   </ul>
@@ -103,7 +103,7 @@ export function tocDropdown() {
           </ul>
         </nav>
       </div>
-      <div class="page-content mt-3 mt-md-0">${content}</div>
+      <div class="page-content mt-3 mt-md-0 pe-md-3">${content}</div>
     `)
   };
 }

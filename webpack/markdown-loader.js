@@ -14,6 +14,7 @@ import {extractMeta, tocDropdown} from "./rehype/table-of-contents.js";
 
 import {visit} from 'unist-util-visit';
 import {capitalize} from 'lodash-es';
+import remarkBootstrapIcon from "./remark/bootstrap-icon.js";
 
 /** @returns {Processor} */
 function flattenTopSection() {
@@ -112,6 +113,7 @@ const parser = remark()
   .use(remarkGfm)
   .use([remarkAlert, alertRestyle])
   .use(remarkSectionize)
+  .use(remarkBootstrapIcon)
   .use(remarkGemoji)
   .use(remarkTabbedCodeBlock)
   .use(remarkRehype, {allowDangerousHtml: true})

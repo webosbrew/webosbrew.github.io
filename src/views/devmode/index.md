@@ -7,7 +7,7 @@ Use officially supported development mode to install homebrew apps and games.
 >
 > Please read every step carefully before proceeding.
 >
-> #### <i class="bi bi-info-circle me-2"></i>What's Needed
+> #### :bi-info-circle: What's Needed
 > 1. A computer or smartphone
 
 ## Get Started

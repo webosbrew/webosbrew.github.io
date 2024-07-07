@@ -5,7 +5,11 @@ import FaviconsBundlerPlugin from "html-bundler-webpack-plugin/plugins/favicons-
 import ImageMinimizerPlugin from "image-minimizer-webpack-plugin";
 import {PurgeCSSPlugin} from "purgecss-webpack-plugin";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
-import MarkdownLoader from "./webpack/markdown-loader.js";
+import {remark} from "remark";
+import remarkRehype from "remark-rehype";
+import rehypeStringify from "rehype-stringify";
+import remarkBootstrapIcon from "./webpack/remark/bootstrap-icon.js";
+import {rehypeLinkActive} from "./webpack/rehype/link-active.js";
 
 const babelLoader = {
   loader: 'babel-loader',
@@ -15,16 +19,37 @@ const babelLoader = {
   }
 };
 
+/**
+ * @param relative {string}
+ * @return {string}
+ */
+function getPagePath(relative) {
+  let segs = relative.split(path.sep);
+  if (segs[0] === 'src' && segs[1] === 'views') {
+    segs = segs.slice(2);
+  }
+  if (segs[0] === 'index') {
+    return '/';
+  }
+  const parsed = path.parse(segs.join(path.posix.sep));
+  return `/${path.posix.format(parsed.name === 'index' ? {root: parsed.dir} : {dir: parsed.dir, name: parsed.name})}`;
+}
+
 /** @type {HtmlBundlerPlugin.LoaderOptions} */
 const HtmlBundlerMarkdownOptions = {
-  beforePreprocessor({content, meta}, {resourcePath, data}) {
+  beforePreprocessor({content, meta}, {resourcePath, data, context, rootContext, fs}) {
     if (!resourcePath.endsWith('.md')) {
       return undefined;
     }
-    const sidebarEnt = fs.readdirSync(path.dirname(resourcePath), {withFileTypes: true})
-      .find(ent => ent.isFile() && ent.name.startsWith('_sidebar.'));
-    const sidebar = sidebarEnt && MarkdownLoader(fs.readFileSync(path.join(sidebarEnt.path, sidebarEnt.name),
-      {encoding: 'utf-8'}), {sync: true})?.content;
+    const sidebarEnt = fs.readdirSync(path.dirname(resourcePath))
+      .find(ent => ent.startsWith('_sidebar.'));
+    const processor = remark()
+      .use(remarkBootstrapIcon)
+      .use(remarkRehype, {allowDangerousHtml: true})
+      .use(rehypeLinkActive, {active: getPagePath(path.relative(rootContext, resourcePath))})
+      .use(rehypeStringify, {allowDangerousCharacters: true, allowDangerousHtml: true});
+    const sidebar = sidebarEnt && processor
+      .processSync(fs.readFileSync(path.join(context, sidebarEnt)));
     Object.assign(data, meta, sidebar && {sidebar});
     return `{{#> page }}${content}{{/page}}`;
   }

@@ -11,11 +11,11 @@ by [throwaway96](https://github.com/throwaway96).
 >
 > Please read every step carefully before proceeding.
 >
-> #### <i class="bi bi-tv me-2"></i>Target
+> #### :bi-tv: Target
 > TV running webOS **3.5 ~ 8.x**
 > (visit [CanI.RootMy.TV](https://cani.rootmy.tv/) to find out if your TV is supported)
 >
-> #### <i class="bi bi-info-circle me-2"></i>What's Needed
+> #### :bi-info-circle: What's Needed
 > 1. A computer
 > 2. A USB thumb drive (16MB or larger)
 

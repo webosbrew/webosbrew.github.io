@@ -1,0 +1,82 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+aside.sidebar {
+  display: none;
+  @extend .mt-3;
+  @extend .ms-3;
+
+  > ul, ol {
+
+    > li {
+      @extend .fw-semibold;
+
+      ul, ol {
+        @extend .small;
+        @extend .fw-normal;
+      }
+    }
+  }
+
+  li {
+    @extend .mt-1;
+    list-style: none;
+
+    i.bi {
+      margin-left: -1.5em;
+      margin-right: .5em;
+      @extend .text-primary-emphasis;
+    }
+
+    li {
+      @extend .text-secondary;
+    }
+
+    line-height: 1.75;
+
+    > a {
+      display: block;
+      max-width: fit-content;
+      text-decoration: none;
+      padding: 0 calc(#{$spacer} * .5);
+      margin: 0 calc(-#{$spacer} * .5);
+
+      @extend .text-body;
+      @extend .rounded;
+
+      &:hover {
+        @extend .text-body;
+        @extend .text-bg-primary;
+      }
+
+      &.active {
+        @extend .text-body-emphasis;
+        @extend .text-bg-primary;
+        @extend .fw-semibold;
+      }
+    }
+
+    ul, ol {
+      padding-left: 0;
+      padding-right: 0;
+      list-style: none;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    & {
+      display: block;
+      width: 25%;
+      height: 100%;
+
+      min-width: unset;
+
+      position: sticky;
+      top: calc(1.5rem + var(--navbar-height));
+    }
+  }
+}

@@ -24,8 +24,9 @@
           <li><a href="https://www.webosbrew.org/pages/sdk-configuration">SDK configuration</a></li>
           <li><a href="https://www.webosbrew.org/pages/native-development">Native app development</a></li>
           <li><a href="https://www.webosbrew.org/pages/web-development">Web app development</a></li>
-          <li class="d-none dev-only"><a href="https://repo.webosbrew.org/submit">Publish to homebrew app repository</a></li>
-          <li class="d-none dev-only"><a href="/develop/guides">All guides</a></li>
+          <li class="d-none dev-only"><a href="https://repo.webosbrew.org/submit">Publish to homebrew app repository</a>
+          </li>
+          <li><a href="/develop/guides">All guides</a></li>
         </ul>
       </section>
       <section class="col-12 col-md-4 pt-md-2">
@@ -45,33 +46,29 @@
     <h2 class="fw-semibold">Apps &amp; libraries</h2>
     <p>Open-source projects that's built with homebrew tools.</p>
     <div class="row mt-2 g-3">
-      {{#> "develop/partials/highlight-card" title="Moonlight"}}
+      {{#> "develop/partials/highlight-card" title="Moonlight" href="https://github.com/mariotaku/moonlight-tv"}}
         SDL, Low latency A/V streaming, input handling, remote control navigation.<br>
-        <a class="stretched-link text-white" href="https://github.com/mariotaku/moonlight-tv"><i
-            class="bi bi-github"></i></a>
+        <small class="badge rounded-pill text-bg-secondary">GPLv3</small>
         <small class="badge rounded-pill text-bg-info ms-2">C/C++</small>
       {{/"develop/partials/highlight-card"}}
-      {{#> "develop/partials/highlight-card" title="Kodi" }}
+      {{#> "develop/partials/highlight-card" title="Kodi" href="https://github.com/xbmc/xbmc"}}
         Wayland, webOS media pipeline<br>
-        <a class="stretched-link text-white" href="https://github.com/xbmc/xbmc"><i class="bi bi-github"></i></a>
+        <small class="badge rounded-pill text-bg-secondary">GPLv2</small>
         <small class="badge rounded-pill text-bg-info ms-2">C/C++</small>
       {{/ "develop/partials/highlight-card" }}
-      {{#> "develop/partials/highlight-card" title="Chocolate Doom"}}
+      {{#> "develop/partials/highlight-card" title="Chocolate Doom" href="https://github.com/webosbrew/chocolate-doom"}}
         Porting SDL2-based apps/games effortlessly.<br>
-        <a class="stretched-link text-white" href="https://github.com/webosbrew/chocolate-doom"> <i
-            class="bi bi-github"></i></a>
+        <small class="badge rounded-pill text-bg-secondary">GPLv2</small>
         <small class="badge rounded-pill text-bg-info ms-2">C/C++</small>
       {{/ "develop/partials/highlight-card"}}
-      {{#> "develop/partials/highlight-card" title="SDL2 Backport"}}
+      {{#> "develop/partials/highlight-card" title="SDL2 Backport" href="https://github.com/webosbrew/SDL-webOS"}}
         Use latest SDL2 features on all webOS versions.<br>
-        <a class="stretched-link text-white" href="https://github.com/webosbrew/SDL-webOS"> <i
-            class="bi bi-github"></i></a>
+        <small class="badge rounded-pill text-bg-secondary">Zlib license</small>
         <small class="badge rounded-pill text-bg-info ms-2">C/C++</small>
       {{/ "develop/partials/highlight-card"}}
-      {{#> "develop/partials/highlight-card" title="SS4S"}}
+      {{#> "develop/partials/highlight-card" title="SS4S" href="https://github.com/mariotaku/ss4s"}}
         Audio/video stream playback library for webOS.<br>
-        <a class="stretched-link text-white" href="https://github.com/mariotaku/ss4s"> <i
-            class="bi bi-github"></i></a>
+        <small class="badge rounded-pill text-bg-secondary">LGPL 3.0</small>
         <small class="badge rounded-pill text-bg-info ms-2">C/C++</small>
       {{/ "develop/partials/highlight-card"}}
     </div>
