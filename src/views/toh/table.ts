@@ -42,12 +42,13 @@ export class DevicesTable extends Component<DevicesTableProps, DevicesTableState
             <table class="table table-hover table-striped toh">
               <thead>
               <tr>
-                <th>Model</th>
-                <th>Series</th>
-                <th>SoC</th>
-                <th>Codename</th>
-                <th>Region</th>
-                <th>OTA ID</th>
+                <th class="text-nowrap">Model</th>
+                <th class="text-nowrap">Series</th>
+                <th class="text-nowrap">SoC</th>
+                <th class="text-nowrap">Codename</th>
+                <th class="text-nowrap">Region</th>
+                <th class="text-nowrap">OTA ID</th>
+                <th class="text-nowrap">Screen Sizes</th>
               </tr>
               </thead>
               <tbody>
@@ -57,8 +58,9 @@ export class DevicesTable extends Component<DevicesTableProps, DevicesTableState
                   <td class="series">${item.series}</td>
                   <td class="machine">${item.machine}</td>
                   <td class="codename">${item.codename}</td>
-                  <td class="region">${item.region}</td>
+                  <td class="region text-nowrap">${item.regions?.join(", ")}</td>
                   <td class="ota-id">${item.otaId}</td>
+                  <td class="screen-size text-nowrap">${item.sizes?.join(", ")}</td>
                 </tr>
               `)}
               ${filtered.length === 0 && html`

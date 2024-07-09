@@ -93,7 +93,7 @@ export class SearchSection extends Component<SearchSectionProps, SearchSectionSt
             if (state[a.value] != state[b.value]) {
                 return state[a.value] ? -1 : 1;
             }
-            return a.value.localeCompare(b.value);
+            return a.value.localeCompare(b.value, 'en', {numeric: true});
         });
         const hasValue = !!props.conditions[props.name];
         return html`

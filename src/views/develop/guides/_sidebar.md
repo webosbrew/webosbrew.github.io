@@ -3,8 +3,8 @@
     * [Environment Setup](/develop/guides/env-setup)
     * Development Workflow
 * :bi-code:Development
-    * Web App
-    * Native App
+    * [Web App](/develop/guides/web-app)
+    * [Native App](/develop/guides/native-app)
     * Startup Script
     * System Mods
 * :bi-bug:Debugging

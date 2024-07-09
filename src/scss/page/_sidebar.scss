@@ -7,7 +7,7 @@
 
 aside.sidebar {
   display: none;
-  @extend .mt-3;
+  @extend .mt-md-3;
   @extend .ms-3;
 
   > ul, ol {
@@ -76,7 +76,7 @@ aside.sidebar {
       min-width: unset;
 
       position: sticky;
-      top: calc(1.5rem + var(--navbar-height));
+      top: var(--navbar-height);
     }
   }
 }

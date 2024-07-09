@@ -13,6 +13,7 @@ export interface SearchConditions {
     broadcast?: SearchCondition;
     region?: SearchCondition;
     otaId?: SearchCondition;
+    screenSize?: SearchCondition;
 }
 
 export function getConditionsIndices(conditions?: SearchConditions): number[] | undefined {

@@ -12,6 +12,7 @@ import rehypeHighlight from "rehype-highlight";
 import rehypeStringify from 'rehype-stringify';
 import {extractMeta, tocDropdown} from "./rehype/table-of-contents.js";
 
+import {all} from 'lowlight'
 import {visit} from 'unist-util-visit';
 import {capitalize} from 'lodash-es';
 import remarkBootstrapIcon from "./remark/bootstrap-icon.js";
@@ -119,7 +120,7 @@ const parser = remark()
   .use(remarkRehype, {allowDangerousHtml: true})
   .use(rehypeRaw)
   .use(rehypeSlug)
-  .use(rehypeHighlight)
+  .use(rehypeHighlight, {languages: all})
   .use(flattenTopSection)
   .use(moveSlugToSection)
   .use(autoLead)

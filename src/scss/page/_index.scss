@@ -40,6 +40,7 @@ main.page {
 
         .page-content {
           grid-area: content;
+          overflow-x: hidden;
         }
       }
     }

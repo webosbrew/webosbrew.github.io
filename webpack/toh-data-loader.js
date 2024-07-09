@@ -17,15 +17,23 @@ import Handlebars from "handlebars";
 /**
  * @param models {DeviceModelEntry[]}
  * @param key {keyof DeviceModelEntry}
+ * @param [transform] {(value: string) => string}
  * @returns {DeviceModelIndexIntry[]}
  */
-function toIndex(models, key) {
+function toIndex(models, key, transform) {
   /** @type {Record<string, [number, DeviceModelEntry][]>} */
-  const grouped = groupBy(models.map((model, index) => [index, model]),
-    ([_index, model]) => model[key]);
+  const grouped = groupBy(models.flatMap((model, index) => {
+    const field = model[key];
+    if (Array.isArray(field)) {
+      return field.map(value => [index, {...model, [key]: value}]);
+    }
+    return [[index, model]];
+  }), ([_index, model]) => transform ? transform(model[key]) : model[key]);
   return Object.entries(grouped)
     .map(([value, indices]) => ({value, indices: indices.map(([index]) => index)}))
-    .sort((a, b) => a.value.localeCompare(b.value));
+    .sort((a, b) => {
+      return a.value.localeCompare(b.value, 'en', {numeric: true});
+    })
 }
 
 /**
@@ -58,8 +66,9 @@ export default function (source) {
       series: JSON.stringify(toIndex(models, 'series')),
       codename: JSON.stringify(toIndex(models, 'codename')),
       broadcast: JSON.stringify(toIndex(models, 'broadcast')),
-      region: JSON.stringify(toIndex(models, 'region')),
       otaId: JSON.stringify(toIndex(models, 'otaId')),
+      screenSize: JSON.stringify(toIndex(models, 'sizes', (value) => `${value}″`)),
+      region: JSON.stringify(toIndex(models, 'regions')),
     }
   });
 }

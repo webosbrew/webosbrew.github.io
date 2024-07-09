@@ -9,4 +9,5 @@ export const indices = {
   broadcast: [/*indices.broadcast*/],
   region: [/*indices.region*/],
   otaId: [/*indices.otaId*/],
+  screenSize: [/*indices.screenSize*/],
 };

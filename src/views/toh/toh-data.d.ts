@@ -11,6 +11,7 @@ export type DeviceModelIndices = {
     broadcast: DeviceModelIndexEntry[],
     region: DeviceModelIndexEntry[],
     otaId: DeviceModelIndexEntry[],
+    screenSize: DeviceModelIndexEntry[],
 };
 
 export const models: DeviceModelEntry[];
