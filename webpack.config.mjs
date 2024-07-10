@@ -226,7 +226,7 @@ export default function (env, argv) {
         },
         // videos
         {
-          test: /\.(mp4)$/i,
+          test: /\.(mp4|avif|webm)$/i,
           type: 'asset/resource',
           generator: {
             filename: 'video/[name].[hash:8][ext]',

@@ -6,12 +6,14 @@
 @import "bootstrap/scss/utilities";
 
 aside.sidebar {
-  @extend .mt-lg-3;
+  @extend .py-lg-3;
   @extend .ms-lg-3;
 
   width: min(300px, 80vw);
 
   .sidebar-content > ul, ol {
+
+    @extend .ms-lg-n4;
 
     > li {
       @extend .fw-semibold;
@@ -28,8 +30,8 @@ aside.sidebar {
     list-style: none;
 
     i.bi {
-      margin-left: -1.5em;
-      margin-right: .5em;
+      @extend .ms-n4;
+      @extend .me-2;
       @extend .text-primary-emphasis;
     }
 
@@ -43,8 +45,8 @@ aside.sidebar {
       display: block;
       max-width: fit-content;
       text-decoration: none;
-      padding: 0 calc(#{$spacer} * .5);
-      margin: 0 calc(-#{$spacer} * .5);
+      @extend .px-2;
+      @extend .mx-n2;
 
       @extend .text-body;
       @extend .rounded;
@@ -76,11 +78,7 @@ aside.sidebar {
     min-width: unset;
 
     position: sticky;
-    top: calc(1.5rem + var(--navbar-height));
-
-    .sidebar-content > ul, ol {
-      margin-left: -1.5em;
-    }
+    top: var(--navbar-height);
   }
 
   @include media-breakpoint-up(xl) {

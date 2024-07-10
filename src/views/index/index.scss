@@ -46,6 +46,10 @@
     object-fit: fill;
     filter: blur(30px) saturate(300%) brightness(200%);
 
+    // This partially fixes the clipping issue on Safari
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
 

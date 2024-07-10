@@ -33,8 +33,10 @@
                   <img src="/img/screenshots/kodi-recently-added.jpg?as=webp" class="d-block w-100" alt="Kodi">
                 </div>
                 <div class="carousel-item" data-item-id="amblight">
-                  <video src="/img/screenshots/borealis.mp4" class="d-block w-100 amblight-src" muted loop
-                         preload="auto"></video>
+                  <video class="d-block w-100 amblight-src" muted loop preload="auto">
+                    <source src="/img/screenshots/borealis_av1.webm" type="video/webm; codecs=av01.0.05M.08"/>
+                    <source src="/img/screenshots/borealis.mp4" type="video/mp4"/>
+                  </video>
                 </div>
               </div>
             </div>
@@ -215,7 +217,7 @@
     <h2 class="text-center">Get Started</h2>
     <div class="row g-3 mt-5">
       <div class="col-md-6">
-        <div class="position-relative rounded-4 p-4 bg-hbchannel">
+        <div class="position-relative h-100 rounded-4 p-4 bg-hbchannel">
           <img src="/img/icon32.svg?inline" width="48" height="48"
                class="position-absolute bottom-0 end-0 me-2 mb-2 opacity-75" alt="webOS Homebrew"/>
           <h5 class="card-title text-white">Root your TV</h5>
@@ -230,7 +232,7 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div class="position-relative rounded-4 p-4 bg-devmode">
+        <div class="position-relative h-100 rounded-4 p-4 bg-devmode">
           <img src="/img/devmode32.svg" width="48" height="48"
                class="position-absolute bottom-0 end-0 me-2 mb-2 opacity-75" alt="Dev Mode"/>
           <h5 class="card-title text-white">Install via Dev Mode</h5>
