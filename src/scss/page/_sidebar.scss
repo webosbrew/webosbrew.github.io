@@ -69,15 +69,21 @@ aside.sidebar {
   }
 
   @include media-breakpoint-up(lg) {
-    & {
-      display: block;
-      width: 25%;
-      height: min-content;
+    display: block;
+    width: max(192px, 25%);
+    height: min-content;
 
-      min-width: unset;
+    min-width: unset;
 
-      position: sticky;
-      top: calc(1.5rem + var(--navbar-height));
+    position: sticky;
+    top: calc(1.5rem + var(--navbar-height));
+
+    .sidebar-content > ul, ol {
+      margin-left: -1.5em;
     }
+  }
+
+  @include media-breakpoint-up(xl) {
+    width: 25%;
   }
 }

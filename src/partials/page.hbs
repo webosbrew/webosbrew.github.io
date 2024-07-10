@@ -13,7 +13,14 @@
 <main class="bg-dark-subtle">
   <div class="page container">
     {{#if sidebar}}
-      <aside id="page-sidebar" class="sidebar pe-2 offcanvas-lg offcanvas-start">
+      <aside id="page-sidebar" class="sidebar pe-lg-2 offcanvas-lg offcanvas-start" tabindex="-1"
+             aria-labelledby="sidebar-offcanvas-label">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="sidebar-offcanvas-label">Pages</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#page-sidebar"
+                  aria-label="Close"></button>
+        </div>
+        <hr class="my-0 d-lg-none">
         <div class="sidebar-content offcanvas-body">
           {{{sidebar}}}
         </div>
@@ -22,7 +29,7 @@
     <article class="page-container py-4 {{#if toc}}with-toc{{/if}}">
       {{#if sidebar}}
         <div class="page-sidebar-toggle d-lg-none">
-          <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="offcanvas"
+          <button class="btn btn-sm btn-outline-secondary mb-2" type="button" data-bs-toggle="offcanvas"
                   data-bs-target="#page-sidebar">
             <i class="bi bi-list"></i> Pages
           </button>
