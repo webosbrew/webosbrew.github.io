@@ -16,13 +16,26 @@
       <aside id="page-sidebar" class="sidebar pe-lg-2 offcanvas-lg offcanvas-start" tabindex="-1"
              aria-labelledby="sidebar-offcanvas-label">
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="sidebar-offcanvas-label">Pages</h5>
+          <h5 class="offcanvas-title" id="sidebar-offcanvas-label">{{sidebar}}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#page-sidebar"
                   aria-label="Close"></button>
         </div>
         <hr class="my-0 d-lg-none">
         <div class="sidebar-content offcanvas-body">
-          {{{sidebar}}}
+          {{#block 'sidebar'}}
+            <p class="text-danger">
+              Please declare sidebar partial before <code>\{{#>page}}</code> partial usage.
+              Example: <br>
+            </p>
+            <!-- @formatter:off -->
+            <pre><code>\{{#partial 'sidebar'}}
+  Sidebar Content
+\{{/partial}}
+\{{#>page sidebar='Sidebar'}}
+  Page Content
+\{{/page}}</code></pre>
+            <!-- @formatter:on -->
+          {{/block}}
         </div>
       </aside>
     {{/if}}
@@ -31,7 +44,7 @@
         <div class="page-sidebar-toggle d-lg-none">
           <button class="btn btn-sm btn-outline-secondary mb-2" type="button" data-bs-toggle="offcanvas"
                   data-bs-target="#page-sidebar">
-            <i class="bi bi-list"></i> Pages
+            <i class="bi bi-list"></i> {{sidebar}}
           </button>
         </div>
       {{/if}}
