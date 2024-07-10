@@ -6,11 +6,12 @@
 @import "bootstrap/scss/utilities";
 
 aside.sidebar {
-  display: none;
-  @extend .mt-md-3;
-  @extend .ms-3;
+  @extend .mt-lg-3;
+  @extend .ms-lg-3;
 
-  > ul, ol {
+  width: min(300px, 80vw);
+
+  .sidebar-content > ul, ol {
 
     > li {
       @extend .fw-semibold;
@@ -67,16 +68,16 @@ aside.sidebar {
     }
   }
 
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(lg) {
     & {
       display: block;
       width: 25%;
-      height: 100%;
+      height: min-content;
 
       min-width: unset;
 
       position: sticky;
-      top: var(--navbar-height);
+      top: calc(1.5rem + var(--navbar-height));
     }
   }
 }

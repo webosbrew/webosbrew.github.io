@@ -32,13 +32,13 @@ export default function tabbedCodeBlock() {
         const tabs = parent.children.slice(firstTab, index + 1);
         const prefix = `code-${tabs[0].position?.start?.offset}`;
         elem.value = toHtml(html`
-          <div>
+          <div class="tabbed-code-blocks">
             <ul class="nav nav-tabs" role="tablist">
               ${tabs.map((tab, index) => {
                 const tabId = `${prefix}-${tab.tabId}-tab`;
                 const paneId = `${prefix}-${tab.tabId}-pane`;
                 return html`
-                  <li class="nav-item" role="presentation">
+                  <li class="nav-item text-nowrap" role="presentation">
                     <button class="nav-link ${index === 0 ? 'active' : ''}" type="button" role="tab" id=${tabId}
                             data-bs-toggle="tab" data-bs-target="#${paneId}" aria-controls=${paneId}
                             aria-selected="${index === 0}">${tab.tab}
@@ -46,14 +46,14 @@ export default function tabbedCodeBlock() {
                   </li>`;
               })}
             </ul>
-            <div class="tab-content bg-dark border-start border-end border-bottom rounded-bottom">
+            <div class="tab-content border-start border-end border-bottom rounded-bottom mb-3">
               ${tabs.map((tab, index) => {
                 const tabId = `${prefix}-${tab.tabId}-tab`;
                 const paneId = `${prefix}-${tab.tabId}-pane`;
                 return html`
                   <div class="tab-pane fade ${index === 0 ? 'show active' : ''}" id=${paneId} role="tabpanel"
                        aria-labelledby=${tabId} tabindex="0">
-                    <pre class="p-3 mb-0"><code class="lang-${tab.lang}">${tab.value}</code></pre>
+                    <pre class="m-0"><code class="lang-${tab.lang}">${tab.value}</code></pre>
                   </div>`;
               })}
             </div>

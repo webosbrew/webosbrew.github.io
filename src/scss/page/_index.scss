@@ -6,7 +6,7 @@
 @import "bootstrap/scss/utilities";
 
 
-main.page {
+main .page {
   img {
     max-width: 100%;
   }
@@ -14,6 +14,23 @@ main.page {
   @import "sidebar";
   @import "toc";
 
+  .hljs {
+    background-color: var(--code-bg);
+    @extend .border;
+    @extend .rounded-3;
+  }
+
+  .tabbed-code-blocks {
+    .hljs {
+      background: none !important;
+      @extend .border-0;
+      @extend .rounded-0;
+    }
+
+    .tab-content {
+      background-color: var(--code-bg) !important;
+    }
+  }
 
   article.page-container {
     width: 100%;
@@ -21,8 +38,8 @@ main.page {
     &.with-toc {
       @include media-breakpoint-up(md) {
         display: grid;
-        grid-template-areas: "intro toc" "content toc";
-        grid-template-rows: auto 1fr;
+        grid-template-areas: "sb-toggle toc" "intro toc" "content toc";
+        grid-template-rows: auto auto 1fr;
         grid-template-columns: 3fr 1fr;
 
         .page-intro {

@@ -8,6 +8,7 @@
     * Startup Script
     * System Mods
 * :bi-bug:Debugging
+    * Inspecting Web App
     * GDB
 * :bi-upload:Publishing
     * Requirements
