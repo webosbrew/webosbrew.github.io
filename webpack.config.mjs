@@ -71,7 +71,7 @@ function PurgeCssOptions(mode) {
     safelist: {
       standard: [
         /^callout-/, 'octicon'/* remark-github-blockquote-alert */,
-        /^hljs$|-/, /^language-/,
+        /^hljs($|-)/, /^language-/,
       ],
     },
     stdout: true,
