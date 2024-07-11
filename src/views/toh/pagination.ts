@@ -37,7 +37,7 @@ export class Pagination extends Component<PaginationProps> {
         const offsets = Array.from({length: Math.ceil(props.count / props.limit)}, (_, i) => i * props.limit);
         return html`
           <nav class="py-1 w-100 d-flex flex-row justify-content-center position-sticky bottom-0">
-            <ul class="pagination input-group input-group-sm flex-nowrap align-self-center w-auto shadow">
+            <ul class="pagination input-group input-group-sm flex-nowrap align-self-center w-auto shadow rounded-2">
               <li class="page-item">
                 <button class="page-link" disabled=${props.offset <= 0} onClick=${this.previousPage}
                         aria-label="Previous">

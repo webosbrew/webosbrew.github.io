@@ -1,2 +1,5 @@
 [webpack.config.*]
 indent_size = 2
+
+[*.scss]
+indent_size = 2

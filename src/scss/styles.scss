@@ -10,6 +10,44 @@ $enable-negative-margins: true;
 @import "bootstrap/scss/mixins";
 @import "bootstrap/scss/utilities";
 
+$brands: (
+  "discord": #5865F2,
+  "webosbrew": $primary,
+) !default;
+
+$all-colors: map-merge-multiple($blues, $indigos, $purples, $pinks, $reds, $oranges, $yellows, $greens, $teals, $cyans, $brands);
+
+$utilities: map-merge(
+  $utilities,
+  (
+    "color": map-merge(
+      map-get($utilities, "color"),
+      (
+        values: map-merge(
+          map-get(map-get($utilities, "color"), "values"),
+          (
+            $all-colors
+          ),
+        ),
+      ),
+    ),
+    "background-color": map-merge(
+      map-get($utilities, "background-color"),
+      (
+        values: map-merge(
+          map-get(map-get($utilities, "background-color"), "values"),
+          (
+            $all-colors
+          ),
+        ),
+      ),
+    ),
+  )
+);
+
+@import "bootstrap/scss/utilities/api";
+
+
 // Required
 @import "bootstrap";
 

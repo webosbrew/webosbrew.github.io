@@ -5,6 +5,7 @@ import remarkSectionize from 'remark-sectionize';
 import remarkGemoji from 'remark-gemoji';
 import remarkRehype from 'remark-rehype';
 import remarkTabbedCodeBlock from "./remark/tabbed-code-block.js";
+import remarkImageClass from "./remark/image-class.js";
 
 import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
@@ -51,13 +52,22 @@ function autoLead() {
 /** @returns {Processor} */
 function headingHr() {
   return (tree) => {
-    visit(tree, node => node.tagName?.match(/h[1-2]/), (node, index, parent) => {
-      let hrIndex = index + 1;
-      if (parent.children[hrIndex]?.tagName === 'p' && parent.children[hrIndex]?.properties?.className === 'lead') {
-        hrIndex += 1;
-      }
-      parent.children.splice(hrIndex, 0, {type: 'element', tagName: 'hr'});
-    });
+    visit(tree, node => node.tagName?.match(/h[1-2]/),
+      /**
+       * @param _node {Element}
+       * @param index {number}
+       * @param parent {Element}
+       */
+      (_node, index, parent) => {
+        let hrIndex = index + 1;
+        if (parent.children[hrIndex]?.tagName === 'p' && parent.children[hrIndex]?.properties?.className === 'lead') {
+          hrIndex += 1;
+        }
+        if (parent.children?.[hrIndex]?.tagName === 'hr') {
+          return;
+        }
+        parent.children.splice(hrIndex, 0, {type: 'element', tagName: 'hr'});
+      });
   };
 }
 
@@ -117,6 +127,7 @@ const parser = remark()
   .use(remarkBootstrapIcon)
   .use(remarkGemoji)
   .use(remarkTabbedCodeBlock)
+  .use(remarkImageClass, {class: 'img-fluid rounded-3'})
   .use(remarkRehype, {allowDangerousHtml: true})
   .use(rehypeRaw)
   .use(rehypeSlug)

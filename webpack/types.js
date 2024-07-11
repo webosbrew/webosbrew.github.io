@@ -4,9 +4,14 @@
 
 /** @typedef {import('vfile').VFile} VFile */
 
+/** @typedef {import('mdast').Root} MarkdownRoot */
+/** @typedef {import('mdast').Node} MarkdownNode */
+/** @typedef {import('mdast').Image} MarkdownImage */
+
 /** @typedef {import('mdast').Code} Code */
 
 /** @typedef {import('mdast').Html} Html */
+
 /**
  * @typedef {Function} Processor
  * @param {Root} tree
