@@ -1,6 +1,7 @@
 /** @typedef {import('hast').Root} Root */
 
 /** @typedef {import('hast').Element} Element */
+/** @typedef {import('hast').Element} HtmlElement */
 
 /** @typedef {import('vfile').VFile} VFile */
 

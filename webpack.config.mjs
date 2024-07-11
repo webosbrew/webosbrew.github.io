@@ -161,68 +161,15 @@ export default function (env, argv) {
         },
         // images
         {
-          oneOf: [
-            {
-              test: /\.(jpe?g|png|webp)$/i,
-              type: "asset/resource",
-              generator: {
-                filename: 'img/[name].[hash:8][ext]',
-              }
-            },
-            {test: /\.(svg)$/i, type: "asset/inline"},
-          ],
-          use: [
-            {
-              loader: ImageMinimizerPlugin.loader,
-              options: {
-                minimizer: [
-                  {
-                    implementation: ImageMinimizerPlugin.imageminMinify,
-                    options: {
-                      plugins: [
-                        "imagemin-mozjpeg",
-                        "imagemin-pngquant",
-                      ],
-                    },
-                  },
-                  {
-                    implementation: ImageMinimizerPlugin.svgoMinify,
-                    options: {
-                      encodeOptions: {
-                        // Pass over SVGs multiple times to ensure all optimizations are applied. False by default
-                        multipass: true,
-                        plugins: [
-                          {
-                            name: "preset-default",
-                            params: {
-                              overrides: {
-                                removeViewBox: false,
-                              },
-                            },
-                          },
-                          {
-                            name: 'addAttributesToSVGElement',
-                            params: {attributes: [{xmlns: "http://www.w3.org/2000/svg"}]}
-                          },
-                        ],
-                      },
-                    },
-                  },
-                ],
-                generator: [
-                  {
-                    // You can apply generator using `?as=webp`, you can use any name and provide more options
-                    preset: "webp",
-                    implementation: ImageMinimizerPlugin.imageminGenerate,
-                    options: {
-                      // Please specify only one plugin here, multiple plugins will not work
-                      plugins: ["imagemin-webp"],
-                    },
-                  }
-                ],
-              }
-            }
-          ]
+          test: /\.(jpe?g|png|webp)$/i,
+          type: "asset/resource",
+          generator: {
+            filename: 'img/[name].[hash:8][ext]',
+          }
+        },
+        {
+          test: /\.(svg)$/i,
+          type: "asset/inline"
         },
         // videos
         {
@@ -237,6 +184,38 @@ export default function (env, argv) {
     optimization: {
       minimizer: [
         '...',
+        new ImageMinimizerPlugin({
+          minimizer: {
+            implementation: ImageMinimizerPlugin.sharpMinify,
+            options: {
+              encodeOptions: {
+                jpeg: {quality: 90},
+                webp: {lossless: false},
+                avif: {lossless: false},
+              }
+            },
+          },
+          generator: [
+            {
+              preset: 'webp',
+              implementation: ImageMinimizerPlugin.sharpGenerate,
+              options: {
+                encodeOptions: {
+                  webp: {lossless: false},
+                }
+              }
+            },
+            {
+              preset: 'avif',
+              implementation: ImageMinimizerPlugin.sharpGenerate,
+              options: {
+                encodeOptions: {
+                  avif: {lossless: false},
+                }
+              }
+            }
+          ],
+        }),
         new CssMinimizerPlugin(),
       ]
     },

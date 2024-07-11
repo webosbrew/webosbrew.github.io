@@ -12,6 +12,7 @@ import rehypeSlug from 'rehype-slug';
 import rehypeHighlight from "rehype-highlight";
 import rehypeStringify from 'rehype-stringify';
 import {extractMeta, tocDropdown} from "./rehype/table-of-contents.js";
+import imgOptimize from "./rehype/img-optimize.js";
 
 import {all} from 'lowlight'
 import {visit} from 'unist-util-visit';
@@ -138,6 +139,7 @@ const parser = remark()
   .use(headingHr)
   .use(blockQuoteStyle)
   .use(wrapTable)
+  .use(imgOptimize)
   .use(extractMeta)
   .use(tocDropdown)
   .use(rehypeStringify, {allowDangerousCharacters: true, allowDangerousHtml: true});
