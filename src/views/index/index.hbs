@@ -221,9 +221,11 @@
       <div class="col-sm-6 aspect-ratio-3by2">
         <div class="card border-0 rounded-4 h-100 bg-dark-subtle overflow-hidden">
           <picture>
-            <source srcset="/img/photos/amblight-setup.jpg?as=avif" type="image/avif">
-            <source srcset="/img/photos/amblight-setup.jpg?as=webp" type="image/webp">
-            <img class="card-img object-fit-cover" src="/img/photos/amblight-setup.jpg" alt="Amblight setup"/>
+            <source srcset="/img/photos/amblight-setup.jpg?as=avif&width=640&height=auto,
+              /img/photos/amblight-setup.jpg?as=avif&width=1280&height=auto 2x" type="image/avif">
+            <source srcset="/img/photos/amblight-setup.jpg?as=webp&width=640&height=auto,
+              /img/photos/amblight-setup.jpg?as=webp&width=1280&height=auto 2x" type="image/webp">
+            <img class="card-img object-fit-cover" src="/img/photos/amblight-setup.jpg?width=640" alt="Amblight setup"/>
           </picture>
           <div class="card-img-overlay p-4">
             <h3 class="card-title">Ambient light</h3>
