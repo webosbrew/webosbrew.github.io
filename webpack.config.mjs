@@ -185,16 +185,29 @@ export default function (env, argv) {
       minimizer: [
         '...',
         new ImageMinimizerPlugin({
-          minimizer: {
-            implementation: ImageMinimizerPlugin.sharpMinify,
-            options: {
-              encodeOptions: {
-                jpeg: {quality: 90},
-                webp: {lossless: false},
-                avif: {lossless: false},
-              }
+          minimizer: [
+            {
+              implementation: ImageMinimizerPlugin.sharpMinify,
+              options: {
+                encodeOptions: {
+                  jpeg: {},
+                  webp: {},
+                  avif: {},
+                }
+              },
             },
-          },
+            {
+              // `svgo` will handle vector images (SVG)
+              implementation: ImageMinimizerPlugin.svgoMinify,
+              options: {
+                encodeOptions: {
+                  multipass: true,
+                  plugins: [
+                    "preset-default",
+                  ],
+                },
+              },
+            }],
           generator: [
             {
               preset: 'webp',
@@ -213,7 +226,7 @@ export default function (env, argv) {
                   avif: {lossless: false},
                 }
               }
-            }
+            },
           ],
         }),
         new CssMinimizerPlugin(),
