@@ -28,4 +28,5 @@ playback.
 low-level media APIs like `libndl-media`,
 it provides low-latency game streaming from a PC. It also uses SDL2 for rendering and input handling.
 
-Next: [Environment Setup](/develop/guides/env-setup)
+* Next
+    * [Environment Setup](/develop/guides/env-setup)

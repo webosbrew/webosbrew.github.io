@@ -41,6 +41,7 @@
     "lodash-es": "^4.17.21",
     "lowlight": "^3.1.0",
     "mdast-util-find-and-replace": "^3.0.1",
+    "mdast-util-to-string": "^4.0.0",
     "node-html-parser": "^6.1.13",
     "purgecss-webpack-plugin": "^6.0.0",
     "rehype-highlight": "^7.0.0",

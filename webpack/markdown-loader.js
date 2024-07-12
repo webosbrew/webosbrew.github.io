@@ -6,6 +6,7 @@ import remarkGemoji from 'remark-gemoji';
 import remarkRehype from 'remark-rehype';
 import remarkTabbedCodeBlock from "./remark/tabbed-code-block.js";
 import remarkImageClass from "./remark/image-class.js";
+import remarkPagination from "./remark/pagination.js";
 
 import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
@@ -124,11 +125,12 @@ function alertRestyle() {
 const parser = remark()
   .use(remarkGfm)
   .use([remarkAlert, alertRestyle])
-  .use(remarkSectionize)
   .use(remarkBootstrapIcon)
   .use(remarkGemoji)
   .use(remarkTabbedCodeBlock)
   .use(remarkImageClass, {class: 'img-fluid rounded-3'})
+  .use(remarkPagination)
+  .use(remarkSectionize)
   .use(remarkRehype, {allowDangerousHtml: true})
   .use(rehypeRaw)
   .use(rehypeSlug)
