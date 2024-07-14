@@ -1,6 +1,6 @@
 # Document Syntax
 
-How to write documents for this site
+How to write documents for this site.
 
 ## Markdown Syntax
 
@@ -8,6 +8,18 @@ We use GitHub Flavored Markdown (GFM) for writing documents. You can find a guid
 GFM [here](https://guides.github.com/features/mastering-markdown/).
 
 Additionally, we use the following syntax for writing documents:
+
+### Automatic Lead Text
+
+The first paragraph of a document will be used as
+the [lead text](https://getbootstrap.com/docs/5.3/content/typography/#lead).
+
+To avoid this behavior, you can insert an HTML comment (e.g. <code class="text-nowrap">&lt;!-- no-lead --&gt;</code>) or
+a horizontal rule (`---`) before the first paragraph.
+
+### Bootstrap Icons
+
+Use `:bi-icon-name:` to insert a Bootstrap icon. For example, `:bi-book:` will become :bi-book:.
 
 ### Tabbed Code Blocks
 

@@ -3,7 +3,7 @@
 * :bi-book:Getting Started
     * [Introduction](/develop/guides)
     * [Environment Setup](/develop/guides/env-setup)
-    * Development Workflow
+    * [Development Workflow](/develop/guides/workflow)
 * :bi-code:Development
     * [Web App](/develop/guides/web-app)
     * [Native App](/develop/guides/native-app)
@@ -24,3 +24,5 @@
     * Native App
     * Firmware
     * System
+* :bi-lightbulb:Contribute to Guides
+    * [Document Syntax](/develop/guides/docs-syntax) 

@@ -8,6 +8,7 @@ export interface SearchCondition {
 
 export interface SearchConditions {
     machine?: SearchCondition;
+    year?: SearchCondition;
     codename?: SearchCondition;
     series?: SearchCondition;
     broadcast?: SearchCondition;
@@ -25,7 +26,7 @@ export function getConditionsIndices(conditions?: SearchConditions): number[] | 
 }
 
 export function applyToUrlParams(conditions: SearchConditions | undefined, params: URLSearchParams) {
-    const keys: (keyof SearchConditions)[] = ['machine', 'codename', 'series', 'broadcast', 'region', 'otaId'];
+    const keys: (keyof SearchConditions)[] = ['machine', 'codename', 'series', 'broadcast', 'region', 'otaId', 'year'];
     for (let k of keys) {
         const options = conditions?.[k as keyof SearchConditions]?.options;
         if (options?.length) {

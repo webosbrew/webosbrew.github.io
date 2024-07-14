@@ -69,6 +69,13 @@ export default function (source) {
       otaId: JSON.stringify(toIndex(models, 'otaId')),
       screenSize: JSON.stringify(toIndex(models, 'sizes', (value) => `${value}″`)),
       region: JSON.stringify(toIndex(models, 'regions')),
+      year: JSON.stringify(toIndex(models, 'otaId', (value) => {
+        let year = value.slice(8, 10);
+        if (year === 'T1') {
+          year = '14';
+        }
+        return `20${year}`;
+      })),
     }
   });
 }

@@ -10,4 +10,5 @@ export const indices = {
   region: [/*indices.region*/],
   otaId: [/*indices.otaId*/],
   screenSize: [/*indices.screenSize*/],
+  year: [/*indices.year*/],
 };

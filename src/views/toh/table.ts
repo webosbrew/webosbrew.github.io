@@ -65,13 +65,13 @@ export class DevicesTable extends Component<DevicesTableProps, DevicesTableState
               `)}
               ${filtered.length === 0 && html`
                 <tr>
-                  <td colspan="6" class="text-center">No devices found</td>
+                  <td colspan="7" class="text-center">No devices found</td>
                 </tr>
               `}
               </tbody>
             </table>
           </div>
-          ${filtered.length && html`
+          ${filtered.length > 0 && html`
             <${Pagination} count=${filtered.length} offset=${offset} limit=${limit}
                            onChange=${this.offsetChange}></Pagination>
           `}

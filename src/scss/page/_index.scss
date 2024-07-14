@@ -67,20 +67,6 @@ main .page {
       flex-flow: row;
       align-items: start;
     }
-
-    aside.toc {
-      width: 25%;
-      height: 100%;
-
-      min-width: unset;
-
-      position: sticky;
-      top: calc(1.5rem + var(--navbar-height));
-
-      display: block;
-      background-color: unset;
-      border: unset;
-    }
   }
 
 }

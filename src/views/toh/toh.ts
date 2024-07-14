@@ -43,16 +43,17 @@ class App extends Component<{}, AppState> {
 
     render(_props: {}, state: AppState) {
         return html`
-          <div class="d-flex flex-column-reverse flex-md-row align-items-md-start">
-            <div class="flex-md-fill overflow-x-auto">
-              <${DevicesTable} models=${models} conditions=${state.conditions}></DevicesTable>
-            </div>
-            <aside class="ms-md-3 toc flex-shrink-0" style="top: calc(var(--navbar-height) + 1em)">
-              <div class="vr position-absolute h-100 d-none d-md-block"></div>
+          <div class="toh-app d-md-grid d-block">
+            <button class="form-select text-start d-md-none mb-2" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#toh-search">
+              Filter
+            </button>
+            <aside id="toh-search" class="collapse d-md-block p-2 p-md-0">
               <${SideSearch} models=${models} indices=${indices} conditions=${state.conditions}
                              changed=${this.conditionsChanged}>
               </SideSearch>
             </aside>
+            <${DevicesTable} models=${models} conditions=${state.conditions}></DevicesTable>
           </div>
         `;
     }

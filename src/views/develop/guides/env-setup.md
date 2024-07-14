@@ -38,3 +38,8 @@ After extracting the SDK, run `relocate-sdk.sh` to update the SDK path.
 ```bash Linux & macOS & WSL
 /path/to/arm-webos-linux-gnueabi_sdk-buildroot/relocate-sdk.sh
 ```
+
+* Previous
+  * [Introduction](/develop/guides)
+* Next
+  * [Development Workflow](/develop/guides/workflow)

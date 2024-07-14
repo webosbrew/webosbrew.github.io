@@ -6,6 +6,7 @@ export type DeviceModelIndexEntry = { value: string, indices: number[] };
 
 export type DeviceModelIndices = {
     machine: DeviceModelIndexEntry[],
+    year: DeviceModelIndexEntry[],
     series: DeviceModelIndexEntry[],
     codename: DeviceModelIndexEntry[],
     broadcast: DeviceModelIndexEntry[],

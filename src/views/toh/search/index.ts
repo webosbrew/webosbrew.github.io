@@ -27,6 +27,10 @@ export class SideSearch extends Component<SideSearchProps> {
                               conditions=${props.conditions}
                               changed=${(v: SearchCondition) => this.searchConditionChanged("machine", v)}>
             </SearchSection>
+            <${SearchSection} name="year" title="Year" models=${props.models} entries=${props.indices.year}
+                              conditions=${props.conditions}
+                              changed=${(v: SearchCondition) => this.searchConditionChanged("year", v)}>
+            </SearchSection>
             <${SearchSection} name="codename" title="Codename" models=${props.models} entries=${props.indices.codename}
                               conditions=${props.conditions}
                               changed=${(v: SearchCondition) => this.searchConditionChanged("codename", v)}>
