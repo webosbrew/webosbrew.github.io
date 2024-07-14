@@ -48,7 +48,8 @@ class App extends Component<{}, AppState> {
                     data-bs-target="#toh-search">
               Filter
             </button>
-            <aside id="toh-search" class="collapse d-md-block p-2 p-md-0">
+            <aside id="toh-search" class="collapse d-md-block p-2 py-md-0 overflow-x-hidden">
+              <div class="vr d-none d-md-block position-absolute ms-1 h-100"></div>
               <${SideSearch} models=${models} indices=${indices} conditions=${state.conditions}
                              changed=${this.conditionsChanged}>
               </SideSearch>

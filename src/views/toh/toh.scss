@@ -20,6 +20,9 @@
     @include media-breakpoint-up(md) {
       border-radius: 0 !important;
       border: none !important;
+
+      top: calc(1rem + var(--navbar-height));
+      position: sticky;
     }
   }
 
