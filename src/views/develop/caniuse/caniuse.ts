@@ -5,25 +5,36 @@ import {CanIUseCard} from "./card";
 import {uniq} from "lodash-es";
 
 interface AppState {
-    index: Record<string, string[]>;
+    q?: string;
+    index?: Record<string, string[]>;
 }
 
 class App extends Component<unknown, AppState> {
     constructor() {
         super();
+        const query = new URLSearchParams(location.search);
+        this.state = {q: (query.get('q')?.trim()) || undefined};
         fetch('caniuse/data/index.json').then(resp => resp.json()).then(data => this.setState({
-            index: data
+            index: data,
         }));
     }
 
+    onSearchChange = (e: Event) => {
+        const q = (e.target as HTMLInputElement).value?.trim();
+        const url = new URL(location.href);
+        if (url.searchParams) {
+            url.searchParams.set('q', q);
+            history.pushState(null, '', url);
+        }
+        this.setState({q});
+    };
+
     render(props: unknown, state: AppState) {
-        const query = new URLSearchParams(location.search);
-        const name = query.get('q')
         return html`
-          <h1>Can I use <input type="search" class=""/>?</h1>
+          <h1>Can I use <input type="search" class="" oninput=${this.onSearchChange}/>?</h1>
           <hr/>
-          ${state.index && html`
-            <${CanIUseSearch} index=${state.index} name=${name}/>`}`;
+          ${state.index && state.q && html`
+            <${CanIUseSearch} index=${state.index} name=${state.q}/>`}`;
     }
 
 }
