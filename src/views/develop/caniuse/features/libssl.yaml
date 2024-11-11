@@ -1,0 +1,9 @@
+name: OpenSSL SSL/TLS library
+library:
+  - libssl.so.*
+warning: |
+  Don't use this library if you want to target more webOS versions.
+tags:
+  - libcrypto
+  - libssl
+  - openssl

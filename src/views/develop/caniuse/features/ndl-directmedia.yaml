@@ -1,0 +1,4 @@
+name: NDL DirectMedia
+library: libNDL_directmedia.so.1
+tags:
+  - ndl

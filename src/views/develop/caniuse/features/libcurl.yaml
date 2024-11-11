@@ -1,0 +1,8 @@
+name: libcurl
+documentation: https://curl.se/libcurl/
+library:
+  - libcurl.so.*
+warning: |
+  SONAME was incorrectly set to libcurl.so.5 before webOS 5.
+tags:
+  - curl

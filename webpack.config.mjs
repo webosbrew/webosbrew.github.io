@@ -6,6 +6,7 @@ import ImageMinimizerPlugin from "image-minimizer-webpack-plugin";
 import {PurgeCSSPlugin} from "purgecss-webpack-plugin";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import markdownToPage from "./webpack/markdown-to-page.js";
+import CanIUseDataGenPlugin from "./webpack/caniuse/data-plugin.js";
 
 const babelLoader = {
   loader: 'babel-loader',
@@ -110,6 +111,9 @@ export default function (env, argv) {
           }
         }
       }),
+      new CanIUseDataGenPlugin({
+        input: path.resolve('src/views/develop/caniuse/features'),
+      }),
       ...(argv.mode === 'production' ? [new PurgeCSSPlugin(PurgeCssOptions(argv.mode))] : []),
     ],
     module: {
@@ -147,6 +151,7 @@ export default function (env, argv) {
               api: 'modern',
               sassOptions: {
                 style: 'expanded',
+                silenceDeprecations: ['mixed-decls', 'color-functions', 'global-builtin', 'import'],
               }
             }
           }],

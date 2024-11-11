@@ -1,0 +1,4 @@
+name: SDL2-net
+library: libSDL2_net-2.0.so.0
+tags:
+  - sdl2

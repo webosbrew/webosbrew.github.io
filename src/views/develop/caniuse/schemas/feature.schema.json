@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CanIUse Feature",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "title": "Feature Name",
+      "type": "string"
+    },
+    "description": {
+      "title": "Feature Description",
+      "type": "string"
+    },
+    "warning": {
+      "title": "Warning Message",
+      "type": "string"
+    },
+    "version_override": {
+      "title": "Version Override",
+      "type": "object"
+    },
+    "documentation": {
+      "title": "Documentation URL",
+      "type": "string",
+      "format": "uri"
+    },
+    "package": {
+      "title": "Package names to match",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "uniqueItems": true,
+            "minItems": 1
+          }
+        }
+      ]
+    },
+    "library": {
+      "title": "Library SONAMEs to match",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "uniqueItems": true,
+            "minItems": 1
+          }
+        }
+      ]
+    },
+    "tags": {
+      "title": "Tags for indexing",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "uniqueItems": true,
+        "minItems": 1
+      }
+    }
+  },
+  "required": [
+    "name",
+    "tags"
+  ]
+}

@@ -1,0 +1,4 @@
+name: libstdc++6
+package: libstdc++6
+tags:
+  - stdc++

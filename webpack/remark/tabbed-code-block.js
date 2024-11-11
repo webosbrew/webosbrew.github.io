@@ -1,6 +1,6 @@
 import {visit} from "unist-util-visit";
 import {toHtml} from "hast-util-to-html";
-import {kebabCase, repeat} from "lodash-es";
+import {kebabCase} from "lodash-es";
 import {html} from "../htm-rehype.js";
 
 /** @typedef {Code & {tab: string, tabId: string}} TabbedCode */

@@ -39,10 +39,10 @@ function toIndex(models, key, transform) {
 /**
  * @this {import('webpack').LoaderContext}
  * @param source {string}
+ * @returns {string}
  */
 // noinspection JSUnusedGlobalSymbols
 export default function (source) {
-  /** @type {DeviceModelEntry[]} */
   const template = Handlebars.compile(source.replaceAll(/\[\/\*([^*]*)\*\/]/g, '{{{$1}}}'));
 
   /** @type {[string, DeviceModelData][]} */

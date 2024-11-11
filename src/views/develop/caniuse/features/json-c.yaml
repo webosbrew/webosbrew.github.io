@@ -1,0 +1,8 @@
+name: json-c
+library:
+  - libjson.so.*
+  - libjson-c.so.*
+warning: |
+  Don't use this library if you want to target different webOS versions.
+tags:
+  - json

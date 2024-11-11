@@ -3,7 +3,7 @@
     "sourceMap": true,
     "target": "es2019",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "allowJs": true,
     "alwaysStrict": true,
     "esModuleInterop": true,

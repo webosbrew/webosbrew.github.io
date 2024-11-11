@@ -1,0 +1,4 @@
+name: Qt Gui
+library: libQt5Gui.so.5
+tags:
+  - qt5

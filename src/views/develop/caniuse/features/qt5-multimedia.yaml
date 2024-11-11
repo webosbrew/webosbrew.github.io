@@ -1,0 +1,4 @@
+name: Qt Multimedia
+library: libQt5Multimedia.so.5
+tags:
+  - qt5

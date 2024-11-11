@@ -1,0 +1,4 @@
+name: Qt Core
+library: libQt5Core.so.5
+tags:
+  - qt5

@@ -1,0 +1,4 @@
+name: Qt Network
+library: libQt5Network.so.5
+tags:
+  - qt5

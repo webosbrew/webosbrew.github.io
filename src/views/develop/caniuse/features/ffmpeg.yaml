@@ -1,0 +1,14 @@
+name: FFmpeg
+library:
+  - libavcodec.so.*
+  - libavutil.so.*
+  - libavformat.so.*
+  - libavfilter.so.*
+  - libswscale.so.*
+  - libswresample.so.*
+warning: |
+  Don't use system FFmpeg libraries! They will cause linkage issues and doesn't come with usable video codecs either.
+tags:
+  - ffmpeg
+  - avcodec
+  - libavcodec

@@ -1,0 +1,4 @@
+name: SDL2-ttf
+library: libSDL2_ttf-2.0.so.0
+tags:
+  - sdl2

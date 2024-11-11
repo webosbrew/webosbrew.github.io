@@ -1,0 +1,8 @@
+name: SDL2
+documentation: https://wiki.libsdl.org/SDL2/FrontPage
+library: libSDL2-2.0.so.0
+version_override:
+  beehive: 2.0.2
+  dreadlocks: 2.0.2
+tags:
+  - sdl2

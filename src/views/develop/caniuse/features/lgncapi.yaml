@@ -1,0 +1,12 @@
+name: lgncapi
+package:
+  - lgncapi
+  - liblgncopenapi2
+version_override:
+  dreadlocks2: 2.4.0
+  goldilocks: 2.4.0
+  goldilocks2: 2.4.0
+  jhericurl: null
+tags:
+  - lgncapi
+  - lgncopenapi

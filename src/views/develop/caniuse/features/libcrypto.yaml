@@ -1,0 +1,7 @@
+name: OpenSSL crypto library
+library:
+  - libcrypto.so.*
+tags:
+  - libcrypto
+  - libssl
+  - openssl

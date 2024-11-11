@@ -1,0 +1,4 @@
+name: SDL2-mixer
+library: libSDL2_mixer-2.0.so.0
+tags:
+  - sdl2

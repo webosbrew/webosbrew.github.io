@@ -39,7 +39,7 @@ export class SideSearch extends Component<SideSearchProps> {
                               conditions=${props.conditions}
                               changed=${(v: SearchCondition) => this.searchConditionChanged("series", v)}>
             </SearchSection>
-            <${SearchSection} name="screenSize" title="Screen Size" models=${props.models} 
+            <${SearchSection} name="screenSize" title="Screen Size" models=${props.models}
                               entries=${props.indices.screenSize} conditions=${props.conditions}
                               changed=${(v: SearchCondition) => this.searchConditionChanged("screenSize", v)}>
             </SearchSection>
