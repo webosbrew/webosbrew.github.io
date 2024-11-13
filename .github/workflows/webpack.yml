@@ -35,10 +35,26 @@ jobs:
         with:
           node-version: 20
 
+      - name: Download Firmware Data
+        uses: robinraju/release-downloader@v1.9
+        with:
+          repository: "webosbrew/dev-toolbox-cli"
+          latest: true
+          fileName: "webosbrew-toolbox-fw-symbols_*.deb"
+          out-file-path: "temp"
+
+      - name: Update Packages
+        run: sudo apt-get -yq update
+
+      - name: Install webOS CLI
+        run: sudo apt-get install ./temp/*.deb
+
       - name: Build
         run: |
           npm ci
           npm run build
+        env:
+          WEBOSBREW_DEV_TOOLBOX_DATA: /usr/share/webosbrew/compat-checker/data
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

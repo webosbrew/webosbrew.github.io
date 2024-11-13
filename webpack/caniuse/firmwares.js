@@ -104,7 +104,7 @@ export class Firmware {
    * @return {Promise<Firmware[]>}
    */
   static async load() {
-    const dataRoot = process.env.DEV_TOOLBOX_DATA;
+    const dataRoot = process.env.WEBOSBREW_DEV_TOOLBOX_DATA;
     if (!dataRoot) {
       return [];
     }
