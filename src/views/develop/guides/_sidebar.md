@@ -19,10 +19,5 @@
     * Wayland
     * Media Format
     * Library Version
-* :bi-cpu:Reverse Engineering
-    * Web App
-    * Native App
-    * Firmware
-    * System
 * :bi-lightbulb:Contribute to Guides
     * [Document Syntax](/develop/guides/docs-syntax) 
