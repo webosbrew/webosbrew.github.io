@@ -14,7 +14,7 @@ class App extends Component<unknown, AppState> {
         super();
         const query = new URLSearchParams(location.search);
         this.state = {q: (query.get('q')?.trim()) || undefined};
-        fetch('caniuse/data/index.json').then(resp => resp.json()).then(data => this.setState({
+        fetch(dataUrl('index')).then(resp => resp.json()).then(data => this.setState({
             index: data,
         }));
     }
@@ -31,7 +31,9 @@ class App extends Component<unknown, AppState> {
 
     render(props: unknown, state: AppState) {
         return html`
-          <h1>Can I use <input type="search" class="" oninput=${this.onSearchChange}/>?</h1>
+          <h1>Can I use <input type="search" class="border-0 border-bottom border-dark-subtle bg-dark px-1 mx-1"
+                               defaultValue=${this.state.q} onChange=${this.onSearchChange}/>?
+          </h1>
           <hr/>
           ${state.index && state.q && html`
             <${CanIUseSearch} index=${state.index} name=${state.q}/>`}`;
@@ -44,7 +46,7 @@ function CanIUseSearch(props: { index: Record<string, string[]>, name: string })
 
     async function fetchData(q: string): Promise<DataEntry[]> {
         return Promise.all(uniq(Object.entries(index).flatMap(([k, names]) => k.includes(q) ? names : []))
-            .map(name => fetch(`caniuse/data/${name}.json`).then(resp => {
+            .map(name => fetch(dataUrl(name)).then(resp => {
                 if (!resp.ok) {
                     throw new Error(`Failed to fetch data for ${name}`);
                 }
@@ -65,6 +67,14 @@ function CanIUseSearch(props: { index: Record<string, string[]>, name: string })
       <div class="row g-3">${data?.map(entry => html`
         <${CanIUseCard} data=${entry}/>`)}
       </div>`;
+}
+
+function dataUrl(name: string) {
+    const baseUrl = new URL(location.href);
+    if (!baseUrl.pathname.endsWith('/')) {
+        baseUrl.pathname += '/';
+    }
+    return new URL(`./data/${name}.json`, baseUrl);
 }
 
 render(html`

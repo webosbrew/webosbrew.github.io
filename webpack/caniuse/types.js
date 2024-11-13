@@ -6,7 +6,7 @@
  * @interface
  * @property {string} name
  * @property {string} [warning]
- * @property {Record<WebOSMajor, string>} [version_override]
+ * @property {Record<WebOSMajor | 'default', string>} [version_override]
  * @property {string} [documentation]
  * @property {string[]} tags
  */

@@ -18,7 +18,58 @@
     },
     "version_override": {
       "title": "Version Override",
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "afro": {
+          "title": "webOS 1.x",
+          "$ref": "#/definitions/VersionOverrideValue"
+        },
+        "beehive": {
+          "title": "webOS 2.x",
+          "$ref": "#/definitions/VersionOverrideValue"
+        },
+        "dreadlocks": {
+          "title": "webOS 3.0~3.4",
+          "$ref": "#/definitions/VersionOverrideValue"
+        },
+        "dreadlocks2": {
+          "title": "webOS 3.5~3.9",
+          "$ref": "#/definitions/VersionOverrideValue"
+        },
+        "goldilocks": {
+          "title": "webOS 4.0~4.4",
+          "$ref": "#/definitions/VersionOverrideValue"
+        },
+        "goldilocks2": {
+          "title": "webOS 4.5~4.10",
+          "$ref": "#/definitions/VersionOverrideValue"
+        },
+        "jhericurl": {
+          "title": "webOS 5.x",
+          "$ref": "#/definitions/VersionOverrideValue"
+        },
+        "kisscurl": {
+          "title": "webOS 6.x",
+          "$ref": "#/definitions/VersionOverrideValue"
+        },
+        "mullet": {
+          "title": "webOS 7.x",
+          "$ref": "#/definitions/VersionOverrideValue"
+        },
+        "number1": {
+          "title": "webOS 8.x",
+          "$ref": "#/definitions/VersionOverrideValue"
+        },
+        "ombre": {
+          "title": "webOS 9.x",
+          "$ref": "#/definitions/VersionOverrideValue"
+        },
+        "default": {
+          "title": "Default",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
     },
     "documentation": {
       "title": "Documentation URL",
@@ -70,5 +121,17 @@
   "required": [
     "name",
     "tags"
-  ]
+  ],
+  "definitions": {
+    "VersionOverrideValue": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
 }

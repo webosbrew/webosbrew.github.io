@@ -71,7 +71,8 @@ export default class CanIUseDataGenPlugin {
           entry.documentation = feature.documentation;
         }
         for (let firmware of firmwares) {
-          const override = feature.version_override?.[firmware.major];
+          const override = feature.version_override && (firmware.major in feature.version_override ?
+            feature.version_override?.[firmware.major] : feature.version_override?.default);
           const version = override !== undefined ? override : (await featureVersion(feature, firmware))?.format();
           if (version) {
             entry.versions[firmware.major] = version;

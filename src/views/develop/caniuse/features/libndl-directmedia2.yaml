@@ -1,0 +1,7 @@
+name: libndl-directmedia2
+library:
+  - libndl-directmedia2.so.1
+warning: |
+  This library is only available on webOS 2.2~3.4.
+tags:
+  - ndl

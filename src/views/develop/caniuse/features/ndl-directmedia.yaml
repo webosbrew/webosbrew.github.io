@@ -1,4 +1,13 @@
 name: NDL DirectMedia
-library: libNDL_directmedia.so.1
+library:
+  - libNDL_directmedia.so.1
+version_override:
+  afro: null
+  beehive: null
+  dreadlocks: null
+  dreadlocks2: v1
+  goldilocks: v1
+  goldilocks2: v1
+  default: v2
 tags:
   - ndl
