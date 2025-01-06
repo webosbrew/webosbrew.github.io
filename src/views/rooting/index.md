@@ -122,7 +122,7 @@ Alternatively, `DEBUG` flag can be modified
 via [hardware modification](https://gist.github.com/throwaway96/827ff726981cc2cbc46a22a2ad7337a1) to gain
 root access for pre-webOS 4.0 models.
 
-### Faultmanager
+### faultmanager
 
 Works on webOS 4.0 and up, including webOS 9. As of January 2025, no patched firmware exists.
 [Download and instructions](https://github.com/throwaway96/faultmanager-autoroot).
