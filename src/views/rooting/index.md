@@ -31,6 +31,7 @@ table.exploits tbody td {
       <th class="text-center"><a href="#getmenow">GetMeNow</a></th>
       <th class="text-center"><a href="#dejavuln">DejaVuln</a></th>
       <th class="text-center"><a href="#nvm">NVM</a></th>
+      <th class="text-center"><a href="#faultmanager">Faultmanager</a></th>
     </tr>
     </thead>
     <tbody>
@@ -42,6 +43,7 @@ table.exploits tbody td {
       <td rowspan="4">🩹<br>Patched</td>
       <td rowspan="3">❌<br>Not supported</td>
       <td rowspan="4">✅<br>Supported</td>
+      <td rowspan="3">❌<br>Not supported</td>
     </tr>
     <tr>
       <th>2.x</th>
@@ -53,6 +55,7 @@ table.exploits tbody td {
     <tr>
       <th>3.5~3.9</th>
       <td rowspan="7">⌛<br>Being patched</td>
+      <td rowspan="7">✅<br>Supported</td>
     </tr>
     <tr>
       <th>4.0~4.4</th>
@@ -79,7 +82,7 @@ table.exploits tbody td {
     </tr>
     <tr>
       <th>9.x~</th>
-      <td colspan="6">❌ Not rootable (yet)</td>
+      <td colspan="6">❌<br>Not supported</td>
     </tr>
     </tbody>
   </table>
@@ -118,3 +121,11 @@ Worked on some models running webOS 1~3, won't work after Dev Mode app updates a
 Alternatively, `DEBUG` flag can be modified
 via [hardware modification](https://gist.github.com/throwaway96/827ff726981cc2cbc46a22a2ad7337a1) to gain
 root access for pre-webOS 4.0 models.
+
+### Faultmanager
+
+Works on webOS 4.0 and up, including webOS 9. As of January 2025, no patched firmware exists.
+[Download and instructions](https://github.com/throwaway96/faultmanager-autoroot).
+
+> [!CAUTION]
+> This exploit was quickly adapted from DejaVuln-autoroot with limited testing. Expect it to be rough around the edges.
