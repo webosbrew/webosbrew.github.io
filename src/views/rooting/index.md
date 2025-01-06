@@ -55,7 +55,7 @@ table.exploits tbody td {
     <tr>
       <th>3.5~3.9</th>
       <td rowspan="7">⌛<br>Being patched</td>
-      <td rowspan="7">✅<br>Supported</td>
+      <td rowspan="8">✅<br>Supported</td>
     </tr>
     <tr>
       <th>4.0~4.4</th>
