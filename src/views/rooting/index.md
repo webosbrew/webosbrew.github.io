@@ -30,8 +30,8 @@ table.exploits tbody td {
       <th class="text-center"><a href="#wta">WTA</a></th>
       <th class="text-center"><a href="#getmenow">GetMeNow</a></th>
       <th class="text-center"><a href="#dejavuln">DejaVuln</a></th>
+      <th class="text-center"><a href="#faultmanager">faultmanager</a></th>
       <th class="text-center"><a href="#nvm">NVM</a></th>
-      <th class="text-center"><a href="#faultmanager">Faultmanager</a></th>
     </tr>
     </thead>
     <tbody>
@@ -42,8 +42,8 @@ table.exploits tbody td {
       <td rowspan="6">❌<br>Not supported</td>
       <td rowspan="4">🩹<br>Patched</td>
       <td rowspan="3">❌<br>Not supported</td>
+      <td rowspan="4">❌<br>Not supported</td>
       <td rowspan="4">✅<br>Supported</td>
-      <td rowspan="3">❌<br>Not supported</td>
     </tr>
     <tr>
       <th>2.x</th>
@@ -54,14 +54,14 @@ table.exploits tbody td {
     </tr>
     <tr>
       <th>3.5~3.9</th>
-      <td rowspan="7">⌛<br>Being patched</td>
-      <td rowspan="8">✅<br>Supported</td>
+      <td rowspan="3">✅<br>Supported</td>
     </tr>
     <tr>
       <th>4.0~4.4</th>
       <td rowspan="6">🪦<br>Patched, very unlikely to work</td>
-      <td rowspan="6">❌<br>Not supported</td>
-      <td rowspan="6">❌<br>Not supported</td>
+      <td rowspan="7">❌<br>Not supported</td>
+      <td rowspan="7">✅<br>Supported</td>
+      <td rowspan="7">❌<br>Not supported</td>
     </tr>
     <tr>
       <th>4.5~4.10</th>
@@ -69,20 +69,24 @@ table.exploits tbody td {
     <tr>
       <th>5.x</th>
       <td rowspan="4">🩹<br>Patched</td>
+      <td rowspan="3">⌛<br>Being patched</td>
     </tr>
     <tr>
       <th>6.x</th>
     </tr>
     <tr>
       <th>7.x</th>
-      <td rowspan="2">❌<br>Not supported</td>
+      <td rowspan="3">❌<br>Not supported</td>
     </tr>
     <tr>
       <th>8.x</th>
+      <td>🩹<br>Patched</td>
     </tr>
     <tr>
       <th>9.x~</th>
-      <td colspan="6">❌<br>Not supported</td>
+      <td>❌<br>Not supported</td>
+      <td>❌<br>Not supported</td>
+      <td>❌<br>Not supported</td>
     </tr>
     </tbody>
   </table>
@@ -127,5 +131,5 @@ root access for pre-webOS 4.0 models.
 Works on webOS 4.0 and up, including webOS 9. As of January 2025, no patched firmware exists.
 [Download and instructions](https://github.com/throwaway96/faultmanager-autoroot).
 
-> [!CAUTION]
+> [!WARNING]
 > This exploit was quickly adapted from [dejavuln-autoroot](https://github.com/throwaway96/dejavuln-autoroot) with limited testing. Expect it to be rough around the edges.
