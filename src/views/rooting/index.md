@@ -128,4 +128,4 @@ Works on webOS 4.0 and up, including webOS 9. As of January 2025, no patched fir
 [Download and instructions](https://github.com/throwaway96/faultmanager-autoroot).
 
 > [!CAUTION]
-> This exploit was quickly adapted from DejaVuln-autoroot with limited testing. Expect it to be rough around the edges.
+> This exploit was quickly adapted from [dejavuln-autoroot](https://github.com/throwaway96/dejavuln-autoroot) with limited testing. Expect it to be rough around the edges.
