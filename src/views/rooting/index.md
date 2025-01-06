@@ -40,7 +40,7 @@ table.exploits tbody td {
       <td rowspan="2">❌<br>Not supported</td>
       <td rowspan="4">❌<br>Not supported</td>
       <td rowspan="6">❌<br>Not supported</td>
-      <td rowspan="4">🩹<br>Patched</td>
+      <td rowspan="4">🪦<br>Patched</td>
       <td rowspan="3">❌<br>Not supported</td>
       <td rowspan="4">❌<br>Not supported</td>
       <td rowspan="4">✅<br>Supported</td>
@@ -92,6 +92,14 @@ table.exploits tbody td {
   </table>
 </div>
 
+### Explanation
+
+* ✅ Should work on most firmware versions. Root ASAP.
+* ⌛ Hurry up and don't update! Patched firmware is being rolled out.
+* 🩹 Being patched for a while and the latest firmware is likely patched.
+* 🪦 Used to work, but became completely patched. Don't expect it to work anymore.
+* ❌ Not supported. Won't work at all.
+
 ## Rooting methods
 
 ### DejaVuln
@@ -132,4 +140,5 @@ Works on webOS 4.0 and up, including webOS 9. As of January 2025, no patched fir
 [Download and instructions](https://github.com/throwaway96/faultmanager-autoroot).
 
 > [!WARNING]
-> This exploit was quickly adapted from [dejavuln-autoroot](https://github.com/throwaway96/dejavuln-autoroot) with limited testing. Expect it to be rough around the edges.
+> This exploit was quickly adapted from [dejavuln-autoroot](https://github.com/throwaway96/dejavuln-autoroot) with
+> limited testing. Expect it to be rough around the edges.
