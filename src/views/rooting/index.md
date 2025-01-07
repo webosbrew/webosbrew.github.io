@@ -102,6 +102,15 @@ table.exploits tbody td {
 
 ## Rooting methods
 
+### faultmanager
+
+Works on webOS 4.0 and up, including webOS 9. As of January 2025, no patched firmware exists.
+[Download and instructions](https://github.com/throwaway96/faultmanager-autoroot).
+
+> [!NOTE]
+> This exploit was quickly adapted from [dejavuln-autoroot](https://github.com/throwaway96/dejavuln-autoroot) with
+> limited testing. Expect it to be rough around the edges.
+
 ### DejaVuln
 
 Works on webOS 3.5 and up. Patches are being rolled out, starting from recent models.
@@ -133,12 +142,3 @@ Worked on some models running webOS 1~3, won't work after Dev Mode app updates a
 Alternatively, `DEBUG` flag can be modified
 via [hardware modification](https://gist.github.com/throwaway96/827ff726981cc2cbc46a22a2ad7337a1) to gain
 root access for pre-webOS 4.0 models.
-
-### faultmanager
-
-Works on webOS 4.0 and up, including webOS 9. As of January 2025, no patched firmware exists.
-[Download and instructions](https://github.com/throwaway96/faultmanager-autoroot).
-
-> [!WARNING]
-> This exploit was quickly adapted from [dejavuln-autoroot](https://github.com/throwaway96/dejavuln-autoroot) with
-> limited testing. Expect it to be rough around the edges.
