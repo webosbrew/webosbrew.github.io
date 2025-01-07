@@ -32,6 +32,7 @@ table.exploits tbody td {
       <th class="text-center"><a href="#dejavuln">DejaVuln</a></th>
       <th class="text-center"><a href="#faultmanager">faultmanager</a></th>
       <th class="text-center"><a href="#nvm">NVM</a></th>
+      <th class="text-center"><a href="#chariot-autoroot">chariot-autoroot</a></th>
     </tr>
     </thead>
     <tbody>
@@ -44,9 +45,11 @@ table.exploits tbody td {
       <td rowspan="3">❌<br>Not supported</td>
       <td rowspan="4">❌<br>Not supported</td>
       <td rowspan="4">✅<br>Supported</td>
+      <td>✅<br>Supported</td>
     </tr>
     <tr>
       <th>2.x</th>
+      <td rowspan="8">❌<br>Not supported</td>
     </tr>
     <tr>
       <th>3.0~3.4</th>
@@ -142,3 +145,12 @@ Worked on some models running webOS 1~3, won't work after Dev Mode app updates a
 Alternatively, `DEBUG` flag can be modified
 via [hardware modification](https://gist.github.com/throwaway96/827ff726981cc2cbc46a22a2ad7337a1) to gain
 root access for pre-webOS 4.0 models.
+
+### chariot-autoroot
+
+Works on webOS 1 TVs. This method uses chariot endpoint to gain root.
+
+[Download and instructions](https://github.com/throwaway96/chariot-autoroot)
+
+> [!NOTE]
+> This may only work on certain models. If you have a webOS 1 TV, please check if the "Chariot Endpoint" option is available.
