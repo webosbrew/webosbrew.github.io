@@ -56,7 +56,7 @@ export default function (env, argv) {
     devServer: {
       static: path.resolve('dist'),
       port: 8080,
-      hot: true
+      hot: true,
     },
     devtool: 'source-map',
     plugins: [

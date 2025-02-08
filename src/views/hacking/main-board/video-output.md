@@ -1,3 +1,7 @@
+# Getting Video Output
+
+---
+
 LG uses different panel interfaces for different models:
 
 1. LVDS for older 1080p models

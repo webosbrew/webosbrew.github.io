@@ -1,3 +1,5 @@
 # GetMeNow (GetMeIn)
 
-Under construction.
+---
+
+{{> stub }}

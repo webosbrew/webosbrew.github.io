@@ -9,3 +9,5 @@
     * [RootMyTV](/guides/rooting/rootmytv/)
     * [GetMeNow](/guides/rooting/getmenow/)
     * [NVM](/guides/rooting/nvm/)
+* :bi-sliders:System Customization
+  * [Multiview](/guides/customize/multiview)

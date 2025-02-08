@@ -7,5 +7,6 @@
     * Firmware
     * System
 * :bi-motherboard:Using Main Boards
-  * [Power Supply](/hacking/main-board/power-supply)
-  * [Video Output](/hacking/main-board/video-output)
+    * [Power Supply](/hacking/main-board/power-supply)
+    * [Video Output](/hacking/main-board/video-output)
+* :bi-toggles:System Customization
