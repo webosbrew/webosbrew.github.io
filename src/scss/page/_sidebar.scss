@@ -42,7 +42,7 @@ aside.sidebar {
     line-height: 1.75;
 
     > a {
-      display: block;
+      display: inline-block;
       max-width: fit-content;
       text-decoration: none;
       @extend .px-2;

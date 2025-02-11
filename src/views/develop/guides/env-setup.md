@@ -5,7 +5,7 @@ Install and configure the necessary tools for development
 ## Prerequisites
 
 For web app development, you can use Linux, macOS, or Windows. For native app development, you need to use Linux or
-macOS.If you want to use Windows, you can use [Windows Subsystem for Linux (WSL)](https://aka.ms/wsl).
+macOS. If you want to use Windows, you can use [Windows Subsystem for Linux (WSL)](https://aka.ms/wsl).
 
 ## Setup for Web App Development
 
