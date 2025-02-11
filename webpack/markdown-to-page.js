@@ -1,15 +1,12 @@
 import path from "path";
-
 import {remark} from "remark";
-
-import remarkRehype from "remark-rehype";
 import remarkBootstrapIcon from "./remark/bootstrap-icon.js";
-
-import {rehypeLinkActive} from "./rehype/link-active.js";
-import rehypeStringify from "rehype-stringify";
-
+import remarkRehype from "remark-rehype";
+import {rehypeLinkActive, urlMatches} from "./rehype/link-active.js";
 import {visit} from "unist-util-visit";
+import {visitParents} from "unist-util-visit-parents";
 import {toString} from "hast-util-to-string";
+import rehypeStringify from "rehype-stringify";
 
 /**
  * @param relative {string}
@@ -45,6 +42,62 @@ function findSidebar(fs, dir, root) {
 }
 
 /**
+ *
+ * @param activePath {string}
+ * @return {import('unified').Processor}
+ */
+export function sidebarProcessor(activePath) {
+  return remark()
+    .use(remarkBootstrapIcon)
+    .use(remarkRehype, {allowDangerousHtml: true})
+    .use(rehypeLinkActive, {active: activePath})
+    .use(() => {
+      /**
+       *
+       * @param li {import('hast').Element}
+       */
+      function removeSubList(li) {
+        const ulIndex = li.children.findIndex(({tagName}) => tagName === 'ul');
+        if (ulIndex < 0) {
+          return;
+        }
+        li.children.splice(ulIndex, 1);
+      }
+
+      return (tree, vfile) => {
+
+        visitParents(tree, node => node.tagName === 'li', (li, ancestors) => {
+          const depth = ancestors.filter(node => node.tagName === 'ul').length;
+          if (depth !== 2) {
+            return;
+          }
+
+          function linkMatchesActive(a) {
+            const href = a.properties?.href;
+            if (!href) {
+              return false;
+            }
+            return urlMatches(href, activePath);
+          }
+
+          let active = false;
+          visit(li, node => node.tagName === 'a' && linkMatchesActive(node), () => active = true);
+          if (!active) {
+            removeSubList(li);
+          }
+        });
+      };
+    })
+    .use(() => (tree, vfile) => {
+      visit(tree, node => node.tagName === 'h1', (h1, index, parent) => {
+        vfile.data.title = toString(h1);
+        parent.children[index] = {type: 'comment', value: vfile.data.title};
+      });
+    })
+    .use(rehypeStringify, {allowDangerousCharacters: true, allowDangerousHtml: true})
+}
+
+/**
  * @param content {string}
  * @param meta {Object}
  * @param loaderContext {import('webpack').LoaderContext<Object> & { data: { [key: string]: any } | string }}
@@ -53,17 +106,7 @@ export default function (content, meta, loaderContext) {
   const {resourcePath, data, context, rootContext, fs} = loaderContext;
   const sidebarPath = findSidebar(fs, path.dirname(resourcePath), rootContext);
   const sidebarContent = sidebarPath && fs.readFileSync(sidebarPath, 'utf-8').trim();
-  const processor = remark()
-    .use(remarkBootstrapIcon)
-    .use(remarkRehype, {allowDangerousHtml: true})
-    .use(rehypeLinkActive, {active: getPagePath(path.relative(rootContext, resourcePath))})
-    .use(() => (tree, vfile) => {
-      visit(tree, e => e.tagName === 'h1', (h1, index, parent) => {
-        vfile.data.title = toString(h1);
-        parent.children[index] = {type: 'comment', value: vfile.data.title};
-      });
-    })
-    .use(rehypeStringify, {allowDangerousCharacters: true, allowDangerousHtml: true});
+  const processor = sidebarProcessor(getPagePath(path.relative(rootContext, resourcePath)));
   /** @type {VFile|undefined} */
   const sidebar = sidebarContent && processor.processSync(sidebarContent);
   Object.assign(data, meta, sidebar && {sidebar: sidebar.data.title || 'Pages'});

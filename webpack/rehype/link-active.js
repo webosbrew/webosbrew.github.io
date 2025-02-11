@@ -2,6 +2,16 @@ import {visit} from "unist-util-visit";
 import {trimEnd} from "lodash-es";
 
 /**
+ *
+ * @param a {string}
+ * @param b {string}
+ * @return {boolean}
+ */
+export function urlMatches(a, b) {
+  return trimEnd(a, '/') === trimEnd(b, '/');
+}
+
+/**
  * @param active{string}
  * @return {Processor}
  */
@@ -12,7 +22,7 @@ export function rehypeLinkActive({active}) {
     if (!href) {
       return false;
     }
-    return trimEnd(href, '/') === active;
+    return urlMatches(href, active);
   }
 
   return (tree) => {
