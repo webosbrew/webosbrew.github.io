@@ -1,7 +1,7 @@
 import {visit} from "unist-util-visit";
 import {toHtml} from "hast-util-to-html";
-import {kebabCase} from "lodash-es";
 import {html} from "../htm-rehype.js";
+import {idFromTitle} from "../utils.js";
 
 /** @typedef {Code & {tab: string, tabId: string}} TabbedCode */
 
@@ -21,7 +21,7 @@ export default function tabbedCodeBlock() {
        */
       (node, index, parent) => {
         node['tab'] = node.meta;
-        node['tabId'] = kebabCase(node.meta.replaceAll(/[^\w\s]+/g, (s) => `u${s.charCodeAt(0).toString(16)}`));
+        node['tabId'] = idFromTitle(node.meta);
         if (isTabbedCodeBlock(parent.children[index + 1])) {
           return;
         }

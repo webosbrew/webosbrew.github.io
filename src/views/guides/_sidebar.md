@@ -11,7 +11,7 @@
         * [GetMeNow](/guides/rooting/getmenow/)
         * [NVM](/guides/rooting/nvm/)
 * :bi-sliders:System Customization
-    * [Multiview](/guides/customize/multiview/)
-    * [Fix Jailer Config](/guides/customize/jail-fix/)
+    * [Multi-View](/guides/customize/multiview/)
+    * Fix Jailer Config
     * Move Apps to USB
     * Remove Store Demo

@@ -7,6 +7,8 @@ import {visit} from "unist-util-visit";
 import {visitParents} from "unist-util-visit-parents";
 import {toString} from "hast-util-to-string";
 import rehypeStringify from "rehype-stringify";
+import {html} from "./htm-rehype.js";
+import {idFromTitle} from "./utils.js";
 
 /**
  * @param relative {string}
@@ -56,12 +58,30 @@ export function sidebarProcessor(activePath) {
        *
        * @param li {import('hast').Element}
        */
-      function removeSubList(li) {
+      function collapseSubList(li) {
         const ulIndex = li.children.findIndex(({tagName}) => tagName === 'ul');
         if (ulIndex < 0) {
           return;
         }
-        li.children.splice(ulIndex, 1);
+        const childrenBeforeUl = li.children.slice(0, ulIndex);
+        let useCollapse = false;
+        if (!childrenBeforeUl.find(({tagName}) => tagName === 'a')) {
+          const index = childrenBeforeUl.findIndex(({type}) => type === 'text');
+          if (index >= 0) {
+            const title = li.children[index].value;
+            const id = idFromTitle(title);
+            li.children[index] = html`<a data-bs-toggle="collapse" href="#${id}" role="button" aria-expanded="false"
+                                         aria-controls="${id}">${title}</a>`;
+            li.children[ulIndex].properties = {
+              'class': ['collapse'],
+              'id': id
+            }
+            useCollapse = true;
+          }
+        }
+        if (!useCollapse) {
+          li.children.splice(ulIndex, 1);
+        }
       }
 
       return (tree, vfile) => {
@@ -83,7 +103,9 @@ export function sidebarProcessor(activePath) {
           let active = false;
           visit(li, node => node.tagName === 'a' && linkMatchesActive(node), () => active = true);
           if (!active) {
-            removeSubList(li);
+            collapseSubList(li);
+          } else {
+            li.properties.class = ['active'];
           }
         });
       };

@@ -37,6 +37,14 @@ aside.sidebar {
 
     li {
       @extend .text-secondary;
+
+      &.active {
+        @extend .text-body;
+      }
+
+      li {
+        @extend .ps-2;
+      }
     }
 
     line-height: 1.75;
