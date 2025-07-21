@@ -153,6 +153,8 @@ export class Firmware {
         return 'number1';
       case 9:
         return 'ombre';
+      case 10:
+        return 'ponytail';
       default:
         throw new Error(`Unknown major version: ${major}`);
     }

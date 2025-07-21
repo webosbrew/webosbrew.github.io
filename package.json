@@ -13,8 +13,8 @@
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "@preact/signals": "^1.2.3",
-    "bootstrap": "^5.3.3",
-    "bootstrap-icons": "^1.11.3",
+    "bootstrap": "^5.3.7",
+    "bootstrap-icons": "^1.13.1",
     "gsap": "^3.12.5",
     "htm": "^3.1.1",
     "marquee-content": "^4.2.0",
