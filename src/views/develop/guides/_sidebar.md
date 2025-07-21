@@ -22,5 +22,5 @@
     * Wayland
     * Media Format
     * Library Version
-* :bi-lightbulb:Contribute to Guides
+* :bi-pencil:Contribute to Guides
     * [Document Syntax](/develop/guides/docs-syntax) 
