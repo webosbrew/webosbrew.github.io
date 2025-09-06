@@ -2,12 +2,6 @@
 
 Decide whether to root your device.
 
-<style>
-table.exploits tbody td {
-  text-align: center;
-}
-</style>
-
 > [!WARNING]
 > Rooting your TV via software methods is generally safe, and having no consequences even if it fails.<br>
 > However, reckless changes to the system can brick your TV, if you don't have proper knowledge and ignore
@@ -17,88 +11,7 @@ table.exploits tbody td {
 
 ## Can I root my TV?
 
-> [!TIP]
-> Checkout [CanI.RootMy.TV](https://cani.rootmy.tv) for your model and firmware version.
-
-<div class="table-responsive">
-  <table class="table table-bordered exploits">
-    <thead>
-    <tr>
-      <th class="text-nowrap">webOS version</th>
-      <th class="text-center"><a href="#rootmytv">RootMy.TV</a></th>
-      <th class="text-center"><a href="#crashd">crashd</a></th>
-      <th class="text-center"><a href="#wta">WTA</a></th>
-      <th class="text-center"><a href="#getmenow">GetMeNow</a></th>
-      <th class="text-center"><a href="#dejavuln">DejaVuln</a></th>
-      <th class="text-center"><a href="#faultmanager">faultmanager</a></th>
-      <th class="text-center"><a href="#nvm">NVM</a></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <th>1.x</th>
-      <td rowspan="2">❌<br>Not supported</td>
-      <td rowspan="4">❌<br>Not supported</td>
-      <td rowspan="6">❌<br>Not supported</td>
-      <td rowspan="4">🪦<br>Patched</td>
-      <td rowspan="3">❌<br>Not supported</td>
-      <td rowspan="4">❌<br>Not supported</td>
-      <td rowspan="4">✅<br>Supported</td>
-    </tr>
-    <tr>
-      <th>2.x</th>
-    </tr>
-    <tr>
-      <th>3.0~3.4</th>
-      <td rowspan="6">🪦<br>Patched, very unlikely to work</td>
-    </tr>
-    <tr>
-      <th>3.5~3.9</th>
-      <td rowspan="3">✅<br>Supported</td>
-    </tr>
-    <tr>
-      <th>4.0~4.4</th>
-      <td rowspan="6">🪦<br>Patched, very unlikely to work</td>
-      <td rowspan="7">❌<br>Not supported</td>
-      <td rowspan="7">✅<br>Supported</td>
-      <td rowspan="7">❌<br>Not supported</td>
-    </tr>
-    <tr>
-      <th>4.5~4.10</th>
-    </tr>
-    <tr>
-      <th>5.x</th>
-      <td rowspan="4">🩹<br>Patched</td>
-      <td rowspan="3">⌛<br>Being patched</td>
-    </tr>
-    <tr>
-      <th>6.x</th>
-    </tr>
-    <tr>
-      <th>7.x</th>
-      <td rowspan="3">❌<br>Not supported</td>
-    </tr>
-    <tr>
-      <th>8.x</th>
-      <td>🩹<br>Patched</td>
-    </tr>
-    <tr>
-      <th>9.x~</th>
-      <td>❌<br>Not supported</td>
-      <td>❌<br>Not supported</td>
-      <td>❌<br>Not supported</td>
-    </tr>
-    </tbody>
-  </table>
-</div>
-
-### Explanation
-
-* ✅ Should work on most firmware versions. Root ASAP.
-* ⌛ Hurry up and don't update! Patched firmware is being rolled out.
-* 🩹 Being patched for a while and the latest firmware is likely patched.
-* 🪦 Used to work, but became completely patched. Don't expect it to work anymore.
-* ❌ Not supported. Won't work at all.
+Checkout [CanI.RootMy.TV](https://cani.rootmy.tv) for your model and firmware version.
 
 ## Rooting methods
 
@@ -106,10 +19,6 @@ table.exploits tbody td {
 
 Works on webOS 4.0 and up, including webOS 9. As of January 2025, no patched firmware exists.
 [Download and instructions](https://github.com/throwaway96/faultmanager-autoroot).
-
-> [!NOTE]
-> This exploit was quickly adapted from [dejavuln-autoroot](https://github.com/throwaway96/dejavuln-autoroot) with
-> limited testing. Expect it to be rough around the edges.
 
 ### DejaVuln
 
