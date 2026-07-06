@@ -35,7 +35,7 @@ function PurgeCssOptions(mode) {
     paths: () => ['src', 'webpack']
       .flatMap(p => fs.readdirSync(path.resolve(p), {withFileTypes: true, recursive: true}))
       .filter(ent => ent.isFile())
-      .map(ent => path.resolve(ent.path, ent.name))
+      .map(ent => path.resolve(ent.parentPath ?? ent.path, ent.name))
       .concat(['alert', 'carousel', 'collapse', 'offcanvas', 'popover', 'tooltip', 'scrollspy']
         .map(n => path.resolve(`node_modules/bootstrap/js/src/${n}.js`))),
     blocklist: mode === 'production' ? ['dev-only'] : [],
