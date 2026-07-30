@@ -151,8 +151,9 @@ export default function (env, argv) {
               api: 'modern',
               sassOptions: {
                 style: 'expanded',
-                // sass removed the mixed-decls deprecation, silencing it now warns
-                silenceDeprecations: ['color-functions', 'global-builtin', 'import'],
+                // Only bootstrap 5.3 triggers these, our own scss is clean.
+                // sass removed mixed-decls, so silencing that one now warns.
+                silenceDeprecations: ['color-functions', 'global-builtin', 'if-function', 'import'],
               }
             }
           }],

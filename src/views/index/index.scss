@@ -1,5 +1,10 @@
-@import "../../scss/styles";
+// Compile time only, these emit no CSS. The page loads styles.css for the
+// shared rules, so importing it here would ship every rule a second time.
+@import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
 
 
 .tv-container {

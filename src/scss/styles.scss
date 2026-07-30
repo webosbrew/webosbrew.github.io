@@ -1,3 +1,5 @@
+@use "sass:map";
+
 // Include functions first
 @import "bootstrap/scss/functions";
 // Customize some defaults
@@ -17,25 +19,25 @@ $brands: (
 
 $all-colors: map-merge-multiple($blues, $indigos, $purples, $pinks, $reds, $oranges, $yellows, $greens, $teals, $cyans, $brands);
 
-$utilities: map-merge(
+$utilities: map.merge(
   $utilities,
   (
-    "color": map-merge(
-      map-get($utilities, "color"),
+    "color": map.merge(
+      map.get($utilities, "color"),
       (
-        values: map-merge(
-          map-get(map-get($utilities, "color"), "values"),
+        values: map.merge(
+          map.get($utilities, "color", "values"),
           (
             $all-colors
           ),
         ),
       ),
     ),
-    "background-color": map-merge(
-      map-get($utilities, "background-color"),
+    "background-color": map.merge(
+      map.get($utilities, "background-color"),
       (
-        values: map-merge(
-          map-get(map-get($utilities, "background-color"), "values"),
+        values: map.merge(
+          map.get($utilities, "background-color", "values"),
           (
             $all-colors
           ),

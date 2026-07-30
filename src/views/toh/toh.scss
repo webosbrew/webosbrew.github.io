@@ -1,4 +1,10 @@
-@import "../../scss/styles";
+// Compile time only, these emit no CSS. The page loads styles.css for the
+// shared rules, so importing it here would ship every rule a second time.
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
 
 
 .toh-app {
@@ -14,8 +20,10 @@
     grid-area: search;
     max-height: min-content;
 
-    @extend .border;
-    @extend .rounded;
+    // same as the .border and .rounded utilities, which are out of reach
+    // without importing the whole stylesheet
+    border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
+    border-radius: var(--bs-border-radius) !important;
 
     @include media-breakpoint-up(md) {
       border-radius: 0 !important;
