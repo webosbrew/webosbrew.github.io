@@ -241,7 +241,9 @@ export default function (env, argv) {
     resolve: {
       extensions: ['.ts', '.js'],
     },
-    target: ["web", "es5"],
+    // browserslist in package.json sets the baseline for babel, autoprefixer
+    // and the webpack runtime alike
+    target: 'browserslist',
     output: {
       clean: true,
     },
