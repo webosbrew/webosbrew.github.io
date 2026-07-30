@@ -151,7 +151,8 @@ export default function (env, argv) {
               api: 'modern',
               sassOptions: {
                 style: 'expanded',
-                silenceDeprecations: ['mixed-decls', 'color-functions', 'global-builtin', 'import'],
+                // sass removed the mixed-decls deprecation, silencing it now warns
+                silenceDeprecations: ['color-functions', 'global-builtin', 'import'],
               }
             }
           }],

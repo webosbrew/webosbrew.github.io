@@ -106,16 +106,28 @@ function wrapTable() {
 
 }
 
+/**
+ * remark-github-blockquote-alert writes `className`, either as a string or as an
+ * array of strings. Flatten it to one space separated string.
+ * @param props {Record<string, any> | undefined}
+ * @returns {string}
+ */
+function alertClassName(props) {
+  const className = props?.['className'] ?? props?.['class'];
+  return Array.isArray(className) ? className.join(' ') : className ?? '';
+}
+
 function alertRestyle() {
   return (tree) => {
-    visit(tree, node => node.data?.hProperties?.['class']?.includes('markdown-alert'), (node) => {
-      let calloutClass = node.data.hProperties['class'].replaceAll('markdown-alert', 'callout');
+    visit(tree, node => alertClassName(node.data?.hProperties).includes('markdown-alert'), (node) => {
+      let calloutClass = alertClassName(node.data.hProperties).replaceAll('markdown-alert', 'callout');
       if (calloutClass.includes('callout-title')) {
         let textNode = node.children.find(child => child.type === 'text');
         textNode.value = capitalize(textNode.value);
       } else {
         calloutClass += ' my-3';
       }
+      delete node.data.hProperties['className'];
       node.data.hProperties['class'] = calloutClass;
     });
   };
