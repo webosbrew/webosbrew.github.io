@@ -80,6 +80,14 @@ export function sidebarProcessor(activePath) {
           }
         }
         if (!useCollapse) {
+          // The item is a link in its own right, so its text cannot double as a
+          // collapse toggle. Drop the sub list, but mark the item so a caret still
+          // shows that pages sit below it.
+          const cls = li.properties?.class;
+          li.properties = {
+            ...li.properties,
+            class: Array.isArray(cls) ? [...cls, 'has-subpages'] : cls ? [cls, 'has-subpages'] : ['has-subpages']
+          };
           li.children.splice(ulIndex, 1);
         }
       }
@@ -105,7 +113,10 @@ export function sidebarProcessor(activePath) {
           if (!active) {
             collapseSubList(li);
           } else {
-            li.properties.class = ['active'];
+            // Keeps its sub list. Mark it too, so the caret can point down and say
+            // the item is open rather than saying nothing.
+            const hasSubList = li.children.some(({tagName}) => tagName === 'ul');
+            li.properties.class = hasSubList ? ['active', 'has-subpages'] : ['active'];
           }
         });
       };

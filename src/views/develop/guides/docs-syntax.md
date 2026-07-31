@@ -101,6 +101,26 @@ public class HelloWorld {
 }
 ```
 
+### Previous and Next Links
+
+End a document with a list of `Previous` and `Next` entries to get the paired navigation
+cards at the foot of the page:
+
+```markdown Markdown
+* Previous
+    * [Environment Setup](/develop/guides/env-setup)
+* Next
+    * [Developing Web App](/develop/guides/web-app)
+    * [Developing Native App](/develop/guides/native-app)
+```
+
+Both keys are optional, and either one can hold more than one link, for a page that leads
+to a choice rather than to a single next step.
+
+The list has to be the last thing in the document. Put anything after it, even one
+paragraph, and it stays an ordinary bullet list. Write it this way rather than as a
+`Next: ...` sentence, which renders but does not match the rest of the site.
+
 ## Sidebar Navigation
 
 For directories that contain multiple documents, you can create a sidebar for better navigation.

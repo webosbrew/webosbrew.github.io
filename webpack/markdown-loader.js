@@ -133,6 +133,33 @@ function alertRestyle() {
   };
 }
 
+/**
+ * A CSS selector cannot start with a digit or a hyphen, but an HTML id can. A heading
+ * like "1. Create a Project" slugs to `1-create-a-project`, and Bootstrap scrollspy feeds
+ * that straight to querySelector, which throws and kills scrollspy for the whole page.
+ * Prefix any such id. Run this before the id reaches the sections or the table of
+ * contents, so every reference agrees.
+ * @returns {Processor}
+ */
+function selectableIds() {
+  return (tree) => {
+    /** @type {Set<string>} */
+    const used = new Set();
+    visit(tree, node => node.properties?.id !== undefined, (node) => {
+      used.add(String(node.properties.id));
+    });
+    visit(tree, node => /^[0-9-]/.test(String(node.properties?.id ?? '')), (node) => {
+      const slug = String(node.properties.id);
+      let id = `section-${slug}`;
+      for (let n = 2; used.has(id); n++) {
+        id = `section-${slug}-${n}`;
+      }
+      used.add(id);
+      node.properties.id = id;
+    });
+  };
+}
+
 /** @type {Processor} */
 const parser = remark()
   .use(remarkGfm)
@@ -146,6 +173,7 @@ const parser = remark()
   .use(remarkRehype, {allowDangerousHtml: true})
   .use(rehypeRaw)
   .use(rehypeSlug)
+  .use(selectableIds)
   .use(rehypeHighlight, {languages: all})
   .use(flattenTopSection)
   .use(moveSlugToSection)

@@ -38,7 +38,10 @@ export default function () {
     tree.children[tree.children.length - 1] = {
       type: 'html',
       value: toHtml(html`
-        <div class="row mt-5">
+        <!-- row-gap separates the stacked cards below the md breakpoint. Gutters
+             would fight the mt-5 margin, because .row turns gutter-y into a
+             negative margin-top. -->
+        <div class="row row-gap-3 mt-5">
           <div class="col-md-6">
             ${prev && html`
               <div class="card px-3 py-2 align-items-start">

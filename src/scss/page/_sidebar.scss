@@ -49,6 +49,22 @@ aside.sidebar {
 
     line-height: 1.75;
 
+    // A linked item with pages under it. Closed, the sub list is dropped from the
+    // markup, so the caret is the only sign it exists. Open, the caret turns down
+    // and reports the state instead.
+    &.has-subpages > a::after {
+      content: "\f285"; // bi-chevron-right
+      font-family: bootstrap-icons;
+      font-size: .7em;
+      vertical-align: middle;
+      opacity: .55;
+      margin-inline-start: .35em;
+    }
+
+    &.has-subpages.active > a::after {
+      content: "\f282"; // bi-chevron-down
+    }
+
     > a {
       display: inline-block;
       max-width: fit-content;
