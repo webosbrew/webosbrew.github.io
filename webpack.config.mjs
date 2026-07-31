@@ -7,6 +7,8 @@ import {PurgeCSSPlugin} from "purgecss-webpack-plugin";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import markdownToPage from "./webpack/markdown-to-page.js";
 import CanIUseDataGenPlugin from "./webpack/caniuse/data-plugin.js";
+import SuggestInjectPlugin from "./webpack/suggest/inject-plugin.js";
+import suggestMiddleware from "./webpack/suggest/middleware.js";
 
 const babelLoader = {
   loader: 'babel-loader',
@@ -51,14 +53,23 @@ function PurgeCssOptions(mode) {
 
 // noinspection JSUnusedGlobalSymbols
 export default function (env, argv) {
+  // The suggest-an-edit tool is a dev server aid. Keep it out of a real build.
+  const devOnly = argv.mode !== 'production';
   return {
     mode: 'development',
     devServer: {
       static: path.resolve('dist'),
       port: 8080,
       hot: true,
+      setupMiddlewares: suggestMiddleware,
     },
     devtool: 'source-map',
+    // An editor that writes atomically drops a `foo.md.tmp.<pid>.<hash>` beside the file
+    // and renames it away. The watcher can lstat it after the rename and take the whole
+    // dev server down with an unhandled ENOENT. Never watch those.
+    watchOptions: {
+      ignored: /\.tmp\.\d+\.[0-9a-f]+$/,
+    },
     plugins: [
       new HtmlBundlerPlugin({
         entry: 'src/views/',
@@ -115,6 +126,7 @@ export default function (env, argv) {
         input: path.resolve('src/views/develop/caniuse/features'),
       }),
       ...(argv.mode === 'production' ? [new PurgeCSSPlugin(PurgeCssOptions(argv.mode))] : []),
+      ...(devOnly ? [new SuggestInjectPlugin()] : []),
     ],
     module: {
       rules: [

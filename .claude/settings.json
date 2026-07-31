@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(rm *suggestions*)",
+      "Read(./.suggestions/**)",
+      "Edit(./.suggestions/**)",
+      "Write(./.suggestions/**)"
+    ]
+  },
+  "enableAllProjectMcpServers": true
+}

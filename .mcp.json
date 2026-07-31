@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "suggest": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "webpack/suggest/mcp.js"
+      ]
+    }
+  }
+}
