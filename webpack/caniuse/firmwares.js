@@ -155,6 +155,8 @@ export class Firmware {
         return 'ombre';
       case 10:
         return 'ponytail';
+      case 11:
+        return 'queue';
       default:
         throw new Error(`Unknown major version: ${major}`);
     }

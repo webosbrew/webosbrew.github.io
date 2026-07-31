@@ -18,6 +18,8 @@ const allVersions: WebOSVersion[] = [
     {major: 'mullet', name: '7.x'},
     {major: 'number1', name: '8.x'},
     {major: 'ombre', name: '9.x'},
+    {major: 'ponytail', name: '10.x'},
+    {major: 'queue', name: '11.x'},
 ];
 
 export function CanIUseCard(props: { data: DataEntry }) {

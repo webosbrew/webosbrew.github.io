@@ -9,7 +9,9 @@ export type WebOSMajor =
     | 'kisscurl'
     | 'mullet'
     | 'number1'
-    | 'ombre';
+    | 'ombre'
+    | 'ponytail'
+    | 'queue';
 
 
 export interface DataEntry {

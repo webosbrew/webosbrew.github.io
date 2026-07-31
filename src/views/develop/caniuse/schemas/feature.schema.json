@@ -64,6 +64,14 @@
           "title": "webOS 9.x",
           "$ref": "#/definitions/VersionOverrideValue"
         },
+        "ponytail": {
+          "title": "webOS 10.x",
+          "$ref": "#/definitions/VersionOverrideValue"
+        },
+        "queue": {
+          "title": "webOS 11.x",
+          "$ref": "#/definitions/VersionOverrideValue"
+        },
         "default": {
           "title": "Default",
           "type": "string"
