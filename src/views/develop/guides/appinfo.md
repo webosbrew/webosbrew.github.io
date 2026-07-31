@@ -70,8 +70,7 @@ are callablae.
 
 Default: `false`
 
-Allows application to be registered using as an [input
-application]({filename}/pages/luna/eim.md).
+Allows application to be registered using as an input application.
 
 ### `trustLevel` [string]
 
