@@ -10,18 +10,23 @@
       * [UI](/develop/guides/native/ui)
       * [Media](/develop/guides/native/media)
       * [Networking](/develop/guides/native/net)
-    * Startup Script
-    * System Mods
+      * [TV Remote](/develop/guides/native/remote)
+      * [Gamepad](/develop/guides/native/gamepad)
+    * [Startup Script](/develop/guides/startup-script)
+    * [System Mods](/develop/guides/system-mods)
     * [appinfo.json](/develop/guides/appinfo)
 * :bi-bug:Debugging
-    * Inspecting Web App
-    * GDB
+    * [Inspecting Web App](/develop/guides/inspect-web-app)
+    * [GDB](/develop/guides/gdb)
 * :bi-upload:Publishing
-    * Requirements
+    * [Overview](/develop/guides/publishing)
+    * [Rules](/develop/guides/publishing/rules)
+    * [How to Submit](/develop/guides/publishing/how-to)
 * :bi-exclamation-diamond:Troubleshooting
-    * Web Engine
-    * Wayland
-    * Media Format
-    * Library Version
+    * [Web Engine](/develop/guides/web-engine)
+    * [Wayland](/develop/guides/wayland)
+    * [TLS](/develop/guides/tls)
+    * [Media Format](/develop/guides/media-format)
+    * [Library Version](/develop/guides/library-version)
 * :bi-pencil:Contribute to Guides
     * [Document Syntax](/develop/guides/docs-syntax) 
