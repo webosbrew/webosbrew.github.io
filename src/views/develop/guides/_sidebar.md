@@ -13,7 +13,9 @@
       * [TV Remote](/develop/guides/native/remote)
       * [Gamepad](/develop/guides/native/gamepad)
     * [Startup Script](/develop/guides/startup-script)
+    * [Media Basics](/develop/guides/media-basics)
     * [System Mods](/develop/guides/system-mods)
+    * [Filesystem](/develop/guides/filesystem)
     * [appinfo.json](/develop/guides/appinfo)
 * :bi-bug:Debugging
     * [Inspecting Web App](/develop/guides/inspect-web-app)
@@ -26,7 +28,7 @@
     * [Web Engine](/develop/guides/web-engine)
     * [Wayland](/develop/guides/wayland)
     * [TLS](/develop/guides/tls)
-    * [Media Format](/develop/guides/media-format)
     * [Library Version](/develop/guides/library-version)
 * :bi-pencil:Contribute to Guides
-    * [Document Syntax](/develop/guides/docs-syntax) 
+    * [Document Syntax](/develop/guides/docs-syntax)
+    * [Writing with an LLM](/develop/guides/writing-with-ai) 
