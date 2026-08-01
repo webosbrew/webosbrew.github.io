@@ -10,7 +10,7 @@ OpenSSL and SDL2_net. Check [Can I Use](/develop/caniuse) for the version on you
 > [!WARNING]
 > Do not link the system OpenSSL. It crosses four SONAMEs between webOS 1 and webOS 11,
 > so a binary linked against one will not start on a TV carrying another.
-> [TLS](/develop/guides/tls) covers the spread and the ways out.
+> [Cryptography](/develop/guides/crypto) covers the spread and the ways out.
 
 ## Choose a Library
 
@@ -43,7 +43,7 @@ shape of trick works for any library that only changed its SONAME.
 
 ### OpenSSL
 
-See [TLS](/develop/guides/tls).
+See [Cryptography](/develop/guides/crypto).
 
 ### SDL2_net
 
