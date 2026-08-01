@@ -45,11 +45,3 @@ it.
 ### Bundle OpenSSL
 
 Heavier, and worth it only when you need something mbedTLS lacks.
-
-## Certificates
-
-## Troubleshooting
-
-### The Handshake Fails Only on Older Releases
-
-### The App Will Not Start, Missing `libssl.so`

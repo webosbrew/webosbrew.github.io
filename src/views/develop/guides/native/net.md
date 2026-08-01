@@ -4,8 +4,8 @@
 
 {{> stub }}
 
-A TV ships libcurl, OpenSSL and SDL2-net. Check [Can I Use](/develop/caniuse) for the
-version on your target.
+Plain BSD sockets work, and they are the right place to start. The TV also ships libcurl,
+OpenSSL and SDL2_net. Check [Can I Use](/develop/caniuse) for the version on your target.
 
 > [!WARNING]
 > Do not link the system OpenSSL. It crosses four SONAMEs between webOS 1 and webOS 11,
@@ -13,6 +13,12 @@ version on your target.
 > [TLS](/develop/guides/tls) covers the spread and the ways out.
 
 ## Choose a Library
+
+### Sockets
+
+The TV runs Linux, so the usual BSD socket calls are there and behave normally. For a
+protocol you are implementing yourself, this is the answer. Reach for a library when it
+buys you something, not by default.
 
 ### libcurl
 
@@ -39,14 +45,20 @@ shape of trick works for any library that only changed its SONAME.
 
 See [TLS](/develop/guides/tls).
 
-### SDL2-net
+### SDL2_net
 
-## Make an HTTP Request
+`libSDL2_net-2.0.so.0` is on every release, but it is a thin wrapper over the same sockets.
+Its selling point is portability, which buys you nothing on a target that is only ever a
+TV. Use it if your code already leans on SDL elsewhere. Otherwise skip it.
 
 ## Discover Devices on the Network
 
-## Troubleshooting
+mDNS is the usual answer, and the TV's own client is not it.
 
-### The Request Fails Only on Older Releases
+`libavahi-client` shows up from webOS 4 on, and is missing from every release before that.
+Where it is present it does not work well enough to build on, so treat the TV as having no
+mDNS client and link your own into the app.
 
-### Certificate Verification Fails
+moonlight-tv takes that route. It carries
+[libmicrodns](https://github.com/videolabs/libmicrodns) in `third_party/`, with a
+`libdns_sd` path beside it as a second option.
