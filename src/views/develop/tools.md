@@ -28,7 +28,9 @@ them.
 
 ## Native SDK
 
-A prebuilt cross toolchain, so you can build native code for a TV without assembling one.
+An unofficial prebuilt cross toolchain, so you can build native code for a TV without
+assembling one. Linux and macOS only, and
+[Environment Setup](/develop/guides/env-setup) covers WSL if you are on Windows.
 
 [native-toolchain](https://github.com/webosbrew/native-toolchain).
 

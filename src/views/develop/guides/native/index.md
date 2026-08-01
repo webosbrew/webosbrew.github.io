@@ -23,6 +23,11 @@ streams over UDP, decodes through the low level media API, and draws with SDL2.
 [Chocolate Doom](https://github.com/webosbrew/chocolate-doom) is the fifth: an SDL2 game
 that ported over largely unchanged.
 
+[Punktfunk](https://github.com/dyptan-io/punktfunk-webos) is another game streaming client,
+and it is written in Rust. Native does not have to mean C or C++. It is on the
+[homebrew repository](https://repo.webosbrew.org/apps/io.dyptan.punktfunk.webos/), and
+needs webOS 5 or newer.
+
 If none of those apply, a web app is less work and runs on more TVs. See
 [Developing Web App](/develop/guides/web-app).
 
