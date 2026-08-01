@@ -78,11 +78,56 @@ Four things in there are worth copying:
   twice is harmless. Your script will run again.
 * **Give up if the target is missing.** A file that existed on one webOS release may not
   on the next. Fail with a message rather than mounting over nothing.
-* **Write to stderr.** That is what you will have to read when it does not work.
+* **Write to stderr.** Say what you did and why you stopped. Nothing captures it on its
+  own, so pair it with the redirect below, and it becomes the only account you get.
 
 ## Read the Output
 
+There is no log. The Homebrew Channel starts the whole chain with
+`nohup sh /var/lib/webosbrew/startup.sh &` and then runs your script with
+`run-parts /var/lib/webosbrew/init.d`. Neither captures anything. Your script inherits
+whatever stdout and stderr early boot happened to hand it, and nothing is keeping them.
+
+So redirect the output yourself. First line of your script:
+
+```bash
+exec >>/var/lib/webosbrew/myscript.log 2>&1
+```
+
+Everything printed after that lands in the file, stderr included.
+
+Use `/var/lib/webosbrew/` rather than `/tmp` if you want to compare one boot against the
+last. `/tmp` is writable too, and cleared on every boot, which loses the log of the boot
+that went wrong.
+
 ## Troubleshooting
+
+### Failsafe Mode
+
+A script that hangs or crashes the TV would do it again on every boot, and enough bad boots
+can cost you Developer Mode. The Homebrew Channel guards against that on your behalf.
+
+Before it runs anything it writes `/var/luna/preferences/webosbrew_failsafe` and syncs it to
+disk. Ten seconds after your scripts finish, it deletes the flag. A TV that goes down in
+between comes back up with the flag still sitting there.
+
+On that next boot the Homebrew Channel skips the whole chain. No elevation, no `run-parts`,
+so none of your scripts run. It instead starts a telnet server with a root shell, shows a
+toast saying failsafe mode is on, clears the flag after 15 seconds, and offers you a reboot.
+
+Because the flag is cleared during the failsafe boot, the boot after it is normal again. You
+get exactly one boot to put things right.
+
+> [!WARNING]
+> That emergency telnet server runs `/bin/sh` with no login. While it is up, anyone on your
+> network has root on the TV. Fix the script and reboot, rather than leaving the TV sitting
+> in failsafe.
+
+If you need to trip it deliberately, or clear it by hand, it is only a file:
+
+```bash
+rm -f /var/luna/preferences/webosbrew_failsafe && sync -f /var/luna/preferences
+```
 
 ### The Script Never Runs
 
