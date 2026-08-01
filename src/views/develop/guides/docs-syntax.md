@@ -17,6 +17,27 @@ the [lead text](https://getbootstrap.com/docs/5.3/content/typography/#lead).
 To avoid this behavior, you can insert an HTML comment (e.g. <code class="text-nowrap">&lt;!-- no-lead --&gt;</code>) or
 a horizontal rule (`---`) before the first paragraph.
 
+### Stub Notice
+
+`{{> stub }}` puts the "this page is a stub" panel on the page. Put it after the first
+paragraph. Remove it once the page is no longer a stub.
+
+### Alerts
+
+A blockquote that starts with an alert marker becomes a coloured callout, the same way it
+does on GitHub:
+
+```markdown Markdown
+> [!WARNING]
+> Do not link the system OpenSSL. It crosses four SONAMEs between webOS 1 and webOS 11.
+```
+
+> [!WARNING]
+> Do not link the system OpenSSL. It crosses four SONAMEs between webOS 1 and webOS 11.
+
+`NOTE`, `TIP`, `IMPORTANT`, `WARNING` and `CAUTION` are all available, and the marker is
+not case sensitive. Keep `WARNING` and `CAUTION` for the ones that cost hardware.
+
 ### Bootstrap Icons
 
 Use `:bi-icon-name:` to insert a Bootstrap icon. For example, `:bi-book:` will become :bi-book:.
@@ -120,6 +141,16 @@ to a choice rather than to a single next step.
 The list has to be the last thing in the document. Put anything after it, even one
 paragraph, and it stays an ordinary bullet list. Write it this way rather than as a
 `Next: ...` sentence, which renders but does not match the rest of the site.
+
+### Tables and Images
+
+Both are handled for you, so write them the plain markdown way.
+
+A table is wrapped in a scrolling container. A wide one scrolls inside itself rather than
+pushing the page sideways, which matters on a phone: a page wider than the screen takes the
+fixed chrome off screen with it.
+
+An image gets `img-fluid rounded-3`, so it shrinks to fit and never overflows.
 
 ## Sidebar Navigation
 
