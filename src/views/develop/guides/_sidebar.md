@@ -31,4 +31,4 @@
       * [Cryptography](/develop/guides/crypto)
 * :bi-pencil:Contribute to Guides
     * [Document Syntax](/develop/guides/docs-syntax)
-    * [Writing with an LLM](/develop/guides/writing-with-ai) 
+    * [Contributing with AI](/develop/guides/contributing-with-ai) 
