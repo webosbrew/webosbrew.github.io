@@ -7,6 +7,7 @@
   const CONTEXT_CHARS = 120;
   const STORE = 'sg-pending';
   const DRAFT = 'sg-draft';
+  const PLACE = 'sg-place';
   const SETTLE_MS = 300;
 
   // One bar, fixed to the bottom, on every device. It never chases the selection, so
@@ -38,6 +39,18 @@
   box-shadow: 0 4px 18px rgba(0, 0, 0, .5);
 }
 .sg-bar[hidden] { display: none; }
+.sg-grip {
+  cursor: grab;
+  padding: 0 2px;
+  color: #8a8a92;
+  font-size: 15px;
+  line-height: 1;
+  touch-action: none;
+  user-select: none;
+}
+.sg-grip:hover { color: #f1f1f4; }
+.sg-bar.sg-dragging { cursor: grabbing; }
+.sg-bar.sg-dragging .sg-grip { cursor: grabbing; }
 .sg-target {
   max-width: 44vw;
   overflow: hidden;
@@ -61,10 +74,10 @@
   display: flex;
   gap: 6px;
   align-items: center;
-  padding-right: 2px;
+  /* The bar's own 10px gap sits to the right of this rule, so pad the left to match.
+     Anything else and the divider looks glued to the status text. */
+  padding-right: 10px;
   border-right: 1px solid #3a3a40;
-  padding-left: 2px;
-  margin-right: 2px;
   white-space: nowrap;
 }
 .sg-status[hidden] { display: none; }
@@ -169,18 +182,17 @@
    * click handler alone drops the first tap. Guard against running twice when both
    * events do arrive.
    */
+  /**
+   * Act on a finished click, not on the press. Firing at pointerdown opens the panel before
+   * you have let go, so a press that turns into a drag or a scroll still counts, and on the
+   * submit button that is one stray press away from sending.
+   */
   function onActivate(el, fn) {
-    let firing = false;
-    const run = (e) => {
-      if (firing) return;
-      firing = true;
-      setTimeout(() => (firing = false), 500);
+    el.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
       fn();
-    };
-    el.addEventListener('pointerdown', run);
-    el.addEventListener('click', run);
+    });
   }
 
   /**
@@ -227,7 +239,17 @@
     const vv = window.visualViewport;
     if (!vv) return;
     const covered = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
-    if (bar) bar.style.bottom = (covered + 10) + 'px';
+    if (bar) {
+      if (place) {
+        // A dragged bar is pinned by its top, with bottom auto. Setting bottom as well
+        // leaves a fixed box with both edges fixed and no height, which stretches to fill
+        // the gap between them. Move the top instead, and keep it clear of the keyboard.
+        const maxTop = window.innerHeight - covered - bar.offsetHeight - 4;
+        bar.style.top = Math.max(4, Math.min(place.y * window.innerHeight, maxTop)) + 'px';
+      } else {
+        bar.style.bottom = (covered + 10) + 'px';
+      }
+    }
     if (panel) {
       panel.style.bottom = (covered + 56) + 'px';
       panel.style.maxHeight = Math.max(160, vv.height - 80) + 'px';
@@ -350,12 +372,85 @@
       targetEl.textContent = 'This page';
       targetEl.title = location.pathname;
     }
+    // The text just changed the bar's width, so the clamp needs redoing.
+    applyPlace();
+  }
+
+  /**
+   * Where the bar was dragged to, as a fraction of the viewport, so a bar parked on a wide
+   * window is still on screen in a narrow one. Null means it sits at its default.
+   */
+  let place = null;
+
+  function loadPlace() {
+    try {
+      const at = JSON.parse(localStorage.getItem(PLACE) || 'null');
+      place = at && typeof at.x === 'number' && typeof at.y === 'number' ? at : null;
+    } catch (e) {
+      place = null;
+    }
+  }
+
+  /**
+   * Re-apply the stored spot. Called again whenever the bar changes width or the window
+   * resizes, because the clamp is only right for the size the bar is now.
+   */
+  function applyPlace() {
+    if (place) placeAt(place.x * innerWidth, place.y * innerHeight);
+  }
+
+  /** Clamp to the viewport and pin by top left, dropping the centring transform. */
+  function placeAt(x, y) {
+    const w = bar.offsetWidth;
+    const h = bar.offsetHeight;
+    const left = Math.max(4, Math.min(x, innerWidth - w - 4));
+    const top = Math.max(4, Math.min(y, innerHeight - h - 4));
+    bar.style.left = left + 'px';
+    bar.style.top = top + 'px';
+    bar.style.bottom = 'auto';
+    bar.style.transform = 'none';
+    return {left: left, top: top};
+  }
+
+  function startDrag(handle) {
+    handle.addEventListener('pointerdown', function (e) {
+      e.preventDefault();
+      const box = bar.getBoundingClientRect();
+      const dx = e.clientX - box.left;
+      const dy = e.clientY - box.top;
+      handle.setPointerCapture(e.pointerId);
+      bar.classList.add('sg-dragging');
+
+      function move(ev) {
+        placeAt(ev.clientX - dx, ev.clientY - dy);
+      }
+
+      function stop() {
+        handle.releasePointerCapture(e.pointerId);
+        bar.classList.remove('sg-dragging');
+        handle.removeEventListener('pointermove', move);
+        handle.removeEventListener('pointerup', stop);
+        handle.removeEventListener('pointercancel', stop);
+        const box2 = bar.getBoundingClientRect();
+        place = {x: box2.left / innerWidth, y: box2.top / innerHeight};
+        try {
+          localStorage.setItem(PLACE, JSON.stringify(place));
+        } catch (err) {
+          /* private mode, or a full quota. The bar still moved. */
+        }
+      }
+
+      handle.addEventListener('pointermove', move);
+      handle.addEventListener('pointerup', stop);
+      handle.addEventListener('pointercancel', stop);
+    });
   }
 
   function buildBar() {
     bar = document.createElement('div');
     bar.className = 'sg-bar';
     bar.innerHTML =
+      '<span class="sg-grip" title="Drag to move">⠿</span>' +
       '<span class="sg-status" hidden></span>' +
       '<span class="sg-target"></span>' +
       '<button type="button" class="sg-go">Suggest edit</button>';
@@ -363,8 +458,26 @@
     statusEl = bar.querySelector('.sg-status');
     targetEl = bar.querySelector('.sg-target');
     onActivate(bar.querySelector('.sg-go'), () => openPanel());
+    startDrag(bar.querySelector('.sg-grip'));
+    loadPlace();
     renderTarget();
     renderStatus();
+    // After the text is in, so the clamp sees the width the bar actually ends up.
+    applyPlace();
+    addEventListener('resize', applyPlace);
+  }
+
+  /**
+   * Bootstrap's offcanvas traps focus. It listens for focusin on the document and pulls
+   * focus straight back into itself whenever it lands anywhere else, so with the nav open
+   * our textarea is unfocused the moment it is focused, and typing goes nowhere. Catch the
+   * event during capture, before the document listener sees it, and stop it for our own
+   * elements only. Everything else still traps as it should.
+   */
+  function guardFocus(e) {
+    if (panel && panel.contains(e.target)) {
+      e.stopPropagation();
+    }
   }
 
   function closePanel() {
@@ -376,11 +489,15 @@
       window.visualViewport.removeEventListener('resize', fitToKeyboard);
       window.visualViewport.removeEventListener('scroll', fitToKeyboard);
     }
+    document.removeEventListener('focusin', guardFocus, true);
     remove(panel);
     panel = null;
     if (bar) {
       bar.hidden = false;
       bar.style.bottom = '';
+      // Clearing bottom hands it back to the stylesheet, which would then fight the inline
+      // top a drag left behind. Re-pin instead.
+      applyPlace();
     }
   }
 
@@ -407,6 +524,7 @@
       quote.textContent = 'About this page, nothing selected.';
     }
     document.body.appendChild(panel);
+    document.addEventListener('focusin', guardFocus, true);
 
     // Drop the selection so the system menu goes away behind the panel.
     const sel = window.getSelection();
