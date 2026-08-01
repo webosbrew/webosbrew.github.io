@@ -39,12 +39,15 @@ jobs:
         with:
           node-version: 24
 
+      # The release carries an amd64 and an arm64 build of the same package. Match only the
+      # one this runner can install, or apt is handed a foreign architecture and the
+      # download is twice the size it needs to be.
       - name: Download Firmware Data
         uses: robinraju/release-downloader@v1.13
         with:
           repository: "webosbrew/dev-toolbox-cli"
           latest: true
-          fileName: "webosbrew-toolbox-fw-symbols_*.deb"
+          fileName: "webosbrew-toolbox-fw-symbols_*_${{ runner.arch == 'ARM64' && 'arm64' || 'amd64' }}.deb"
           out-file-path: "temp"
 
       - name: Update Packages
