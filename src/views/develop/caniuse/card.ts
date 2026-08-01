@@ -38,7 +38,10 @@ export function CanIUseCard(props: { data: DataEntry }) {
                 <h5><i class="bi bi-exclamation-triangle-fill me-2"/>Warning</h5>
                 <div class="mb-n3" dangerouslySetInnerHTML=${{__html: data.warning}}></div>
               </div>`}
-            <table class="table table-bordered">
+            <!-- A release per column outgrows a phone. Scroll the table, not the page:
+                 a page wider than the screen pushes position:fixed chrome off to the side. -->
+            <div class="table-responsive">
+            <table class="table table-bordered text-nowrap">
               <thead>
               <tr>
                 <th>webOS Release</th>
@@ -57,6 +60,7 @@ export function CanIUseCard(props: { data: DataEntry }) {
               </tr>
               </tbody>
             </table>
+            </div>
           </div>
         </div>
       </div>`
