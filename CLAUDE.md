@@ -43,11 +43,16 @@ the same thing as the cards.
 
 ## Dev server
 
-Use the WebStorm run configuration `serve dev`, on port 8010.
+Use the WebStorm run configuration `serve dev`, on port 8010. It runs `npm start`, which is
+`webpack/dev-serve.mjs`, a wrapper around `webpack serve`.
 
 Restart it after editing anything under `webpack/`, including loaders, plugins and the
-suggest middleware. Only `src/` is hot reloaded. A new page under `src/views/` also needs
-a restart, otherwise the dev server serves a stale copy from `dist/`.
+suggest middleware. Only `src/` is hot reloaded.
 
-`npm run build` is only needed for a new page, a purgecss check, the link crawler, or to
-confirm production output. Editing existing markdown does not need it.
+A new page under `src/views/` no longer needs a manual restart. The bundler reads its entry
+list once, so a page created while it runs would otherwise 404 until you restarted. The
+wrapper watches `src/views` and restarts the server itself when a `.md`, `.hbs` or `.html`
+file is added or removed, and says so in the log. Editing a page still just hot reloads.
+
+`npm run build` is only needed for a purgecss check, the link crawler, or to confirm
+production output. Editing markdown, and adding a page, do not need it.
