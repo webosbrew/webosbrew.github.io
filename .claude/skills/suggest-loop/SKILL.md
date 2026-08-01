@@ -71,7 +71,7 @@ anchor: section-2-build-and-package
 ---
 
 ## Comment
-<what the user wants changed>
+<a note about what is wrong or missing, not text to paste in>
 
 ## Selected text
 > <exact selection>
@@ -97,21 +97,47 @@ For each new file:
    match an earlier place in the file. The heading is the reliable one.
 4. `region: sidebar` means the text came from the sidebar, and `source` points at the
    `_sidebar.md` that produced it, not at the page you were on.
-5. Make the edit the comment asks for. Nothing else.
+5. Work out what the comment is pointing at, then write the page. See below.
 6. `suggest_delete`, naming the file exactly. The edit is the record now, so the comment
    has served its purpose. That also flips the pending indicator.
 
 Then let HMR reload the page. No build needed.
+
+## A comment is a hint, not copy
+
+The comments are written fast, on a phone, by someone who already knows the platform. They
+are notes to you, not text for the page. Expect informal wording, a question rather than an
+instruction, a bare name to go and look up, or a half thought.
+
+Your job is to turn that into documentation a developer can use. So:
+
+* **Never paste a comment in.** "the CPU of TV is slow" becomes a section that says use the
+  hardware decoder, why, and what to do when it refuses your file.
+* **A question means the answer is missing.** "How?" or "Are you sure?" is a request to go
+  and find out, from the source or the firmware data, and write what you find. It is not a
+  request to hedge on the page.
+* **A bare name is a lead.** "check hbchannel", "SS4S + SDL for acb" means read that code
+  and document the mechanism. Chase it before you write.
+* **A stray thought still has a point behind it.** Find the reader's problem it implies,
+  and answer that.
+
+The person is handing you knowledge, not prose. Spend the effort to ground it: read the
+source, check the firmware dumps, and write it up properly.
 
 ## Rules
 
 - **`source: UNRESOLVED` or `lines: NOT FOUND`** means the matcher failed. Find the text
   yourself using `Selected text` and `Surrounding page text`. If you still cannot place
   it, say so and leave the file alone. Never guess at a location.
-- **Apply only what the comment asks.** Do not tidy neighbouring prose on the way past.
+- **Stay on the point the comment raises.** Say it properly, in the page's voice, and cover
+  what a reader needs to act on it. Do not tidy neighbouring prose on the way past, and do
+  not wander into a topic the comment did not open.
 - **The comment may be wrong.** If it asks for something factually incorrect, or for a
   webOS detail you cannot verify, say so and leave the file. A wrong doc is worse than a
   stub.
+- **Say what you could not verify.** If part of a comment rests on something you could not
+  find in the source or the dumps, write the part you can stand behind and tell the user
+  which part is on their word alone.
 - **Follow the repo's writing style.** Match the surrounding page. See the user's global
   style rules if they apply.
 - **Never touch `.suggestions/` with the filesystem.** Not `rm`, not `Read`, not `ls`, not
