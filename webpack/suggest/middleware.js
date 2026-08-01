@@ -96,6 +96,31 @@ function findRange(lines, selection) {
   return null;
 }
 
+// Some pages are rendered from data rather than prose. A comment on that text belongs in
+// the data file, not in the template that laid it out.
+const DATA_PAGES = [
+  {page: '/develop/caniuse', dir: 'src/views/develop/caniuse/features', ext: '.yaml'}
+];
+
+/**
+ * Search the data behind a generated page for the selection.
+ * @param pagePath {string}
+ * @param selection {string}
+ * @returns {{source: string, lines: string[], range: {from: number, to: number}} | null}
+ */
+function dataSourceOf(pagePath, selection) {
+  const clean = pagePath.replace(/\/+$/, '').replace(/\/index\.html$/, '');
+  const entry = DATA_PAGES.find(d => d.page === clean);
+  if (!entry || !collapse(selection) || !fs.existsSync(entry.dir)) return null;
+  for (const name of fs.readdirSync(entry.dir).filter(f => f.endsWith(entry.ext)).sort()) {
+    const source = `${entry.dir}/${name}`;
+    const lines = fs.readFileSync(source, 'utf8').split(/\r?\n/);
+    const range = findRange(lines, selection);
+    if (range) return {source, lines, range};
+  }
+  return null;
+}
+
 /**
  * A diff style hunk so the suggestion carries its own context. Every line the
  * selection covers is marked.
@@ -151,7 +176,7 @@ function openCount() {
  */
 function write(payload, stamp) {
   const region = payload.region || 'content';
-  const source = region === 'sidebar'
+  let source = region === 'sidebar'
     ? sidebarOf(payload.page || '/')
     : sourceOf(payload.page || '/');
   let range = null;
@@ -160,6 +185,16 @@ function write(payload, stamp) {
     const lines = fs.readFileSync(source, 'utf8').split(/\r?\n/);
     range = findRange(lines, payload.selection || '');
     context = hunk(lines, range, source);
+  }
+
+  // The template held no such text, so try the data the page was built from.
+  if (!range && region !== 'sidebar') {
+    const data = dataSourceOf(payload.page || '/', payload.selection || '');
+    if (data) {
+      source = data.source;
+      range = data.range;
+      context = hunk(data.lines, data.range, data.source);
+    }
   }
   const where = range ? (range.from === range.to ? `${range.from}` : `${range.from}-${range.to}`) : '';
 
