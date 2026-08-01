@@ -6,6 +6,7 @@
     * [Development Workflow](/develop/guides/workflow)
 * :bi-code:Development
     * [Web App](/develop/guides/web-app)
+      * [Web Engine](/develop/guides/web-app/web-engine)
     * [Native App](/develop/guides/native)
       * [UI](/develop/guides/native/ui)
       * [Media](/develop/guides/native/media)
@@ -24,11 +25,10 @@
     * [Overview](/develop/guides/publishing)
     * [Rules](/develop/guides/publishing/rules)
     * [How to Submit](/develop/guides/publishing/how-to)
-* :bi-exclamation-diamond:Troubleshooting
-    * [Web Engine](/develop/guides/web-engine)
+* :bi-exclamation-diamond:Quirks
     * [Wayland](/develop/guides/wayland)
-    * [TLS](/develop/guides/tls)
     * [Library Version](/develop/guides/library-version)
+      * [Cryptography](/develop/guides/crypto)
 * :bi-pencil:Contribute to Guides
     * [Document Syntax](/develop/guides/docs-syntax)
     * [Writing with an LLM](/develop/guides/writing-with-ai) 
