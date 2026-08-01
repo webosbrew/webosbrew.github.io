@@ -13,14 +13,8 @@ decoding, and how video and your UI end up on screen together.
 
 LG publishes the list itself, in
 [Video and Audio Specifications](https://webostv.developer.lge.com/develop/specifications/video-audio-260).
-Start there for what a TV claims to accept. The sections below are for what that list leaves
-out, and for the files it accepts on paper and refuses in practice.
-
-### Containers
-
-### Video Codecs
-
-### Audio Codecs
+Start there for what a TV claims to accept. This page is for the rest: what that list
+leaves out, and the files a TV takes on paper and refuses in practice.
 
 ## Hardware and Software Decoding
 
@@ -30,6 +24,15 @@ Decoding in software is a last resort, not a fallback you can lean on. For anyth
 size and frame rate it will not keep up, and what you get is dropped frames and audio that
 drifts away from the picture. If the hardware decoder refuses your file, the answer is
 usually to re-encode into something it accepts, not to decode it yourself.
+
+## Changing the Video Size Restarts the Pipeline
+
+The dimensions of a stream are not a property you can set on the fly. Changing them means
+tearing the pipeline down and building it again, so expect a visible gap in playback each
+time.
+
+Keep it away from anything that fires often. A resize driven by every layout change will
+stall playback rather than adjust it.
 
 ## Video and the UI Are Separate Layers
 
@@ -87,15 +90,6 @@ wrong. A player with sound and no picture is usually this and not a decoding fau
 [Media](/develop/guides/native/media) has the calls that tell the compositor which
 rectangle the video gets.
 
-## Changing the Video Size Restarts the Pipeline
-
-The dimensions of a stream are not a property you can set on the fly. Changing them means
-tearing the pipeline down and building it again, so expect a visible gap in playback each
-time.
-
-Keep it away from anything that fires often. A resize driven by every layout change will
-stall playback rather than adjust it.
-
 ## Troubleshooting
 
 ### Nothing Appears, but the Sound Is There
@@ -116,6 +110,16 @@ defaults to zero, so leaving it out costs you the alpha channel quietly. Clear w
 transparent colour as well, `glClearColor(0, 0, 0, 0)`, or you fill the hole with opaque
 black on the first frame.
 
+If the layering is right and only some sources go black, look at the codec level. webOS
+declares H.265 up to level 5.1 on 4K models, and 5.2 is accepted in practice. Some models
+hold to that and refuse anything above it. The decoder takes your stream, returns nothing,
+and reports no error, so it looks exactly like the two causes above.
+
+AMD's AMF encoder defaults to H.265 level 6.2, which is how this usually turns up.
+[moonlight-tv#355](https://github.com/mariotaku/moonlight-tv/issues/355) tracks it, on 4K
+models from 2021 to 2023. Encode at a level the TV declares. Dropping to H.264 also clears
+it, at a cost.
+
 ### The App Crashes During Playback
 
 Suspect threading and timing before anything else. The pipeline runs on its own threads and
@@ -130,7 +134,3 @@ gives you the decoded picture back.
 > [!NOTE]
 > The specific traps here are not written up yet. If you have chased a crash down to a
 > particular ordering or a particular thread, the page needs it.
-
-### The File Does Not Play
-
-### Video Plays Without Audio
