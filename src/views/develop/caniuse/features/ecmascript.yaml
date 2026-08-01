@@ -1,0 +1,33 @@
+name: ECMAScript Level
+documentation: https://compat-table.github.io/compat-table/es2016plus/
+# The highest ES syntax the web engine accepts without transpiling. Each value is read off
+# the Chromium major that release ships, using the V8 landing points in dev-toolbox-cli
+# (common/webdetect/src/eslevel.rs): ES2015 at 49, ES2016 at 52, ES2017 at 55, ES2018 at 60,
+# ES2019 at 73, ES2020 at 80, ES2021 at 85.
+version_override:
+  afro: ES5
+  beehive: ES5
+  dreadlocks: ES5
+  dreadlocks2: ES5
+  goldilocks: ES2016
+  goldilocks2: ES2016
+  jhericurl: ES2018
+  kisscurl: ES2019
+  mullet: ES2021+
+  number1: ES2021+
+  ombre: ES2021+
+  ponytail: ES2021+
+  queue: ES2021+
+warning: |
+  This is syntax the engine parses, not every library API. Check
+  [Web App Engine](/develop/caniuse?q=web%20engine) for the Chromium version, and target
+  that.
+
+  ES5 through webOS 3.9 is the one to plan around. Chromium 38 has no `let`, no arrow
+  functions and no classes, so a bundle has to be transpiled to reach those TVs.
+tags:
+  - ecmascript
+  - es2015
+  - es5
+  - esversion
+  - javascript

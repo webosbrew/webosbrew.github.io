@@ -1,0 +1,11 @@
+name: Node.js
+documentation: https://www.webosose.org/docs/guides/development/js-services/
+# The runtime behind a JS service. Renamed to lib32- at webOS 7.
+package:
+  - lib32-nodejs
+  - nodejs
+tags:
+  - js service
+  - node
+  - nodejs
+  - service

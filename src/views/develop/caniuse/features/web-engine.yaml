@@ -1,0 +1,21 @@
+name: Web App Engine
+documentation: https://www.webosose.org/docs/guides/development/web-apps/
+# Resolution order matters, and matches dev-toolbox-cli's Firmware::web_engine. A TV can
+# carry more than one of these: webOS 1.2 ships chromium-webos and webkit-starfish together,
+# and the Chromium one is what runs a web app. Numbered chromium packages go highest first.
+package:
+  - lib32-webruntime
+  - webruntime
+  - chromium53
+  - chromium38
+  - chromium-webos
+  - webkit-starfish
+warning: |
+  webOS 1.x and 2.x predate Chromium here. Those TVs run an LG WebKit port, versioned
+  `537.41`, so a version number below 26 on this row means WebKit and not Chromium.
+tags:
+  - browser
+  - chromium
+  - web engine
+  - webkit
+  - webruntime
