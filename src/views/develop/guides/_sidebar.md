@@ -4,6 +4,7 @@
     * [Introduction](/develop/guides)
     * [Environment Setup](/develop/guides/env-setup)
     * [Development Workflow](/develop/guides/workflow)
+    * [Vocabulary](/develop/guides/vocabulary)
 * :bi-code:Development
     * [Web App](/develop/guides/web-app)
       * [Web Engine](/develop/guides/web-app/web-engine)

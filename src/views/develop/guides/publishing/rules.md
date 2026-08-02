@@ -57,7 +57,10 @@ The app itself is not the problem. What it hands the viewer is.
 A TV is expensive. Do not risk breaking it.
 
 This is mostly about what your app does outside its own sandbox. An app that stays inside
-one is hard to do lasting damage with. A rooted app is not.
+one is hard to do lasting damage with, because the
+[jailer](/develop/guides/vocabulary#jailer) never mounted the things worth breaking. A
+rooted app has no such floor, and the rest of this rule is about that code: a startup
+script, or anything your app does once the user has rooted the TV.
 
 * **Never write to the system partitions.** They are signed squashfs images, and a failed
   write bricks the TV for good. Apply your change at run time and leave the original alone,
