@@ -7,7 +7,9 @@ import {statusOf} from './naming.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 
-export const SUGGEST_DIR = path.resolve('.suggestions');
+// Same variable mcp.js reads, so the two halves can be pointed at a throwaway directory
+// together. Unset means `.suggestions` beside the checkout, which is every real run.
+export const SUGGEST_DIR = path.resolve(process.env.SUGGEST_DIR || '.suggestions');
 const VIEWS = path.resolve('src/views');
 const CONTEXT_LINES = 3;
 
@@ -344,6 +346,43 @@ export default function suggestMiddleware(middlewares) {
         res.statusCode = 400;
         res.end(String(err && err.message ? err.message : err));
       }
+    }
+  });
+
+  // Unshifted last, so it runs first. Two rules, in order.
+  //
+  // One: the agent. SUGGEST_EVENTS_CLIENT names a single address that reaches this server
+  // over a private network in the container layout, and it is here for the event stream
+  // alone. Not the pages, not the status count, and above all not /__suggest/save — the
+  // write path belongs to the browser. Unset, as on a laptop, means no such neighbour and
+  // this rule never fires.
+  //
+  // Two: everyone else. Every legitimate request is a read; /__suggest/save is the single
+  // write path and checks POST itself. A verb that reaches no handler today still reaches
+  // whichever handler is added carelessly tomorrow, so the refusal belongs here, once,
+  // rather than in each middleware. Anyone who can open the page can already post a
+  // suggestion — that is the intended bar, and this does not change it.
+  const eventsClient = (process.env.SUGGEST_EVENTS_CLIENT || '').trim();
+  middlewares.unshift({
+    name: 'suggest-methods',
+    middleware: (req, res, next) => {
+      // The websocket upgrade HMR runs on never enters this chain, so hot reload is
+      // untouched by anything decided here.
+      const url = req.url.split('?')[0];
+      // Node reports an IPv4 peer as ::ffff:a.b.c.d once anything has bound IPv6.
+      const from = (req.socket.remoteAddress || '').replace(/^::ffff:/, '');
+
+      if (eventsClient && from === eventsClient) {
+        if (req.method === 'GET' && url === '/__suggest/events') return next();
+        res.statusCode = 403;
+        return res.end('GET /__suggest/events only');
+      }
+
+      const allowed = url === '/__suggest/save' ? ['POST'] : ['GET', 'HEAD'];
+      if (allowed.includes(req.method)) return next();
+      res.statusCode = 405;
+      res.setHeader('Allow', allowed.join(', '));
+      res.end(`${allowed.join(', ')} only`);
     }
   });
 

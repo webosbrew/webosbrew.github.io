@@ -59,8 +59,19 @@ export default function (env, argv) {
     mode: 'development',
     devServer: {
       static: path.resolve('dist'),
-      port: 8080,
+      // Defaults suit a laptop. The container overrides all three: it has to listen on
+      // 0.0.0.0 or Docker cannot forward to it, and `allowedHosts: auto` rejects any Host
+      // header it did not expect, which is every request that arrives over the LAN or a
+      // tunnel. Name the hosts rather than allowing all: with `all`, any page a browser on
+      // this network visits can rebind DNS and post to the suggest endpoint.
+      host: process.env.DEV_HOST || 'localhost',
+      port: Number(process.env.DEV_PORT) || 8080,
+      allowedHosts: process.env.DEV_ALLOWED_HOSTS?.split(',') ?? 'auto',
       hot: true,
+      // Let the hot reload socket follow the page instead of the listen address. Straight
+      // to the LAN it resolves the same either way, but through a tunnel the browser is on
+      // https and a hardcoded ws://0.0.0.0:8010 is unreachable.
+      client: {webSocketURL: 'auto://0.0.0.0:0/ws'},
       setupMiddlewares: suggestMiddleware,
     },
     devtool: 'source-map',
@@ -259,6 +270,11 @@ export default function (env, argv) {
     target: 'browserslist',
     output: {
       clean: true,
+      // `clean` wipes the output directory, and the dev server has `static: dist`. So a
+      // build run beside a running dev server deletes what it is serving and forces a
+      // reload on every page anyone has open. Where two processes share one checkout, the
+      // second sets WEBPACK_OUTPUT and lands somewhere of its own instead.
+      ...(process.env.WEBPACK_OUTPUT && {path: path.resolve(process.env.WEBPACK_OUTPUT)}),
     },
   }
 }

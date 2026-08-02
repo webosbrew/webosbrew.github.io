@@ -17,7 +17,11 @@ so a real build never carries it.
 
 ## 1. Start the dev server
 
-Prefer the IDE run configuration, so the user sees the process:
+Under the container split there is nothing to start: `site` is already running it and this
+container cannot. Check with the stream in step 2 and go straight there. Starting a second
+one here would compile the same repo again for nobody to read.
+
+Otherwise prefer the IDE run configuration, so the user sees the process:
 
 - `mcp__webstorm__execute_run_configuration` with `configurationName: "serve dev"` and
   `waitForExit: false`. It listens on **8010**.
@@ -38,13 +42,20 @@ Arm a persistent monitor on it:
 
 ```bash
 while true; do
-  curl -sN --no-buffer http://localhost:8010/__suggest/events 2>/dev/null \
+  curl -sN --no-buffer "$SUGGEST_ORIGIN/__suggest/events" 2>/dev/null \
     | grep --line-buffered '^data: ' \
     | sed -u 's/^data: /SUGGESTION /'
   echo "SUGGEST STREAM DROPPED (dev server down or restarting)"
   sleep 5
 done
 ```
+
+`SUGGEST_ORIGIN` is where the dev server actually is, and that differs by layout:
+
+| Layout | Origin |
+| --- | --- |
+| You started it yourself | `http://localhost:8010`, or `:8080` on the config default |
+| Container split | `http://site:8010` — it runs in the `site` container, not here |
 
 Use `Monitor` with `persistent: true`. Tell the user the loop is live, then let them work.
 Do not poll, and do not read the directory.
@@ -54,8 +65,13 @@ kill the watch, and it says so rather than going quiet. And nothing here touches
 `.suggestions/`, which is what the rule below demands — the file name arrives over HTTP, and
 `suggest_read` gets the contents.
 
-`/__suggest/status` returns `{"open": N}` if you only need the count. Both endpoints live in
-`webpack/suggest/middleware.js`.
+Under the container split the stream is all you get: that server answers this one path to
+this container and 403s everything else, pages included. A 403 on `/__suggest/events` itself
+means the wiring drifted — the pinned address in `SUGGEST_EVENTS_CLIENT`, or `site` missing
+from `DEV_ALLOWED_HOSTS`. Say so rather than falling back to reading the directory.
+
+`/__suggest/status` returns `{"open": N}` if you only need the count, and is not reachable
+under the split. Both endpoints live in `webpack/suggest/middleware.js`.
 
 ## 3. Apply a suggestion
 
@@ -156,8 +172,20 @@ source, check the firmware dumps, and write it up properly.
 
 ## Checks
 
-Run `npm run build` before you finish a batch, not after each edit. It catches a broken
-link or a bad heading. The link crawler pattern used previously walks `dist` and resolves
-every internal href.
+A batch that only edits markdown does not need a build. The dev server already compiled it,
+and CLAUDE.md is explicit that editing a page is not a reason to build. Read the page in the
+browser instead.
+
+Build before you finish a batch only when it did something the dev server does not check:
+added or removed a page, changed a heading another page anchors to, or pointed a link
+somewhere new. Then it is one `npm run build` at the end, never after each edit, and the
+link crawler pattern used previously walks the build output and resolves every internal
+href.
+
+Check `WEBPACK_OUTPUT` before you crawl: where it is set the build lands there, not in
+`dist`, and that is deliberate. `output.clean` wipes the directory, and a dev server serving
+`static: dist` would lose what it is serving and reload every open page. Never point a build
+at `dist` while a dev server is up on this checkout, and never pass `--output-path` to work
+around it.
 
 `.suggestions/` is gitignored. Suggestion files are working notes, never commit them.
