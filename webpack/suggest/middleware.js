@@ -17,6 +17,19 @@ function collapse(text) {
 }
 
 /**
+ * Keep a resolved path inside the views tree. `page` arrives from the browser, so without
+ * this a request for `/../../CLAUDE` resolves to a file outside `src/views`, and the hunk
+ * quotes that file back in the saved suggestion. Compare against `VIEWS` plus a separator,
+ * or a sibling directory such as `src/views-old` would pass a plain prefix test.
+ * @param candidate {string}
+ * @returns {boolean}
+ */
+function underViews(candidate) {
+  const full = path.resolve(candidate);
+  return full === VIEWS || full.startsWith(VIEWS + path.sep);
+}
+
+/**
  * Map a page URL back to the template it was built from. The bundler turns
  * `src/views/a/b.md` into `/a/b/index.html`, so try both shapes.
  * @param pagePath {string}
@@ -28,7 +41,7 @@ function sourceOf(pagePath) {
   for (const stem of stems) {
     for (const ext of ['.md', '.hbs', '.html']) {
       const candidate = path.join(VIEWS, stem + ext);
-      if (fs.existsSync(candidate)) {
+      if (underViews(candidate) && fs.existsSync(candidate)) {
         return path.relative(process.cwd(), candidate).split(path.sep).join('/');
       }
     }
@@ -45,7 +58,7 @@ function sourceOf(pagePath) {
 function sidebarOf(pagePath) {
   const clean = pagePath.replace(/\/+$/, '').replace(/^\//, '');
   let dir = path.join(VIEWS, clean);
-  while (dir.startsWith(VIEWS)) {
+  while (underViews(dir)) {
     const candidate = path.join(dir, '_sidebar.md');
     if (fs.existsSync(candidate)) {
       return path.relative(process.cwd(), candidate).split(path.sep).join('/');
