@@ -1,13 +1,10 @@
 # Rules
 
-What gets a submission rejected, whatever else is right about it.
+Four of them. Breaking one gets a submission rejected, whatever else is right about it.
 
 {{> stub }}
 
-Four of them. [apps-repo](https://github.com/webosbrew/apps-repo) holds the current wording,
-and it wins if this page falls behind.
-
-## No AI Slop
+## 1. No AI Slop {#no-ai-slop}
 
 An app written mostly by AI, submitted without real human development, testing and review,
 gets rejected. You may use AI tools, but you answer for the code, and you have to disclose
@@ -31,10 +28,16 @@ tooling:
 * **You can answer for it.** A maintainer will ask why something is written the way it is.
   "The model wrote it" is the failing answer.
 
-Homebrew Channel is small and checked by hand, and that is the whole of its worth next to
-the Content Store. Nobody wants to scroll past forty of yours to reach one that works.
+![Rows of near-identical casual game tiles in LG's Content Store, with names and publishers blurred](slop-in-lg-apps.png)
 
-## No Piracy
+*The games tab of the Content Store. Mechanics, icons, promotional art — slop all the way
+down. Names are blurred and the apps that were not examples are gone, hence the gaps.*
+
+Do you want Homebrew Channel filled with these? It is small and checked by hand, and that is
+the whole of its worth next to the Content Store. Nobody wants to scroll past forty of yours
+to reach one that works.
+
+## 2. No Piracy {#no-piracy}
 
 Nothing that breaks DRM, and nothing that helps with piracy. There is the takedown risk that
 comes with pointing at other people's content, and these apps do not last: the service
@@ -49,7 +52,7 @@ The app itself is not the problem. What it hands the viewer is.
 | Media player | Playing what the viewer already has, or a library that is public domain or openly licensed | A library of anything else, whether it ships with the app or the app fetches it |
 | Client for a service | Crunchyroll, YouTube and the like, signed in with the viewer's own account | Anything that gets around the account, or around the DRM |
 
-## Respect the Hardware
+## 3. Respect the Hardware {#respect-the-hardware}
 
 A TV is expensive. Do not risk breaking it.
 
@@ -75,7 +78,7 @@ one is hard to do lasting damage with. A rooted app is not.
 Test removal as carefully as installation. An app that will not uninstall cleanly is the one
 that becomes somebody else's afternoon.
 
-## Honour the Licence
+## 4. Honour the Licence {#honour-the-licence}
 
 Porting someone else's project means following its open source licence. Keep the copyright
 notices, keep the licence file, and publish your changes if the licence asks for them.
@@ -86,7 +89,7 @@ checked:
 | `pool` | Means | What the repository requires |
 | --- | --- | --- |
 | `main` | Open source | `sourceUrl` must point at a publicly reachable repository, and that repository should carry a licence |
-| `non-free` | May be closed source | No source required |
+| `non-free` | May be closed source | No source required, unless you ported copyleft code |
 
 A missing or unreachable `sourceUrl` on a `main` package fails the pull request outright. An
 unidentifiable licence is only a warning, because vendored code, forks and custom terms all
@@ -95,7 +98,7 @@ need a human to judge them.
 `non-free` is for your own closed source app. It is not a way out of a licence you already
 took code under. Port a GPL project and mark it `non-free` and you have avoided nothing —
 you have written down, in the package file, that you are not publishing source you are
-obliged to publish.
+obliged to publish. That is a refusal.
 
 See [How to Submit](/develop/guides/publishing/how-to) for the rest of the package file.
 
@@ -109,8 +112,9 @@ Ask for one to be removed when it:
 
 * **Does not work as listed.** It fails on the models and releases the listing itself claims
   to support, rather than on hardware nobody promised.
-* **Has nothing in it for anyone else.** A personal showcase, or an app generated wholesale
-  by AI and never developed past that.
+* **Harms the TV.** It crashes the set, leaves it unstable, or takes a reset to undo.
+* **Is low quality throughout.** A generated icon, a generated blurb and nothing behind them.
+  AI slop is the usual shape of it, though it is the result that decides, not the tool.
 * **Serves piracy.** Free access to films, television, or anything else people normally pay
   for.
 
