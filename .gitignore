@@ -3,3 +3,4 @@
 /dist/
 .idea/
 /.suggestions/
+/.claude/settings.local.json
