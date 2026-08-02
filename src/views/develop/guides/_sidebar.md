@@ -14,9 +14,10 @@
       * [Networking](/develop/guides/native/net)
       * [TV Remote](/develop/guides/native/remote)
       * [Gamepad](/develop/guides/native/gamepad)
-    * [Startup Script](/develop/guides/startup-script)
     * [Media Basics](/develop/guides/media-basics)
-    * [System Mods](/develop/guides/system-mods)
+    * [With Root](/develop/guides/with-root)
+      * [System Mods](/develop/guides/system-mods)
+      * [Startup Script](/develop/guides/startup-script)
     * [Filesystem](/develop/guides/filesystem)
     * [appinfo.json](/develop/guides/appinfo)
 * :bi-bug:Debugging
