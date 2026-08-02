@@ -8,7 +8,7 @@ import remarkBootstrapIcon from "../remark/bootstrap-icon.js";
 import remarkGemoji from "remark-gemoji";
 import remarkRehype from "remark-rehype";
 import rehypeRaw from "rehype-raw";
-import rehypeSlug from "rehype-slug";
+import rehypeSlug from "rehype-slug-custom-id";
 import rehypeHighlight from "rehype-highlight";
 import {all} from "lowlight";
 import rehypeStringify from "rehype-stringify";
@@ -19,7 +19,7 @@ const remarkParser = remark()
   .use(remarkGemoji)
   .use(remarkRehype, {allowDangerousHtml: true})
   .use(rehypeRaw)
-  .use(rehypeSlug)
+  .use(rehypeSlug, {enableCustomId: true})
   .use(rehypeHighlight, {languages: all})
   .use(rehypeStringify, {allowDangerousCharacters: true, allowDangerousHtml: true});
 

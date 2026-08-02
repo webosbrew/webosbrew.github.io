@@ -22,6 +22,28 @@ a horizontal rule (`---`) before the first paragraph.
 `{{> stub }}` puts the "this page is a stub" panel on the page. Put it after the first
 paragraph. Remove it once the page is no longer a stub.
 
+### Heading Anchors
+
+A heading gets its anchor from its own text, so editing the text moves the anchor and any
+link to it stops working. Pin one with `{#...}`:
+
+```markdown
+## 4. Honour the Licence {#honour-the-licence}
+```
+
+The heading renders as `4. Honour the Licence` and the anchor stays `#honour-the-licence`,
+whatever the wording or the number becomes later. Worth doing on numbered headings, where
+inserting one section renumbers every anchor after it.
+
+A heading that starts with a digit gets a `section-` prefix, because a CSS selector cannot
+start with one and Bootstrap scrollspy passes the id straight to `querySelector`. So
+`## 4. Honour the Licence` answers to `#section-4-honour-the-licence`. An explicit anchor
+avoids that too.
+
+Write the heading as markdown either way. Raw `<h2 id="...">` keeps the id, but the
+sectioning runs on markdown and never sees it, so the section above swallows everything
+under that heading and scrollspy points at the wrong one.
+
 ### Alerts
 
 A blockquote that starts with an alert marker becomes a coloured callout, the same way it

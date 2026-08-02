@@ -9,7 +9,11 @@ import remarkImageClass from "./remark/image-class.js";
 import remarkPagination from "./remark/pagination.js";
 
 import rehypeRaw from 'rehype-raw';
-import rehypeSlug from 'rehype-slug';
+// Drop-in for rehype-slug that also reads `{#custom-id}` out of the heading text. Same
+// stage, same result for a heading without one. It has to stay a markdown heading though:
+// write the heading as raw HTML instead and remark-sectionize, which runs earlier and only
+// sees markdown, will not open a section for it, so the section before swallows it whole.
+import rehypeSlug from 'rehype-slug-custom-id';
 import rehypeHighlight from "rehype-highlight";
 import rehypeStringify from 'rehype-stringify';
 import {extractMeta, tocDropdown} from "./rehype/table-of-contents.js";
@@ -172,7 +176,9 @@ const parser = remark()
   .use(remarkSectionize)
   .use(remarkRehype, {allowDangerousHtml: true})
   .use(rehypeRaw)
-  .use(rehypeSlug)
+  // enableCustomId is opt-in. Leave it off and the plugin slugs `{#custom-id}` as part of
+  // the heading text, which looks like it works until you read the id.
+  .use(rehypeSlug, {enableCustomId: true})
   .use(selectableIds)
   .use(rehypeHighlight, {languages: all})
   .use(flattenTopSection)
