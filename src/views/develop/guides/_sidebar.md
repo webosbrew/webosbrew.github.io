@@ -26,6 +26,7 @@
 * :bi-upload:Publishing
     * [Overview](/develop/guides/publishing)
     * [Rules](/develop/guides/publishing/rules)
+    * [Guidelines](/develop/guides/publishing/guidelines)
     * [How to Submit](/develop/guides/publishing/how-to)
 * :bi-exclamation-diamond:Quirks
     * [Wayland](/develop/guides/wayland)
