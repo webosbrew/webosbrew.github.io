@@ -100,6 +100,54 @@ Use `/var/lib/webosbrew/` rather than `/tmp` if you want to compare one boot aga
 last. `/tmp` is writable too, and cleared on every boot, which loses the log of the boot
 that went wrong.
 
+## Return Quickly
+
+The scripts run one at a time, in line.
+[`startup.sh`](https://github.com/webosbrew/webos-homebrew-channel/blob/6e928d01b21f0282a945ae2c8d3c65d25c9c1578/services/startup.sh#L133-L139)
+calls `run-parts`, which starts the next script only when yours exits. Ten seconds after
+the last one returns, it deletes the failsafe flag.
+
+So a script that waits or loops holds up every script after it, and the flag stays set for
+as long as it runs. A script that never returns keeps the flag set for the rest of that
+boot, and the next boot, whatever its cause, is a [failsafe boot](#failsafe-mode): none of
+your scripts run, and a root shell is open on the network.
+
+Keep the quick part in line, and send anything that waits to the background. Continuing
+`apply.sh` above:
+
+```bash
+exec >>/var/lib/webosbrew/myscript.log 2>&1
+
+# In line: work that is done in a moment
+mount --bind "$QML_PATH" "$MOUNT_TARGET"
+
+# In the background: anything that waits on the system, with a limit
+wait_then_act() {
+    i=0
+    until [ -e /tmp/the-file-you-wait-for ]; do
+        i=$((i + 1))
+        [ "$i" -ge 600 ] && return 1
+        sleep 1
+    done
+    # act here
+}
+wait_then_act </dev/null &
+```
+
+The script exits at once and `run-parts` moves on. The job keeps running, and it writes to
+the same log because it starts after the `exec` line.
+
+## It Runs Late
+
+By the time your script runs, the system is well under way. On an OLED65B1 (webOS 6,
+firmware 03.60.96), the scripts in `init.d` ran between about 33 and 36 seconds into a boot,
+over five boots logged. Home, the home screen app, had been running since about 7 seconds.
+At the two boots where LG showed Home first, it was on screen at about 20.
+
+A process that is already running keeps what it read before your mount. The mount reaches
+only what opens the file after it. Home holds on to more than most, see
+[A Mod to Home Does Not Show](/develop/guides/system-mods#home-mod-not-showing).
+
 ## Troubleshooting
 
 ### Failsafe Mode

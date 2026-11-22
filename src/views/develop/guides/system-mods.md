@@ -98,4 +98,59 @@ out and reboot. The mod is gone and nothing was pulled out from under a running 
 
 ## Troubleshooting
 
+### A Mod to Home Does Not Show {#home-mod-not-showing}
+
+Seen on one OLED65B1 (webOS 6, firmware 03.60.96). Other models and releases may differ.
+
+You mount over one of Home's files, restart Home, and nothing changes. LG does not start
+Home (`com.webos.app.home`) from scratch each time. It starts it fresh about 7 seconds into
+a boot and saves the running process with [CRIU](https://criu.org) about 2.5 seconds later.
+A later start, seen after Home's process was killed, restores that saved process instead.
+
+The saved process has already read Home's QML and JavaScript files and closed them. So a
+mount over a file Home reads at start, such as `ShelfList.js`, never shows, however often
+you restart Home. A file it loads later, such as `TopShelf.qml` through a `Loader`, is read
+from disk and does pick up the mount.
+
+LG keeps the save in two places:
+
+| Part | Where |
+| --- | --- |
+| Metadata, in RAM | `/tmp/checkpoint/com.webos.app.home` |
+| About 14 MB of memory pages, on flash | `/mnt/lg/cmn_data/checkpoint/com.webos.app.home/pages-1.img.ori` |
+
+A later start restores from the copy in `/tmp` when it is there. When it is not, LG checks
+the save in the flash folder against the `MD5SUM` file there, copies it back to `/tmp` and
+restores from it. Only when that check fails too does Home start fresh, and LG then saves it
+again, writing the pages to the flash folder.
+
+> [!IMPORTANT]
+> Leave LG's flash copy alone. What LG does with a damaged one has not been tested.
+
+This worked without writing anything to flash, done by a startup script at every boot:
+
+1. Delete the copy in `/tmp/checkpoint/com.webos.app.home`.
+2. Bind mount an empty folder from `/tmp` over the flash folder,
+   `/mnt/lg/cmn_data/checkpoint/com.webos.app.home`, and not over its parent, which holds
+   other apps' saves. Check that the mount is there and the folder is empty before going on.
+   The check against `MD5SUM` now fails, and the next save, about 14 MB, lands in RAM.
+3. Kill Home's process while it is not on screen (`closeByAppId` only hides it), wait until
+   it is gone, then start it again hidden.
+
+On this TV `luna-send` lost the call when its output went to a file or a pipe, as it does in
+a startup script, so the launch ran under `script`:
+
+```bash
+printf '%s' '{"id":"com.webos.app.home","params":{"snapshot":true},"preload":"full","noSplash":true}' > /tmp/home-launch.json
+script -q -c "luna-send -n 1 -w 5000 luna://com.webos.applicationManager/launch \"\$(cat /tmp/home-launch.json)\"" /dev/null < /dev/null
+```
+
+Home starts fresh with your mount in place, and LG saves that Home instead. A reboot drops
+the cover and the copy in RAM, and LG's own save comes back. Its flash copy kept the same
+md5 over four test boots.
+
+To undo by hand, delete the copy in `/tmp` first, then unmount the cover, never the other
+way round. The copy's pages link points into the cover, and what LG does when that link
+lands on its own flash file has not been tested.
+
 ### The TV Does Not Boot
